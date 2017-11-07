@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class WylagaMain
 {
-    static public final int WINDOW_WIDTH = 1024;
-    static public final int WINDOW_HEIGHT = 768;
+    static public final int WINDOW_WIDTH = 1280;
+    static public final int WINDOW_HEIGHT = 720;
 
     public static void main(String... args)
     {

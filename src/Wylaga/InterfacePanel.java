@@ -1,6 +1,8 @@
 package Wylaga;
 
 import Wylaga.Control.KeyRole;
+import Wylaga.Overstates.Game.GameState;
+import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
 import Wylaga.Overstates.Overstate;
 import Wylaga.Overstates.Menus.Menu;
 import Wylaga.Overstates.Menus.MenuFactory;
@@ -15,20 +17,18 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public class InterfacePanel extends JPanel implements KeyListener
-{
+public class InterfacePanel extends JPanel implements KeyListener {
     private BufferedImage image;
     private Renderer renderer;
 
     private Overstate activeOverstate;
-    private Menu startMenu = MenuFactory.makeStartMenu();
+    private Menu startMenu = MenuFactory.makeStartMenu(this);
 
     private javax.swing.Timer timer;
 
     private HashMap<Integer, KeyRole> keyMap;
 
-    public InterfacePanel(int width, int height)
-    {
+    public InterfacePanel(int width, int height) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         activeOverstate = startMenu;
@@ -37,9 +37,9 @@ public class InterfacePanel extends JPanel implements KeyListener
 
         initializeKeyMap();
 
-        timer = new javax.swing.Timer(17, new ActionListener(){
-            public void actionPerformed(ActionEvent event)
-            {
+        // 1 frame per 17 ms ~= 60 frames per second
+        timer = new javax.swing.Timer(17, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
                 timer.stop();
 
                 activeOverstate.update();
@@ -53,8 +53,7 @@ public class InterfacePanel extends JPanel implements KeyListener
         timer.start();
     }
 
-    private void initializeKeyMap()
-    {
+    private void initializeKeyMap() {
         keyMap = new HashMap<>();
         keyMap.put(KeyEvent.VK_UP, KeyRole.UP);
         keyMap.put(KeyEvent.VK_DOWN, KeyRole.DOWN);
@@ -74,23 +73,22 @@ public class InterfacePanel extends JPanel implements KeyListener
         keyMap.put(KeyEvent.VK_ESCAPE, KeyRole.PAUSE);
     }
 
-    public void keyTyped(KeyEvent e)
+    public void startGame()
     {
-
+        activeOverstate = new GameState();
     }
 
-    public void keyPressed(KeyEvent e)
-    {
+    public void keyTyped(KeyEvent e) {}
+
+    public void keyPressed(KeyEvent e) {
         activeOverstate.parseKeyPress(keyMap.getOrDefault(e.getKeyCode(), KeyRole.NONE));
     }
 
-    public void keyReleased(KeyEvent e)
-    {
+    public void keyReleased(KeyEvent e) {
         activeOverstate.parseKeyRelease(keyMap.getOrDefault(e.getKeyCode(), KeyRole.NONE));
     }
 
-    public void paintComponent( Graphics g )
-    {
+    public void paintComponent( Graphics g ) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, null);
     }

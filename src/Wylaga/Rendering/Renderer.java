@@ -28,7 +28,7 @@ public class Renderer
         drawDisplayables(overstate.getOverlays());
     }
 
-    public void drawDisplayables(ArrayList<? extends Displayable> list)
+    private void drawDisplayables(ArrayList<? extends Displayable> list)
     {
         for(Displayable displayable : list)
         {

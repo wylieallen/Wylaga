@@ -1,16 +1,22 @@
 package Wylaga.Overstates.Menus;
 
-import Wylaga.Overstates.Displayables.ImageFactory;
-import Wylaga.Overstates.Displayables.StaticDisplayable;
+import Wylaga.InterfacePanel;
+import Wylaga.Rendering.ImageFactory;
+import Wylaga.Overstates.Displayables.NonUpdatingDisplayable;
+import Wylaga.Overstates.Menus.Buttons.Button;
+import Wylaga.Overstates.Menus.Buttons.ButtonFactory;
 
-import java.awt.*;
+import java.awt.Point;
 
 public class MenuFactory
 {
-    public static Menu makeStartMenu()
-    {
-        Menu startMenu = new Menu();
-        startMenu.addDisplay(new StaticDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1024, 768)));
+    public static Menu makeStartMenu(InterfacePanel panel) {
+        Menu startMenu = new VerticalMenu();
+        startMenu.addDisplay(new NonUpdatingDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        Button gameStartButton = ButtonFactory.makeStartButton(VerticalMenu.buttonPoints[1], panel::startGame);
+        startMenu.addButton(gameStartButton);
+        Button exitButton = ButtonFactory.makeExitButton(VerticalMenu.buttonPoints[2]);
+        startMenu.addButton(exitButton);
         return startMenu;
     }
 }

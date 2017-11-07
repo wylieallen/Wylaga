@@ -1,18 +1,18 @@
 package Wylaga.Overstates.Menus.Buttons;
 
-import Wylaga.Overstates.Menus.Buttons.Functions.AbstractFunction;
 import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
+import Wylaga.Overstates.Menus.Buttons.Functions.NullButtonFunction;
 
-import java.awt.*;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-public abstract class Button extends Displayable
+public class Button extends Displayable
 {
     private BufferedImage baseImage;
     private BufferedImage hoverImage;
     private BufferedImage pressImage;
-    private ArrayList<AbstractFunction> operations;
+    private ButtonFunction function = NullButtonFunction.instance;
 
     public Button(Point position, BufferedImage baseImage, BufferedImage hoverImage, BufferedImage pressImage)
     {
@@ -20,7 +20,6 @@ public abstract class Button extends Displayable
         this.baseImage = baseImage;
         this.hoverImage = hoverImage;
         this.pressImage = pressImage;
-        operations = new ArrayList<>();
     }
 
     public void select() {super.setImage(hoverImage);}
@@ -29,15 +28,12 @@ public abstract class Button extends Displayable
     public void press()
     {
         super.setImage(pressImage);
-        for(AbstractFunction operation : operations)
-        {
-            operation.execute();
-        }
+        function.execute();
     }
 
-    public void addOperation(AbstractFunction operation)
+    public void setFunction(ButtonFunction function)
     {
-        operations.add(operation);
+        this.function = function;
     }
 
     public void update() {}

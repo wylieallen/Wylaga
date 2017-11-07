@@ -3,14 +3,17 @@ package Wylaga.Overstates.Menus;
 import Wylaga.Control.KeyRole;
 import Wylaga.Overstates.Menus.Buttons.Button;
 import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Menus.Buttons.NonButton;
 import Wylaga.Overstates.Overstate;
 
 import java.util.ArrayList;
 
-public class Menu extends Overstate
+public abstract class Menu extends Overstate
 {
-    private ArrayList<Button> buttons;
-    private ArrayList<Displayable> displays;
+    protected ArrayList<Button> buttons;
+    protected ArrayList<Displayable> displays;
+
+    protected Button activeButton = NonButton.getInstance();
 
     public Menu()
     {
@@ -26,13 +29,10 @@ public class Menu extends Overstate
     public void addDisplay(Displayable display) {displays.add(display);}
     public void addButton(Button button) {buttons.add(button);}
 
-    public void parseKeyPress(KeyRole role)
+    protected void setActiveButton(Button button)
     {
-
-    }
-
-    public void parseKeyRelease(KeyRole role)
-    {
-
+        activeButton.deselect();
+        activeButton = button;
+        activeButton.select();
     }
 }

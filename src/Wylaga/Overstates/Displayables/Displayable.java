@@ -15,7 +15,6 @@ public abstract class Displayable
     }
 
     protected void setImage(BufferedImage image) {this.image = image;}
-    public void setPosition(Point position) {this.position = position;}
 
     public BufferedImage getImage() {return image;}
     public Point getPosition() {return position;}

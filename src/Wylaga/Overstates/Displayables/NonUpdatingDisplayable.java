@@ -1,11 +1,11 @@
 package Wylaga.Overstates.Displayables;
 
-import java.awt.*;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-public class StaticDisplayable extends Displayable
+public class NonUpdatingDisplayable extends Displayable
 {
-    public StaticDisplayable(Point position, BufferedImage image)
+    public NonUpdatingDisplayable(Point position, BufferedImage image)
     {
         super(position, image);
     }
