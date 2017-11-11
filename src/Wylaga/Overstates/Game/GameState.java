@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class GameState extends Overstate
 {
     private PreGameSubstate preGameState = new PreGameSubstate();
-    private InGameSubstate inGameState = new InGameSubstate();
-    private PostGameSubstate postGameState = new PostGameSubstate();
     private PausedGameSubstate pausedGameState = new PausedGameSubstate();
     private GameSubstate activeState;
 
@@ -142,7 +140,14 @@ public class GameState extends Overstate
         public void updateState()
         {
             advanceGame();
+            if(readyToTransitionState())
+            {
+                setState(getNextState());
+            }
         }
+
+        protected abstract GameSubstate getNextState();
+        protected abstract boolean readyToTransitionState();
 
         public void swapIn()
         {
@@ -156,9 +161,22 @@ public class GameState extends Overstate
 
     private class PreGameSubstate extends GameSubstate
     {
+        private int counter;
+
         public PreGameSubstate()
         {
+            counter = 0;
             // this.addOverlay(...);
+        }
+
+        protected boolean readyToTransitionState()
+        {
+            return ++counter >= 180;
+        }
+
+        protected GameSubstate getNextState()
+        {
+            return new InGameSubstate();
         }
     }
 
@@ -166,15 +184,39 @@ public class GameState extends Overstate
     {
         public InGameSubstate()
         {
+            game.nextWave();
             // this.addOverlay(...);
+        }
+
+        protected boolean readyToTransitionState()
+        {
+            return game.waveOver();
+        }
+
+        protected GameSubstate getNextState()
+        {
+            return new PostGameSubstate();
         }
     }
 
     private class PostGameSubstate extends GameSubstate
     {
+        private int counter;
+
         public PostGameSubstate()
         {
+            counter = 0;
             // this.addOverlay(...);
+        }
+
+        protected boolean readyToTransitionState()
+        {
+            return ++counter >= 180;
+        }
+
+        protected GameSubstate getNextState()
+        {
+            return new PreGameSubstate();
         }
     }
 
@@ -188,6 +230,16 @@ public class GameState extends Overstate
         }
 
         public void updateState() {}
+
+        protected boolean readyToTransitionState()
+        {
+            return false;
+        }
+
+        protected GameSubstate getNextState()
+        {
+            return previousState;
+        }
     }
 
 

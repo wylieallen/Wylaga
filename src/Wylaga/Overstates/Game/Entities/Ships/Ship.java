@@ -18,7 +18,6 @@ public abstract class Ship extends Entity
     private boolean dying;
     private Trajectory projectileTrajectory;
     private double projectileSpeed = 12;
-    private boolean alive;
     private Projectile newProjectile;
 
     public Ship(Point position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
@@ -34,8 +33,7 @@ public abstract class Ship extends Entity
     public void update()
     {
         super.propelSelf();
-
-        if (!isAlive())
+        if(!isAlive())
         {
             dying = true;
         }
@@ -48,7 +46,7 @@ public abstract class Ship extends Entity
 
     public boolean expired()
     {
-        return !isAlive();
+        return dying;
     }
 
     public double getProjectileSpeed() {return projectileSpeed;}

@@ -50,7 +50,12 @@ public class ShipDisplayable extends EntityDisplayable
 
     private class HurtState extends ShipState
     {
-        protected boolean updateCondition() { return prevHealth <= ship.getHealth(); }
+        private int hurtAnimationDuration = 2;
+
+        protected boolean updateCondition()
+        {
+            return (--hurtAnimationDuration <= 0); //&& (prevHealth <= ship.getHealth());
+        }
         protected ShipState nextState() { return new BaseState(); }
         protected BufferedImage nextImage() { return baseImage; }
     }

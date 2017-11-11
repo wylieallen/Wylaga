@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class Game
 {
-    private ArrayList<ArrayList<? extends Entity>> entities;
+    private Collection<Collection<? extends Entity>> entities;
     private ArrayList<Ship> ships;
     private ArrayList<Projectile> projectiles;
 
@@ -27,6 +27,8 @@ public class Game
     private int waveCount;
 
     private PlayerShip playerShip;
+
+    private Wave wave;
 
     public Game()
     {
@@ -42,13 +44,18 @@ public class Game
         entities.add(projectiles = new ArrayList<>());
 
         spawnShip(playerShip = new PlayerShip());
-        spawnShip(new EnemyShip(new Point(500, 200)));
+        wave = new NullWave();
+        //for(Ship ship : wave.getShips())
+        //{
+        //    spawnShip(ship);
+        //}
     }
 
     public void update()
     {
         // Updating then colliding prevents player from going slightly out of bounds
         // Colliding then updating allows player to go slightly out of bounds
+        wave.update();
         updateEntities();
         processCollisions();
     }
@@ -95,6 +102,20 @@ public class Game
         }
 
         projectiles.removeAll(expiredProjectiles);
+    }
+
+    public void nextWave()
+    {
+        wave = new Wave(++waveCount);
+        for(Ship ship : wave.getShips())
+        {
+            spawnShip(ship);
+        }
+    }
+
+    public boolean waveOver()
+    {
+        return wave.isDestroyed();
     }
 
     private void spawnShip(Ship ship)
@@ -177,7 +198,7 @@ public class Game
         }
     }
 
-    public ArrayList<ArrayList<? extends Entity>> getEntities() {return entities;}
+    public Collection<Collection<? extends Entity>> getEntities() {return entities;}
 
     public ArrayList<Entity> getNewEntities() {return newEntities;}
 

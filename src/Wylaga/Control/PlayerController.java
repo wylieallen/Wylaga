@@ -3,7 +3,7 @@ package Wylaga.Control;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Util.Trajectory;
 
-public class PlayerController
+public class PlayerController implements GameController
 {
     private PlayerShip ship;
 
