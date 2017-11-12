@@ -1,8 +1,7 @@
 package Wylaga;
 
 import Wylaga.Control.KeyRole;
-import Wylaga.Overstates.Game.GameState;
-import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
+import Wylaga.Overstates.GameState;
 import Wylaga.Overstates.Overstate;
 import Wylaga.Overstates.Menus.Menu;
 import Wylaga.Overstates.Menus.MenuFactory;

@@ -42,6 +42,7 @@ public abstract class Entity
     public void setTrajectory(Trajectory trajectory) {this.trajectory = trajectory;}
     public void setSpeed(double speed) {this.speed = speed;}
 
+    public Trajectory getTrajectory() {return trajectory;}
     public Point getPosition() {return position;}
     public Dimension getDimension() {return dimension;}
     public Team getTeam() {return team;}

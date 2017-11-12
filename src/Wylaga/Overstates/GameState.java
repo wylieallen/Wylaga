@@ -1,4 +1,4 @@
-package Wylaga.Overstates.Game;
+package Wylaga.Overstates;
 
 import Wylaga.Control.KeyRole;
 import Wylaga.Control.PlayerController;
@@ -6,6 +6,10 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.PrimitiveEDFactory;
+import Wylaga.Overstates.Displayables.Overlays.FuelOverlay;
+import Wylaga.Overstates.Displayables.Overlays.HealthOverlay;
+import Wylaga.Overstates.Displayables.Overlays.ScoreOverlay;
+import Wylaga.Overstates.Game.Game;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Displayables.NonUpdatingDisplayable;
 import Wylaga.Overstates.Game.Entities.Entity;
@@ -35,7 +39,10 @@ public class GameState extends Overstate
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
 
-        super.getUnderlays().add(new NonUpdatingDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        super.addUnderlay(new NonUpdatingDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        super.addOverlay(new HealthOverlay(new Point(10, 10), game.getPlayerShip()));
+        super.addOverlay(new ScoreOverlay(new Point(10, 40), game));
+        super.addOverlay(new FuelOverlay(new Point(10, 70), game.getPlayerShip()));
 
         entityDisplayables = new ArrayList<>();
         super.addDisplayList(entityDisplayables);
@@ -171,7 +178,7 @@ public class GameState extends Overstate
 
         protected boolean readyToTransitionState()
         {
-            return ++counter >= 180;
+            return ++counter >= 90;
         }
 
         protected GameSubstate getNextState()
@@ -211,7 +218,7 @@ public class GameState extends Overstate
 
         protected boolean readyToTransitionState()
         {
-            return ++counter >= 180;
+            return ++counter >= 90;
         }
 
         protected GameSubstate getNextState()

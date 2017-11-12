@@ -45,10 +45,6 @@ public class Game
 
         spawnShip(playerShip = new PlayerShip());
         wave = new NullWave();
-        //for(Ship ship : wave.getShips())
-        //{
-        //    spawnShip(ship);
-        //}
     }
 
     public void update()
@@ -199,11 +195,10 @@ public class Game
     }
 
     public Collection<Collection<? extends Entity>> getEntities() {return entities;}
-
     public ArrayList<Entity> getNewEntities() {return newEntities;}
-
     public PlayerShip getPlayerShip()
     {
         return playerShip;
     }
+    public int getScore() { return score; }
 }

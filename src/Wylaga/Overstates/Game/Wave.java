@@ -23,15 +23,12 @@ public class Wave
         controller = new WaveController(this);
         ships = new ArrayList<>();
 
-        if(waveNumber > 0)
-        {
-            for (int x = 32; x <= 500 - 32; x += 100)
-                for (int y = 32; y <= 384 - 64 - 32; y += 75)
-                    ships.add(new EnemyShip(new Point(x, y)));
+        for (int x = 32; x <= 500 - 32; x += 100)
+            for (int y = 32; y <= 384 - 64 - 32; y += 75)
+                ships.add(new EnemyShip(new Point(x, y)));
 
-            resetLeftShip();
-            resetRightShip();
-        }
+        resetLeftShip();
+        resetRightShip();
     }
 
     public void update()
@@ -39,12 +36,8 @@ public class Wave
         ArrayList<Ship> expiredShips = new ArrayList<>();
 
         for(Ship ship : ships)
-        {
             if(ship.expired())
-            {
                 expiredShips.add(ship);
-            }
-        }
 
         if(!expiredShips.isEmpty())
         {

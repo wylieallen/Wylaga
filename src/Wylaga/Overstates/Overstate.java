@@ -22,6 +22,9 @@ public abstract class Overstate
     public ArrayList<Displayable> getOverlays() {return overlays;}
     public ArrayList<ArrayList<? extends Displayable>> getDisplayables() {return displayables;}
 
+    public void addOverlay(Displayable displayable) {overlays.add(displayable);}
+    public void addUnderlay(Displayable displayable) {underlays.add(displayable);}
+
     public void update()
     {
         updateDisplayables(underlays);

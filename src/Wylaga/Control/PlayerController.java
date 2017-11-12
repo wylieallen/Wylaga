@@ -66,6 +66,7 @@ public class PlayerController implements GameController
     {
         ship.setTrajectory(getTrajectory());
         ship.setFiring(isFiring());
+        ship.setSpecial(specialDepressed);
     }
 
     private boolean isFiring()

@@ -11,14 +11,76 @@ public class PlayerShip extends Ship
 {
     public static final Dimension defaultDimension = new Dimension(25, 25);
 
+    private SpecialModule specialModule = new TurboModule();
+
+    private boolean special;
+
+    private int maxFuel;
+    private int curFuel;
+
     public PlayerShip()
     {
         super(new Point(500, 700), defaultDimension, Team.PLAYER, 5, 100,
                 Trajectory.getDirection(0, -1), -100);
+
+        special = false;
+        curFuel = maxFuel = 200;
     }
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
     {
         return entityDisplayableFactory.makePlayerDisplayable(this);
+    }
+
+    public void update()
+    {
+        specialModule.update();
+        super.update();
+    }
+
+    public void setSpecial(boolean special) { this.special = special; }
+
+    public int getMaxFuel() { return maxFuel; }
+    public int getCurFuel() { return curFuel; }
+
+    private interface SpecialModule
+    {
+        void update();
+    }
+
+    private class TurboModule implements SpecialModule
+    {
+        public void update()
+        {
+            if(special)
+            {
+                if(curFuel > 0)
+                {
+                    if(getTrajectory().equals(Trajectory.getDirection(0, 0)))
+                    {
+                        curFuel--;
+                        // super.setSpeed(5);
+                        // updating speed in this frame is pointless since the ship is stationary
+                    }
+                    else
+                    {
+                        curFuel -= 2;
+                        setSpeed(10);
+                    }
+                }
+                else
+                {
+                    setSpeed(5);
+                }
+            }
+            else
+            {
+                setSpeed(5);
+                if(curFuel < maxFuel)
+                {
+                    curFuel++;
+                }
+            }
+        }
     }
 }

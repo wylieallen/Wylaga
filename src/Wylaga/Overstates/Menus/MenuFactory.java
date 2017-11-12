@@ -10,7 +10,8 @@ import java.awt.Point;
 
 public class MenuFactory
 {
-    public static Menu makeStartMenu(InterfacePanel panel) {
+    public static Menu makeStartMenu(InterfacePanel panel)
+    {
         Menu startMenu = new VerticalMenu();
         startMenu.addDisplay(new NonUpdatingDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
         Button gameStartButton = ButtonFactory.makeStartButton(VerticalMenu.buttonPoints[1], panel::startGame);
