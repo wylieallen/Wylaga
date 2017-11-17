@@ -4,7 +4,7 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Overstate;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Renderer
 {
@@ -13,14 +13,14 @@ public class Renderer
     public Renderer(Graphics2D g2d)
     {
         this.g2d = g2d;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }
 
     public void drawOverstate(Overstate overstate)
     {
         drawDisplayables(overstate.getUnderlays());
 
-        for(ArrayList<? extends Displayable> list : overstate.getDisplayables())
+        for(List<? extends Displayable> list : overstate.getDisplayables())
         {
             drawDisplayables(list);
         }
@@ -28,7 +28,7 @@ public class Renderer
         drawDisplayables(overstate.getOverlays());
     }
 
-    private void drawDisplayables(ArrayList<? extends Displayable> list)
+    private void drawDisplayables(List<? extends Displayable> list)
     {
         for(Displayable displayable : list)
         {

@@ -26,9 +26,14 @@ public abstract class Overlay extends Displayable
 
     public void update()
     {
-        drawBackground();
-        drawImage();
+        if(stateChanged())
+        {
+            drawBackground();
+            drawImage();
+        }
     }
+
+    protected abstract boolean stateChanged();
 
     public abstract void drawImage();
 }

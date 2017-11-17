@@ -45,7 +45,18 @@ public class ImageFactory
         return image;
     }
 
-    // Button primitives:
+    private static BufferedImage makeBorderedRect(Dimension dimension, Color bodyColor, Color borderColor)
+    {
+        BufferedImage image = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(bodyColor);
+        g2d.fillRect(0, 0, dimension.width, dimension.height);
+        g2d.setColor(borderColor);
+        g2d.drawRect(0, 0, dimension.width - 1, dimension.height - 1);
+        return image;
+    }
+
+        // Button primitives:
 
     private static BufferedImage makeVerticalMenuButton(String text, Point strPt,
                                                         Color backgroundColor, Color outlineColor, Color textColor)

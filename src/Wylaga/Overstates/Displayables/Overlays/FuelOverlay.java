@@ -9,6 +9,7 @@ public class FuelOverlay extends Overlay
 {
     private Graphics2D g2d;
     private PlayerShip ship;
+    private int prevFuel;
 
     public FuelOverlay(Point position, PlayerShip ship)
     {
@@ -33,5 +34,18 @@ public class FuelOverlay extends Overlay
         backg2d.setColor(Color.GRAY);
         backg2d.drawRect(0, 0, 99, 19);
         return background;
+    }
+
+    protected boolean stateChanged()
+    {
+        if(ship.getCurFuel() != prevFuel)
+        {
+            prevFuel = ship.getCurFuel();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

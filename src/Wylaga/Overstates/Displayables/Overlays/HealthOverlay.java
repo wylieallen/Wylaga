@@ -11,6 +11,7 @@ public class HealthOverlay extends Overlay
 
     private PlayerShip ship;
     private Graphics2D g2d;
+    private int prevHealth;
 
     public HealthOverlay(Point position, PlayerShip ship)
     {
@@ -35,5 +36,18 @@ public class HealthOverlay extends Overlay
         backg2d.setColor(Color.GRAY);
         backg2d.drawRect(0, 0, 99, 19);
         return background;
+    }
+
+    protected boolean stateChanged()
+    {
+        if(ship.getHealth() != prevHealth)
+        {
+            prevHealth = ship.getHealth();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

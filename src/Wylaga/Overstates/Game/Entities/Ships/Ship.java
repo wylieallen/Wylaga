@@ -6,8 +6,8 @@ import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public abstract class Ship extends Entity
 {
@@ -18,7 +18,6 @@ public abstract class Ship extends Entity
     private boolean dying;
     private Trajectory projectileTrajectory;
     private double projectileSpeed = 12;
-    private Projectile newProjectile;
 
     public Ship(Point position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
     {
@@ -60,9 +59,9 @@ public abstract class Ship extends Entity
     }
     public int getHealth() { return health; }
 
-    public ArrayList<Projectile> getNewProjectiles()
+    public List<Projectile> getNewProjectiles()
     {
-        ArrayList<Projectile> newProjectiles = new ArrayList<>();
+        List<Projectile> newProjectiles = new ArrayList<>();
         newProjectiles.add(getNewProjectile());
         return newProjectiles;
     }

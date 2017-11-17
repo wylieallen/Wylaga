@@ -5,6 +5,7 @@ import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
 public class Wave
@@ -12,7 +13,7 @@ public class Wave
     private int waveNumber;
 
     private WaveController controller;
-    private ArrayList<Ship> ships;
+    private List<Ship> ships;
     private Ship leftShip;
     private Ship rightShip;
 
@@ -23,6 +24,7 @@ public class Wave
         controller = new WaveController(this);
         ships = new ArrayList<>();
 
+        // todo: Wave shouldn't need to know all this position data to instantiate its ships
         for (int x = 32; x <= 500 - 32; x += 100)
             for (int y = 32; y <= 384 - 64 - 32; y += 75)
                 ships.add(new EnemyShip(new Point(x, y)));
@@ -96,7 +98,7 @@ public class Wave
     public Ship getLeftShip() {return leftShip;}
     public Ship getRightShip() {return rightShip;}
 
-    public ArrayList<Ship> getShips() {
+    public List<Ship> getShips() {
         return ships;
     }
 }

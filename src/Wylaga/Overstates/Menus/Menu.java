@@ -7,11 +7,12 @@ import Wylaga.Overstates.Menus.Buttons.NonButton;
 import Wylaga.Overstates.Overstate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Menu extends Overstate
 {
-    protected ArrayList<Button> buttons;
-    protected ArrayList<Displayable> displays;
+    protected List<Button> buttons;
+    protected List<Displayable> displays;
 
     protected Button activeButton = NonButton.getInstance();
 

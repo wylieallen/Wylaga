@@ -11,11 +11,13 @@ public class ScoreOverlay extends Overlay
 
     private Game game;
     private Graphics2D g2d;
+    private int prevScore;
 
     public ScoreOverlay(Point position, Game game)
     {
         super(position, background);
         this.game = game;
+        prevScore = -1;
         g2d = super.getGraphics();
     }
 
@@ -35,5 +37,18 @@ public class ScoreOverlay extends Overlay
         backg2d.setColor(Color.GRAY);
         backg2d.drawRect(0, 0, 99, 19);
         return background;
+    }
+
+    protected boolean stateChanged()
+    {
+        if(game.getScore() != prevScore)
+        {
+            prevScore = game.getScore();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -2,7 +2,7 @@ package Wylaga.Overstates;
 
 import Wylaga.Control.KeyRole;
 import Wylaga.Control.PlayerController;
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.*;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.PrimitiveEDFactory;
@@ -11,30 +11,25 @@ import Wylaga.Overstates.Displayables.Overlays.HealthOverlay;
 import Wylaga.Overstates.Displayables.Overlays.ScoreOverlay;
 import Wylaga.Overstates.Game.Game;
 import Wylaga.Rendering.ImageFactory;
-import Wylaga.Overstates.Displayables.NonUpdatingDisplayable;
 import Wylaga.Overstates.Game.Entities.Entity;
-import Wylaga.Overstates.Overstate;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameState extends Overstate
 {
-    private PreGameSubstate preGameState = new PreGameSubstate();
     private PausedGameSubstate pausedGameState = new PausedGameSubstate();
     private GameSubstate activeState;
 
     private Game game;
     private PlayerController playerController;
 
-    private ArrayList<EntityDisplayable> entityDisplayables;
+    private List<EntityDisplayable> entityDisplayables;
     private EntityDisplayableFactory entityDisplayableFactory;
 
     public GameState()
     {
-        activeState = preGameState;
-        activeState.swapIn();
-
         entityDisplayableFactory = new PrimitiveEDFactory();
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
@@ -47,6 +42,9 @@ public class GameState extends Overstate
         entityDisplayables = new ArrayList<>();
         super.addDisplayList(entityDisplayables);
         addNewEntityDisplayables();
+
+        activeState = new PreWaveSubstate();
+        activeState.swapIn();
     }
 
     public void update()
@@ -55,7 +53,14 @@ public class GameState extends Overstate
         activeState.updateState();
         super.update();
 
-        ArrayList<EntityDisplayable> expiredEntityDisplayables = new ArrayList<>();
+        removeExpiredEntityDisplayables();
+        addNewEntityDisplayables();
+    }
+
+    private void removeExpiredEntityDisplayables()
+    {
+        List<EntityDisplayable> expiredEntityDisplayables = new ArrayList<>();
+
         for(EntityDisplayable entityDisplayable : entityDisplayables)
         {
             if(entityDisplayable.expired())
@@ -63,9 +68,8 @@ public class GameState extends Overstate
                 expiredEntityDisplayables.add(entityDisplayable);
             }
         }
-        entityDisplayables.removeAll(expiredEntityDisplayables);
 
-        addNewEntityDisplayables();
+        entityDisplayables.removeAll(expiredEntityDisplayables);
     }
 
     private void addNewEntityDisplayables()
@@ -121,16 +125,16 @@ public class GameState extends Overstate
     {
         if (activeState == pausedGameState)
         {
-            activeState = pausedGameState.previousState;
+            changeState(pausedGameState.previousState);
         }
         else
         {
             pausedGameState.previousState = activeState;
-            activeState = pausedGameState;
+            changeState(pausedGameState);
         }
     }
 
-    private void setState(GameSubstate nextState)
+    private void changeState(GameSubstate nextState)
     {
         activeState.swapOut();
         activeState = nextState;
@@ -139,81 +143,81 @@ public class GameState extends Overstate
 
     private abstract class GameSubstate
     {
-        private ArrayList<Displayable> substateOverlays = new ArrayList<>();
+        private List<Displayable> substateDisplays = new ArrayList<>();
 
-        public void addOverlay(Displayable overlay) { substateOverlays.add(overlay); }
-        public ArrayList<Displayable> getSubstateOverlays() {return substateOverlays;}
+        public void addDisplay(Displayable overlay) { substateDisplays.add(overlay); }
 
         public void updateState()
         {
             advanceGame();
+
             if(readyToTransitionState())
             {
-                setState(getNextState());
+                changeState(getNextState());
             }
         }
 
         protected abstract GameSubstate getNextState();
         protected abstract boolean readyToTransitionState();
 
-        public void swapIn()
-        {
-            getSubstateOverlays().addAll(substateOverlays);
-        }
+        public void swapIn() { getOverlays().addAll(substateDisplays); }
         public void swapOut()
         {
-            getSubstateOverlays().removeAll(substateOverlays);
+            getOverlays().removeAll(substateDisplays);
         }
     }
 
-    private class PreGameSubstate extends GameSubstate
+    private class PreWaveSubstate extends GameSubstate
     {
         private int counter;
 
-        public PreGameSubstate()
+        public PreWaveSubstate()
         {
             counter = 0;
-            // this.addOverlay(...);
+            this.addDisplay(new GetReadyDisplay(new Point(440, 320))); // prev x: 320, 375
+            this.addDisplay(new NextWaveDisplay(new Point(490, 200), game));
         }
 
         protected boolean readyToTransitionState()
         {
-            return ++counter >= 90;
+            return ++counter >= 180;
         }
 
         protected GameSubstate getNextState()
         {
-            return new InGameSubstate();
+            return new MidWaveSubstate();
         }
     }
 
-    private class InGameSubstate extends GameSubstate
+    private class MidWaveSubstate extends GameSubstate
     {
-        public InGameSubstate()
+        public MidWaveSubstate()
         {
             game.nextWave();
-            // this.addOverlay(...);
+            // this.addDisplay(...);
         }
 
         protected boolean readyToTransitionState()
         {
-            return game.waveOver();
+            return (game.waveOver() || !game.getPlayerShip().isAlive());
         }
 
         protected GameSubstate getNextState()
         {
-            return new PostGameSubstate();
+            if(game.getPlayerShip().isAlive())
+                return new PostWaveSubstate();
+            else return new GameOverSubstate();
         }
     }
 
-    private class PostGameSubstate extends GameSubstate
+    private class PostWaveSubstate extends GameSubstate
     {
         private int counter;
 
-        public PostGameSubstate()
+        public PostWaveSubstate()
         {
             counter = 0;
-            // this.addOverlay(...);
+            this.addDisplay(new WaveCompleteDisplay(new Point(440, 320)));
         }
 
         protected boolean readyToTransitionState()
@@ -223,7 +227,25 @@ public class GameState extends Overstate
 
         protected GameSubstate getNextState()
         {
-            return new PreGameSubstate();
+            return new PreWaveSubstate();
+        }
+    }
+
+    private class GameOverSubstate extends GameSubstate
+    {
+        public GameOverSubstate()
+        {
+            this.addDisplay(new GameOverDisplay(new Point(440, 320)));
+        }
+
+        protected boolean readyToTransitionState()
+        {
+            return false;
+        }
+
+        protected GameSubstate getNextState()
+        {
+            return null;
         }
     }
 
@@ -233,7 +255,7 @@ public class GameState extends Overstate
 
         public PausedGameSubstate()
         {
-            // this.addOverlay(...);
+            // this.addDisplay(...);
         }
 
         public void updateState() {}

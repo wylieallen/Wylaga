@@ -2,24 +2,25 @@ package Wylaga.Overstates.Game;
 
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Util.Collision;
 
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Game
 {
-    private Collection<Collection<? extends Entity>> entities;
-    private ArrayList<Ship> ships;
-    private ArrayList<Projectile> projectiles;
+    private List<List<? extends Entity>> entities;
+    private List<Ship> ships;
+    private List<Projectile> projectiles;
 
-    private ArrayList<Ship> expiredShips;
-    private ArrayList<Projectile> expiredProjectiles;
-    private ArrayList<Entity> newEntities;
+    private List<Ship> expiredShips;
+    private List<Projectile> expiredProjectiles;
+    private List<Entity> newEntities;
 
     private Dimension worldSize = new Dimension(1280, 720);
 
@@ -183,9 +184,9 @@ public class Game
         // Process ship-to-ship collision
         if(playerShip.isAlive())
         {
-            for (Ship ship : ships)
+            for(Ship ship : ships)
             {
-                if (Collision.entitiesCollide(playerShip, ship))
+                if(Collision.entitiesCollide(playerShip, ship))
                 {
                     playerShip.takeDamage(30);
                     ship.takeDamage(30);
@@ -194,11 +195,15 @@ public class Game
         }
     }
 
-    public Collection<Collection<? extends Entity>> getEntities() {return entities;}
-    public ArrayList<Entity> getNewEntities() {return newEntities;}
+    public List<List<? extends Entity>> getEntities() { return entities; }
+    public List<Entity> getNewEntities() { return newEntities; }
     public PlayerShip getPlayerShip()
     {
         return playerShip;
     }
     public int getScore() { return score; }
+
+    public int getWaveCount() {
+        return waveCount;
+    }
 }

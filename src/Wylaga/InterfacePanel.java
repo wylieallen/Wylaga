@@ -23,7 +23,7 @@ public class InterfacePanel extends JPanel implements KeyListener {
     private Overstate activeOverstate;
     private Menu startMenu = MenuFactory.makeStartMenu(this);
 
-    private javax.swing.Timer timer;
+    private javax.swing.Timer renderTimer;
 
     private HashMap<Integer, KeyRole> keyMap;
 
@@ -37,19 +37,19 @@ public class InterfacePanel extends JPanel implements KeyListener {
         initializeKeyMap();
 
         // 1 frame per 17 ms ~= 60 frames per second
-        timer = new javax.swing.Timer(17, new ActionListener() {
+        renderTimer = new javax.swing.Timer(17, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                timer.stop();
+                renderTimer.stop();
 
                 activeOverstate.update();
                 renderer.drawOverstate(activeOverstate);
                 repaint();
 
-                timer.restart();
+                renderTimer.restart();
             }
         });
 
-        timer.start();
+        renderTimer.start();
     }
 
     private void initializeKeyMap() {
