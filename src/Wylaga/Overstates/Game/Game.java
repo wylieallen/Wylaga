@@ -104,10 +104,7 @@ public class Game
     public void nextWave()
     {
         wave = new Wave(++waveCount);
-        for(Ship ship : wave.getShips())
-        {
-            spawnShip(ship);
-        }
+        spawnShips(wave.getShips());
     }
 
     public boolean waveOver()
@@ -121,7 +118,13 @@ public class Game
         newEntities.add(ship);
     }
 
-    private void spawnProjectiles(Collection<Projectile> newProjectiles)
+    private void spawnShips(List<Ship> newShips)
+    {
+        ships.addAll(newShips);
+        newEntities.addAll(newShips);
+    }
+
+    private void spawnProjectiles(List<Projectile> newProjectiles)
     {
         projectiles.addAll(newProjectiles);
         newEntities.addAll(newProjectiles);

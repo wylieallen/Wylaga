@@ -7,19 +7,17 @@ import java.awt.image.BufferedImage;
 
 public abstract class Overlay extends Displayable
 {
-    private BufferedImage background;
     private Graphics2D g2d;
+    private int width, height;
 
-    public Overlay(Point position, BufferedImage background)
+    public Overlay(Point position)
     {
-        super(position, new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_ARGB));
-        this.background = background;
-        g2d = super.getImage().createGraphics();
-    }
-
-    protected void drawBackground()
-    {
-        g2d.drawImage(background, 0, 0, null);
+        super(position, new BufferedImage(100, 20, BufferedImage.TYPE_INT_ARGB));
+        BufferedImage image = super.getImage();
+        this.g2d = image.createGraphics();
+        g2d.setBackground(new Color(0, 0, 0, 0));
+        this.width = image.getWidth();
+        this.height = image.getHeight();
     }
 
     protected Graphics2D getGraphics() {return g2d;}
@@ -28,12 +26,11 @@ public abstract class Overlay extends Displayable
     {
         if(stateChanged())
         {
-            drawBackground();
+            g2d.clearRect(0, 0, width, height);
             drawImage();
         }
     }
 
     protected abstract boolean stateChanged();
-
     public abstract void drawImage();
 }

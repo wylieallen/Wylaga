@@ -3,7 +3,6 @@ package Wylaga;
 import Wylaga.Control.KeyRole;
 import Wylaga.Overstates.GameState;
 import Wylaga.Overstates.Overstate;
-import Wylaga.Overstates.Menus.Menu;
 import Wylaga.Overstates.Menus.MenuFactory;
 import Wylaga.Rendering.Renderer;
 
@@ -15,22 +14,24 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.Map;
 
-public class InterfacePanel extends JPanel implements KeyListener {
+public class InterfacePanel extends JPanel implements KeyListener
+{
     private BufferedImage image;
     private Renderer renderer;
-
-    private Overstate activeOverstate;
-    private Menu startMenu = MenuFactory.makeStartMenu(this);
-
     private javax.swing.Timer renderTimer;
 
-    private HashMap<Integer, KeyRole> keyMap;
+    private Overstate activeOverstate;
+
+    private Map<Integer, KeyRole> keyMap;
+
+    //private long prevTime;
 
     public InterfacePanel(int width, int height) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        activeOverstate = startMenu;
+        activeOverstate = MenuFactory.makeStartMenu(this::startGame);
 
         renderer = new Renderer(image.createGraphics());
 
@@ -40,6 +41,10 @@ public class InterfacePanel extends JPanel implements KeyListener {
         renderTimer = new javax.swing.Timer(17, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
+
+                //long curTime = System.currentTimeMillis();
+                //System.out.println(curTime - prevTime);
+                //prevTime = curTime;
 
                 activeOverstate.update();
                 renderer.drawOverstate(activeOverstate);
