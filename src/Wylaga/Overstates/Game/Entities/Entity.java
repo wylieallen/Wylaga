@@ -18,6 +18,9 @@ public abstract class Entity
     private Trajectory trajectory;
     private double speed;
 
+    // =================================================================================================================
+    // Constructor:
+
     public Entity(Point position, Dimension dimension, Team team, double speed)
     {
         this.position = position;

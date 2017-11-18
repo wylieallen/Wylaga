@@ -7,8 +7,8 @@ import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Ship extends Entity
 {
@@ -20,6 +20,9 @@ public abstract class Ship extends Entity
     private Trajectory projectileTrajectory;
     private double projectileSpeed = 12;
 
+    // =================================================================================================================
+    // Constructor:
+
     public Ship(Point position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
     {
         super(position, dimension, team, speed);
@@ -30,24 +33,8 @@ public abstract class Ship extends Entity
         this.points = points;
     }
 
-    public void update()
-    {
-        super.propelSelf();
-        if(!isAlive())
-        {
-            dying = true;
-        }
-    }
-
-    public boolean isAlive()
-    {
-        return health > 0;
-    }
-
-    public boolean expired()
-    {
-        return dying;
-    }
+    // =================================================================================================================
+    // Accessors:
 
     public double getProjectileSpeed() {return projectileSpeed;}
 
@@ -60,9 +47,9 @@ public abstract class Ship extends Entity
     }
     public int getHealth() { return health; }
 
-    public List<Projectile> getNewProjectiles()
+    public Set<Projectile> getNewProjectiles()
     {
-        List<Projectile> newProjectiles = new ArrayList<>();
+        Set<Projectile> newProjectiles = new HashSet<>();
         newProjectiles.add(getNewProjectile());
         return newProjectiles;
     }
@@ -72,14 +59,30 @@ public abstract class Ship extends Entity
         return new Projectile(this);
     }
 
-    public void setFiring(boolean firing)
+    public boolean vulnerableTo(Projectile projectile)
     {
-        this.firing = firing;
+        return projectile.getTeam() != this.getTeam();
     }
 
     public boolean isFiring()
     {
         return firing;
+    }
+    public boolean isAlive()
+    {
+        return health > 0;
+    }
+    public boolean expired()
+    {
+        return dying;
+    }
+
+    // =================================================================================================================
+    // Mutators:
+
+    public void setFiring(boolean firing)
+    {
+        this.firing = firing;
     }
 
     public void takeDamage(int damage)
@@ -87,10 +90,14 @@ public abstract class Ship extends Entity
         health -= damage;
     }
 
-    public boolean vulnerableTo(Projectile projectile)
-    {
-        return projectile.getTeam() != this.getTeam();
-    }
-
     public void addToCell(Cell cell) { cell.addShip(this); }
+
+    public void update()
+    {
+        super.propelSelf();
+        if(!isAlive())
+        {
+            dying = true;
+        }
+    }
 }

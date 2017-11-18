@@ -15,7 +15,9 @@ import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameState extends Overstate
 {
@@ -25,7 +27,7 @@ public class GameState extends Overstate
     private Game game;
     private PlayerController playerController;
 
-    private List<EntityDisplayable> entityDisplayables;
+    private Set<EntityDisplayable> entityDisplayables;
     private EntityDisplayableFactory entityDisplayableFactory;
 
     public GameState()
@@ -39,8 +41,8 @@ public class GameState extends Overstate
         super.addOverlay(new ScoreOverlay(new Point(10, 40), game));
         super.addOverlay(new FuelOverlay(new Point(10, 70), game.getPlayerShip()));
 
-        entityDisplayables = new ArrayList<>();
-        super.addDisplayList(entityDisplayables);
+        entityDisplayables = new HashSet<>();
+        super.addDisplays(entityDisplayables);
         addNewEntityDisplayables();
 
         activeState = new PreWaveSubstate();

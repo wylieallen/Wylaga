@@ -6,12 +6,14 @@ import Wylaga.Overstates.Menus.Buttons.NonButton;
 import Wylaga.Overstates.Overstate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Menu extends Overstate
 {
     protected List<Button> buttons;
-    protected List<Displayable> displays;
+    protected Set<Displayable> displays;
 
     protected Button activeButton = NonButton.getInstance();
 
@@ -20,10 +22,10 @@ public abstract class Menu extends Overstate
         super();
 
         buttons = new ArrayList<>();
-        displays = new ArrayList<>();
+        displays = new HashSet<>();
 
-        super.addDisplayList(displays);
-        super.addDisplayList(buttons);
+        super.addDisplays(displays);
+        super.addDisplays(buttons);
     }
 
     public void addDisplay(Displayable display) {displays.add(display);}

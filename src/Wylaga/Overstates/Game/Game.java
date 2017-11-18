@@ -11,17 +11,19 @@ import Wylaga.Overstates.Game.Collisions.Grid;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Game
 {
-    private List<List<? extends Entity>> entities;
-    private List<Ship> ships;
-    private List<Projectile> projectiles;
+    private Set<Set<? extends Entity>> entities;
+    private Set<Ship> ships;
+    private Set<Projectile> projectiles;
 
-    private List<Ship> expiredShips;
-    private List<Projectile> expiredProjectiles;
-    private List<Entity> newEntities;
+    private Set<Ship> expiredShips;
+    private Set<Projectile> expiredProjectiles;
+    private Set<Entity> newEntities;
 
     private Dimension worldSize = new Dimension(1280, 720);
 
@@ -39,13 +41,13 @@ public class Game
         score = 0;
         waveCount = 0;
 
-        expiredShips = new ArrayList<>();
-        expiredProjectiles = new ArrayList<>();
-        newEntities = new ArrayList<>();
+        expiredShips = new HashSet<>();
+        expiredProjectiles = new HashSet<>();
+        newEntities = new HashSet<>();
 
-        entities = new ArrayList<>();
-        entities.add(ships = new ArrayList<>());
-        entities.add(projectiles = new ArrayList<>());
+        entities = new HashSet<>();
+        entities.add(ships = new HashSet<>());
+        entities.add(projectiles = new HashSet<>());
 
         spawnShip(playerShip = new PlayerShip());
         wave = new NullWave();
@@ -122,20 +124,20 @@ public class Game
         newEntities.add(ship);
     }
 
-    private void spawnShips(List<Ship> newShips)
+    private void spawnShips(Set<Ship> newShips)
     {
         ships.addAll(newShips);
         newEntities.addAll(newShips);
     }
 
-    private void spawnProjectiles(List<Projectile> newProjectiles)
+    private void spawnProjectiles(Set<Projectile> newProjectiles)
     {
         projectiles.addAll(newProjectiles);
         newEntities.addAll(newProjectiles);
     }
 
-    public List<List<? extends Entity>> getEntities() { return entities; }
-    public List<Entity> getNewEntities() { return newEntities; }
+    public Set<Set<? extends Entity>> getEntities() { return entities; }
+    public Set<Entity> getNewEntities() { return newEntities; }
     public PlayerShip getPlayerShip()
     {
         return playerShip;
@@ -149,19 +151,19 @@ public class Game
     private class CollisionManager
     {
         private Grid grid;
-        private ArrayList<EntityPair> loggedCollisions;
+        private Set<EntityPair> loggedCollisions;
 
         private CollisionManager()
         {
             grid = new Grid(1280, 720, 16, 9);
-            loggedCollisions = new ArrayList<>();
+            loggedCollisions = new HashSet<>();
         }
 
         public void processCollisions()
         {
             constrainToWorld();
             resetGrid();
-            for(Cell cell : grid.getCellList())
+            for(Cell cell : grid.getOccupiedCells())
             {
                 processProjectiles(cell);
                 processShips(cell);

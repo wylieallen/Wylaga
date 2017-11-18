@@ -10,6 +10,7 @@ import java.awt.*;
 public class PlayerShip extends Ship
 {
     public static final Dimension defaultDimension = new Dimension(25, 25);
+    private static final int defaultSpeed = 5, defaultHealth = 100, defaultScorePenalty = -100;
 
     private SpecialModule specialModule = new TurboModule();
 
@@ -20,8 +21,8 @@ public class PlayerShip extends Ship
 
     public PlayerShip()
     {
-        super(new Point(500, 700), defaultDimension, Team.PLAYER, 5, 100,
-                Trajectory.getDirection(0, -1), -100);
+        super(new Point(500, 700), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
+                Trajectory.getDirection(0, -1), defaultScorePenalty);
 
         special = false;
         curFuel = maxFuel = 200;
@@ -42,8 +43,6 @@ public class PlayerShip extends Ship
 
     public int getMaxFuel() { return maxFuel; }
     public int getCurFuel() { return curFuel; }
-
-
 
     private interface SpecialModule
     {

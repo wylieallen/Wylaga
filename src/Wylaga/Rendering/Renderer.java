@@ -4,7 +4,9 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Overstate;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class Renderer
 {
@@ -20,17 +22,17 @@ public class Renderer
     {
         drawDisplayables(overstate.getUnderlays());
 
-        for(List<? extends Displayable> list : overstate.getDisplayables())
+        for(Collection<? extends Displayable> displayables : overstate.getDisplayables())
         {
-            drawDisplayables(list);
+            drawDisplayables(displayables);
         }
 
         drawDisplayables(overstate.getOverlays());
     }
 
-    private void drawDisplayables(List<? extends Displayable> list)
+    private void drawDisplayables(Collection<? extends Displayable> set)
     {
-        for(Displayable displayable : list)
+        for(Displayable displayable : set)
         {
             Point position = displayable.getPosition();
             g2d.drawImage(displayable.getImage(), position.x, position.y, null);

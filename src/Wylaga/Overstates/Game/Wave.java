@@ -5,15 +5,15 @@ import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Wave
 {
     private int waveNumber;
 
     private WaveController controller;
-    private List<Ship> ships;
+    private Set<Ship> ships;
     private Ship leftShip;
     private Ship rightShip;
 
@@ -22,7 +22,7 @@ public class Wave
         this.waveNumber = waveNumber;
 
         controller = new WaveController(this);
-        ships = new ArrayList<>();
+        ships = new HashSet<>();
 
         // todo: Wave shouldn't need to know all this position data to instantiate its ships
         for (int x = 32; x <= 500 - 32; x += 100)
@@ -35,7 +35,7 @@ public class Wave
 
     public void update()
     {
-        ArrayList<Ship> expiredShips = new ArrayList<>();
+        Set<Ship> expiredShips = new HashSet<>();
 
         for(Ship ship : ships)
             if(ship.expired())
@@ -98,7 +98,7 @@ public class Wave
     public Ship getLeftShip() {return leftShip;}
     public Ship getRightShip() {return rightShip;}
 
-    public List<Ship> getShips() {
+    public Set<Ship> getShips() {
         return ships;
     }
 }

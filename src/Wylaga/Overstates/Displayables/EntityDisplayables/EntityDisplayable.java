@@ -15,10 +15,12 @@ public class EntityDisplayable extends Displayable
         this.entity = entity;
     }
 
-    public void update() {}
-
     public boolean expired()
     {
         return entity.expired();
     }
+
+    // By default, EntityDisplayables don't do anything when updated.
+    // update() should be overridden by subclasses that want to take advantage of it.
+    public void update() {}
 }

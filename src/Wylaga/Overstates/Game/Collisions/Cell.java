@@ -4,18 +4,18 @@ package Wylaga.Overstates.Game.Collisions;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Cell
 {
-    private List<Ship> ships;
-    private List<Projectile> projectiles;
+    private Set<Ship> ships;
+    private Set<Projectile> projectiles;
 
     public Cell()
     {
-        ships = new ArrayList<>();
-        projectiles = new ArrayList<>();
+        ships = new HashSet<>();
+        projectiles = new HashSet<>();
     }
 
     public void addShip(Ship ship)
@@ -27,8 +27,8 @@ public class Cell
         projectiles.add(projectile);
     }
 
-    public List<Ship> getShips() {return ships;}
-    public List<Projectile> getProjectiles() {return projectiles;}
+    public Set<Ship> getShips() {return ships;}
+    public Set<Projectile> getProjectiles() {return projectiles;}
 
     public void clear()
     {

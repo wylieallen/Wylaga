@@ -3,25 +3,24 @@ package Wylaga.Overstates;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Displayables.Displayable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Overstate
 {
-    private List<List<? extends Displayable>> displayables;
-    private List<Displayable> underlays;
-    private List<Displayable> overlays;
+    private Set<Collection<? extends Displayable>> displayables;
+    private Set<Displayable> underlays;
+    private Set<Displayable> overlays;
 
     public Overstate()
     {
-        displayables = new ArrayList<>();
-        underlays = new ArrayList<>();
-        overlays = new ArrayList<>();
+        displayables = new HashSet<>();
+        underlays = new HashSet<>();
+        overlays = new HashSet<>();
     }
 
-    public List<Displayable> getUnderlays() {return underlays;}
-    public List<Displayable> getOverlays() {return overlays;}
-    public List<List<? extends Displayable>> getDisplayables() {return displayables;}
+    public Set<Displayable> getUnderlays() {return underlays;}
+    public Set<Displayable> getOverlays() {return overlays;}
+    public Set<Collection<? extends Displayable>> getDisplayables() {return displayables;}
 
     public void addOverlay(Displayable displayable) {overlays.add(displayable);}
     public void addUnderlay(Displayable displayable) {underlays.add(displayable);}
@@ -30,25 +29,25 @@ public abstract class Overstate
     {
         updateDisplayables(underlays);
 
-        for(List<? extends Displayable> list : displayables)
+        for(Collection<? extends Displayable> set : displayables)
         {
-            updateDisplayables(list);
+            updateDisplayables(set);
         }
 
         updateDisplayables(overlays);
     }
 
-    private void updateDisplayables(List<? extends Displayable> list)
+    private void updateDisplayables(Collection<? extends Displayable> set)
     {
-        for(Displayable displayable : list)
+        for(Displayable displayable : set)
         {
             displayable.update();
         }
     }
 
-    public void addDisplayList(List<? extends Displayable> list)
+    public void addDisplays(Collection<? extends Displayable> set)
     {
-        displayables.add(list);
+        displayables.add(set);
     }
 
     public abstract void parseKeyPress(KeyRole role);
