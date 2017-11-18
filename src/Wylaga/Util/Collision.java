@@ -8,7 +8,7 @@ public class Collision
 {
     static private Point origin = new Point(0, 0);
 
-    static private boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
+    static public boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
     {
         // returns true if inner rectangle is completely inside
         if(innerMin.x < outerMin.x || innerMax.x > outerMax.x)
@@ -27,7 +27,7 @@ public class Collision
         }
     }
 
-    static private boolean rectanglesOverlap(Point min1, Point max1, Point min2, Point max2)
+    static public boolean rectanglesOverlap(Point min1, Point max1, Point min2, Point max2)
     {
         // Determines whether two rectangles overlap, based on current position and dimension.
         // Based on solution described at: http://www.geeksforgeeks.org/find-two-rectangles-overlap/

@@ -2,12 +2,13 @@ package Wylaga.Overstates.Game.Entities;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
+import Wylaga.Util.CollisionGrid.Collidable;
 import Wylaga.Util.Trajectory;
 
 import java.awt.Point;
 import java.awt.Dimension;
 
-public abstract class Entity
+public abstract class Entity implements Collidable
 {
     private Point position;
     private Dimension dimension;
@@ -46,6 +47,9 @@ public abstract class Entity
     public Point getPosition() {return position;}
     public Dimension getDimension() {return dimension;}
     public Team getTeam() {return team;}
+
+    public Point getOrigin() {return position;}
+    public Point getTerminus() {return new Point(position.x + dimension.width, position.y + dimension.height);}
 
     public abstract void update();
     public abstract boolean expired();

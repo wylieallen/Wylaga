@@ -25,8 +25,9 @@ public class Wave
         ships = new ArrayList<>();
 
         // todo: Wave shouldn't need to know all this position data to instantiate its ships
-        for (int x = 32; x <= 500 - 32; x += 100)
-            for (int y = 32; y <= 384 - 64 - 32; y += 75)
+        //for (int x = 32; x <= 500 - 32; x += 100)
+            //for (int y = 32; y <= 384 - 64 - 32; y += 75)
+        int x = 32, y = 32;
                 ships.add(new EnemyShip(new Point(x, y)));
 
         resetLeftShip();
