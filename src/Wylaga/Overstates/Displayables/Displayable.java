@@ -3,7 +3,7 @@ package Wylaga.Overstates.Displayables;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Displayable
+public class Displayable
 {
     private Point position;
     private BufferedImage image;
@@ -19,5 +19,5 @@ public abstract class Displayable
     public BufferedImage getImage() {return image;}
     public Point getPosition() {return position;}
 
-    public abstract void update();
+    public void update() {};
 }

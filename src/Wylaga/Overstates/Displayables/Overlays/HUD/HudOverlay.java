@@ -1,16 +1,16 @@
-package Wylaga.Overstates.Displayables.Overlays;
+package Wylaga.Overstates.Displayables.Overlays.HUD;
 
 import Wylaga.Overstates.Displayables.Displayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Overlay extends Displayable
+public abstract class HudOverlay extends Displayable
 {
     private Graphics2D g2d;
     private int width, height;
 
-    public Overlay(Point position)
+    public HudOverlay(Point position)
     {
         super(position, new BufferedImage(100, 20, BufferedImage.TYPE_INT_ARGB));
         BufferedImage image = super.getImage();

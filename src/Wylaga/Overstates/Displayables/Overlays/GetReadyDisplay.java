@@ -1,4 +1,6 @@
-package Wylaga.Overstates.Displayables;
+package Wylaga.Overstates.Displayables.Overlays;
+
+import Wylaga.Overstates.Displayables.Displayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

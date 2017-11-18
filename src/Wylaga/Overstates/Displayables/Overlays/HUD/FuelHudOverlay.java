@@ -1,17 +1,16 @@
-package Wylaga.Overstates.Displayables.Overlays;
+package Wylaga.Overstates.Displayables.Overlays.HUD;
 
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class FuelOverlay extends Overlay
+public class FuelHudOverlay extends HudOverlay
 {
     private Graphics2D g2d;
     private PlayerShip ship;
     private int prevFuel;
 
-    public FuelOverlay(Point position, PlayerShip ship)
+    public FuelHudOverlay(Point position, PlayerShip ship)
     {
         super(position);
         this.ship = ship;

@@ -1,9 +1,11 @@
-package Wylaga.Overstates.Displayables;
+package Wylaga.Overstates.Displayables.Overlays;
+
+import Wylaga.Overstates.Displayables.Displayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class WaveCompleteDisplay extends NonUpdatingDisplayable
+public class WaveCompleteDisplay extends Displayable
 {
     private static BufferedImage img = getImg();
 

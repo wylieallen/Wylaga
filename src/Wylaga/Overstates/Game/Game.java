@@ -57,10 +57,10 @@ public class Game
     public void update()
     {
         // Updating then colliding prevents player from going slightly out of bounds
-        // Colliding then updating allows player to go slightly out of bounds
+        // Colliding then updating allows player to go slightly out of bounds before snapping back
+        collisionManager.processCollisions();
         wave.update();
         updateEntities();
-        collisionManager.processCollisions();
     }
 
     private void updateEntities()

@@ -1,16 +1,17 @@
 package Wylaga.Overstates;
 
+import Wylaga.Overstates.Displayables.Overlays.*;
+import Wylaga.Overstates.Displayables.Overlays.HUD.FuelHudOverlay;
+import Wylaga.Overstates.Displayables.Overlays.HUD.HealthHudOverlay;
+import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
+import Wylaga.Overstates.Displayables.Underlays.Starfield;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;
 import Wylaga.Overstates.Displayables.*;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.PrimitiveEDFactory;
-import Wylaga.Overstates.Displayables.Overlays.FuelOverlay;
-import Wylaga.Overstates.Displayables.Overlays.HealthOverlay;
-import Wylaga.Overstates.Displayables.Overlays.ScoreOverlay;
 import Wylaga.Overstates.Game.Game;
-import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.Point;
@@ -36,10 +37,11 @@ public class GameState extends Overstate
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
 
-        super.addUnderlay(new NonUpdatingDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
-        super.addOverlay(new HealthOverlay(new Point(10, 10), game.getPlayerShip()));
-        super.addOverlay(new ScoreOverlay(new Point(10, 40), game));
-        super.addOverlay(new FuelOverlay(new Point(10, 70), game.getPlayerShip()));
+        //super.addUnderlay(new Displayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        super.addUnderlay(new Starfield());
+        super.addOverlay(new HealthHudOverlay(new Point(10, 10), game.getPlayerShip()));
+        super.addOverlay(new ScoreHudOverlay(new Point(10, 40), game));
+        super.addOverlay(new FuelHudOverlay(new Point(10, 70), game.getPlayerShip()));
 
         entityDisplayables = new HashSet<>();
         super.addDisplays(entityDisplayables);

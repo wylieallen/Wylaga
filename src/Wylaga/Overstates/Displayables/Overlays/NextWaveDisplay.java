@@ -1,5 +1,6 @@
-package Wylaga.Overstates.Displayables;
+package Wylaga.Overstates.Displayables.Overlays;
 
+import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Game.Game;
 
 import java.awt.*;

@@ -1,17 +1,16 @@
-package Wylaga.Overstates.Displayables.Overlays;
+package Wylaga.Overstates.Displayables.Overlays.HUD;
 
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class HealthOverlay extends Overlay
+public class HealthHudOverlay extends HudOverlay
 {
     private PlayerShip ship;
     private Graphics2D g2d;
     private int prevHealth;
 
-    public HealthOverlay(Point position, PlayerShip ship)
+    public HealthHudOverlay(Point position, PlayerShip ship)
     {
         super(position);
         this.ship = ship;

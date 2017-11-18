@@ -1,17 +1,16 @@
-package Wylaga.Overstates.Displayables.Overlays;
+package Wylaga.Overstates.Displayables.Overlays.HUD;
 
 import Wylaga.Overstates.Game.Game;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class ScoreOverlay extends Overlay
+public class ScoreHudOverlay extends HudOverlay
 {
     private Game game;
     private Graphics2D g2d;
     private int prevScore;
 
-    public ScoreOverlay(Point position, Game game)
+    public ScoreHudOverlay(Point position, Game game)
     {
         super(position);
         this.game = game;
