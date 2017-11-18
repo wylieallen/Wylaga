@@ -1,5 +1,6 @@
 package Wylaga.Overstates.Game.Entities.Ships;
 
+import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Team;
@@ -90,4 +91,6 @@ public abstract class Ship extends Entity
     {
         return projectile.getTeam() != this.getTeam();
     }
+
+    public void addToCell(Cell cell) { cell.addShip(this); }
 }

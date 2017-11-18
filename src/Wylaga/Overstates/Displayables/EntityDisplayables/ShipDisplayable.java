@@ -52,10 +52,7 @@ public class ShipDisplayable extends EntityDisplayable
     {
         private int hurtAnimationDuration = 2;
 
-        protected boolean updateCondition()
-        {
-            return (--hurtAnimationDuration <= 0); //&& (prevHealth <= ship.getHealth());
-        }
+        protected boolean updateCondition() { return --hurtAnimationDuration <= 0; }
         protected ShipState nextState() { return new BaseState(); }
         protected BufferedImage nextImage() { return baseImage; }
     }

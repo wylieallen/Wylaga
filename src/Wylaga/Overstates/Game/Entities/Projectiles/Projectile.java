@@ -2,6 +2,7 @@ package Wylaga.Overstates.Game.Entities.Projectiles;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
+import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Entities.Team;
@@ -48,4 +49,5 @@ public class Projectile extends Entity
         return entityDisplayableFactory.makeProjectileDisplayable(this);
     }
 
+    public void addToCell(Cell cell) { cell.addProjectile(this); }
 }

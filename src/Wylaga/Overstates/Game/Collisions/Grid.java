@@ -1,12 +1,12 @@
 package Wylaga.Overstates.Game.Collisions;
 
-import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.Ship;
+import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Grid partitions a 2D space into rectangular Cells, which it stores and facilitates access to.
 public class Grid
 {
     private List<Cell> cellList;
@@ -20,6 +20,10 @@ public class Grid
 
     public Grid(int width, int height, int cellCols, int cellRows)
     {
+        if(width == 0 || height == 0 || cellCols == 0 || cellRows == 0)
+        {
+            throw new IllegalArgumentException();
+        }
 
         this.cellCols = cellCols;
         this.cellRows = cellRows;
@@ -27,17 +31,14 @@ public class Grid
         cellWidth = width / cellCols;
         cellHeight = height / cellRows;
 
-        //System.out.println("cellsize = " + cellWidth + " , " + cellHeight);
-
         cells = new Cell[cellCols][cellRows];
         cellList = new ArrayList<>();
+
         for(int i = 0; i < cellCols; i++)
         {
             for(int j = 0; j < cellRows; j++)
             {
-                //System.out.println("i, j = " + i + " , " + j);
-                Point origin = new Point(i * cellWidth, j * cellHeight);
-                cellList.add(cells[i][j] = new Cell(origin, new Dimension(cellWidth, cellHeight)));
+                cellList.add(cells[i][j] = new Cell());
             }
         }
     }
@@ -52,49 +53,24 @@ public class Grid
         }
     }
 
-    public void addProjectiles(List<Projectile> projectiles)
+    public void addAll(List<? extends Entity> entities)
     {
-        for(Projectile projectile : projectiles)
+        for(Entity entity : entities)
         {
-            add(projectile);
+            addToCells(entity);
         }
     }
 
-    public void add(Projectile projectile)
+    public void addToCells(Entity entity)
     {
-        Point originCell = getCell(projectile.getOrigin());
-        Point terminusCell = getCell(projectile.getTerminus());
+        Point originCell = getCell(entity.getOrigin());
+        Point terminusCell = getCell(entity.getTerminus());
 
         for(int i = originCell.x; inRange(i, 0, Math.min(terminusCell.x, cellCols - 1)); i++)
         {
             for(int j = originCell.y; inRange(j, 0, Math.min(terminusCell.y, cellRows - 1)); j++)
             {
-                cells[i][j].addProjectile(projectile);
-            }
-        }
-    }
-
-    public void addShips(List<Ship> ships)
-    {
-        for(Ship ship : ships)
-        {
-            add(ship);
-        }
-    }
-
-    public void add(Ship ship)
-    {
-        Point originCell = getCell(ship.getOrigin());
-        Point terminusCell = getCell(ship.getTerminus());
-
-        //System.out.println(originCell.toString() + terminusCell.toString());
-
-        for(int i = originCell.x; inRange(i, 0, Math.min(terminusCell.x, cellCols - 1)); i++)
-        {
-            for(int j = originCell.y; inRange(j, 0, Math.min(terminusCell.y, cellRows - 1)); j++)
-            {
-                //System.out.println("Adding " + ship.toString() + " to " + i + " , " + j);
-                cells[i][j].addShip(ship);
+                entity.addToCell(cells[i][j]);
             }
         }
     }

@@ -3,7 +3,6 @@ package Wylaga.Overstates.Game;
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Cell;
@@ -150,9 +149,9 @@ public class Game
     private class CollisionManager
     {
         private Grid grid;
-        private ArrayList<EntityTuple> loggedCollisions;
+        private ArrayList<EntityPair> loggedCollisions;
 
-        public CollisionManager()
+        private CollisionManager()
         {
             grid = new Grid(1280, 720, 16, 9);
             loggedCollisions = new ArrayList<>();
@@ -162,7 +161,6 @@ public class Game
         {
             constrainToWorld();
             resetGrid();
-            loggedCollisions.clear();
             for(Cell cell : grid.getCellList())
             {
                 processProjectiles(cell);
@@ -247,19 +245,20 @@ public class Game
         private void resetGrid()
         {
             grid.clear();
-            grid.addShips(ships);
-            grid.addProjectiles(projectiles);
+            grid.addAll(ships);
+            grid.addAll(projectiles);
+            loggedCollisions.clear();
         }
 
         public void logCollision(Entity entity1, Entity entity2)
         {
-            loggedCollisions.add(new EntityTuple(entity1, entity2));
+            loggedCollisions.add(new EntityPair(entity1, entity2));
         }
 
         public boolean collisionLogged(Entity entity1, Entity entity2)
         {
-            EntityTuple curCollision = new EntityTuple(entity1, entity2);
-            for(EntityTuple collision : loggedCollisions)
+            EntityPair curCollision = new EntityPair(entity1, entity2);
+            for(EntityPair collision : loggedCollisions)
             {
                 if(collision.equivalentTo(curCollision))
                     return true;
@@ -267,18 +266,18 @@ public class Game
             return false;
         }
 
-        private class EntityTuple
+        private class EntityPair
         {
             private Entity entity1;
             private Entity entity2;
 
-            public EntityTuple(Entity entity1, Entity entity2)
+            public EntityPair(Entity entity1, Entity entity2)
             {
                 this.entity1 = entity1;
                 this.entity2 = entity2;
             }
 
-            public boolean equivalentTo(EntityTuple other)
+            public boolean equivalentTo(EntityPair other)
             {
                 return (this.entity1 == other.entity1 && this.entity2 == other.entity2) || (this.entity1 == other.entity2 && this.entity2 == other.entity1);
             }
