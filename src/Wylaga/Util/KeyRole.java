@@ -1,4 +1,4 @@
-package Wylaga.Control;
+package Wylaga.Util;
 
 public enum KeyRole
 {

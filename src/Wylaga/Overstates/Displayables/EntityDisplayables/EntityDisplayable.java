@@ -11,7 +11,7 @@ public class EntityDisplayable extends Displayable
 
     public EntityDisplayable(Entity entity, BufferedImage image)
     {
-        super(entity.getPosition(), image);
+        super(entity.getOrigin(), image);
         this.entity = entity;
     }
 

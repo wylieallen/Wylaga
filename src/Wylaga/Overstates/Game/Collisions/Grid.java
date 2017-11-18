@@ -1,7 +1,6 @@
-package Wylaga.Util.CollisionGrid;
+package Wylaga.Overstates.Game.Collisions;
 
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
@@ -16,14 +15,19 @@ public class Grid
     private int cellWidth;
     private int cellHeight;
 
+    private int cellCols;
+    private int cellRows;
+
     public Grid(int width, int height, int cellCols, int cellRows)
     {
+
+        this.cellCols = cellCols;
+        this.cellRows = cellRows;
+
         cellWidth = width / cellCols;
         cellHeight = height / cellRows;
 
-        System.out.println("cellsize = " + cellWidth + " , " + cellHeight);
-
-        Dimension cellSize = new Dimension(cellWidth, cellHeight);
+        //System.out.println("cellsize = " + cellWidth + " , " + cellHeight);
 
         cells = new Cell[cellCols][cellRows];
         cellList = new ArrayList<>();
@@ -33,7 +37,7 @@ public class Grid
             {
                 //System.out.println("i, j = " + i + " , " + j);
                 Point origin = new Point(i * cellWidth, j * cellHeight);
-                cellList.add(cells[i][j] = new Cell(origin, cellSize));
+                cellList.add(cells[i][j] = new Cell(origin, new Dimension(cellWidth, cellHeight)));
             }
         }
     }
@@ -61,9 +65,9 @@ public class Grid
         Point originCell = getCell(projectile.getOrigin());
         Point terminusCell = getCell(projectile.getTerminus());
 
-        for(int i = originCell.x; i >= 0 && i < 16 && i <= terminusCell.x; i++)
+        for(int i = originCell.x; inRange(i, 0, Math.min(terminusCell.x, cellCols - 1)); i++)
         {
-            for(int j = originCell.y; j >= 0 && j < 9 && j <= terminusCell.y; j++)
+            for(int j = originCell.y; inRange(j, 0, Math.min(terminusCell.y, cellRows - 1)); j++)
             {
                 cells[i][j].addProjectile(projectile);
             }
@@ -83,16 +87,21 @@ public class Grid
         Point originCell = getCell(ship.getOrigin());
         Point terminusCell = getCell(ship.getTerminus());
 
-        System.out.println(originCell.toString() + terminusCell.toString());
+        //System.out.println(originCell.toString() + terminusCell.toString());
 
-        for(int i = originCell.x; i >= 0 && i < 16 && i <= terminusCell.x; i++)
+        for(int i = originCell.x; inRange(i, 0, Math.min(terminusCell.x, cellCols - 1)); i++)
         {
-            for(int j = originCell.y; j >= 0 && j < 9 && j <= terminusCell.y; j++)
+            for(int j = originCell.y; inRange(j, 0, Math.min(terminusCell.y, cellRows - 1)); j++)
             {
                 //System.out.println("Adding " + ship.toString() + " to " + i + " , " + j);
                 cells[i][j].addShip(ship);
             }
         }
+    }
+
+    private boolean inRange(int val, int min, int max)
+    {
+        return min <= val && val <= max;
     }
 
     private Point getCell(Point point)

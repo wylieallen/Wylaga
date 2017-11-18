@@ -1,4 +1,4 @@
-package Wylaga.Control;
+package Wylaga.Overstates.Game.Control;
 
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Wave;
@@ -34,8 +34,8 @@ public class WaveController implements GameController
 
     public void updateTrajectory()
     {
-        Point leftPoint = wave.getLeftShip().getPosition();
-        Point rightPoint = wave.getRightShip().getPosition();
+        Point leftPoint = wave.getLeftShip().getOrigin();
+        Point rightPoint = wave.getRightShip().getOrigin();
 
         int dx, dy;
 

@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Menus;
 
-import Wylaga.Control.KeyRole;
+import Wylaga.Util.KeyRole;
 
 import java.awt.Point;
 

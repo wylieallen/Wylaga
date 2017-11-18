@@ -1,8 +1,7 @@
 package Wylaga.Overstates;
 
-import Wylaga.Control.KeyRole;
+import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Displayables.Displayable;
-import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 
 import java.util.ArrayList;
 import java.util.List;

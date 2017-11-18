@@ -1,6 +1,5 @@
 package Wylaga.Overstates.Menus;
 
-import Wylaga.Control.KeyRole;
 import Wylaga.Overstates.Menus.Buttons.Button;
 import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Menus.Buttons.NonButton;

@@ -1,7 +1,7 @@
 package Wylaga.Overstates;
 
-import Wylaga.Control.KeyRole;
-import Wylaga.Control.PlayerController;
+import Wylaga.Util.KeyRole;
+import Wylaga.Overstates.Game.Control.PlayerController;
 import Wylaga.Overstates.Displayables.*;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
@@ -44,7 +44,6 @@ public class GameState extends Overstate
         addNewEntityDisplayables();
 
         activeState = new PreWaveSubstate();
-        //activeState = new TestSubstate();
         activeState.swapIn();
     }
 
@@ -166,18 +165,6 @@ public class GameState extends Overstate
         {
             getOverlays().removeAll(substateDisplays);
         }
-    }
-
-    private class TestSubstate extends GameSubstate
-    {
-        public TestSubstate()
-        {
-            game.testWave();
-        }
-
-        protected boolean readyToTransitionState() {return false;}
-
-        protected GameSubstate getNextState() {return null;}
     }
 
     private class PreWaveSubstate extends GameSubstate

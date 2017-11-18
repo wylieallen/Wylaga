@@ -1,6 +1,6 @@
 package Wylaga;
 
-import Wylaga.Control.KeyRole;
+import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.GameState;
 import Wylaga.Overstates.Overstate;
 import Wylaga.Overstates.Menus.MenuFactory;

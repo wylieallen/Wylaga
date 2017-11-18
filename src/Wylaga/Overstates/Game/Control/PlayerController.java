@@ -1,6 +1,7 @@
-package Wylaga.Control;
+package Wylaga.Overstates.Game.Control;
 
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
+import Wylaga.Util.KeyRole;
 import Wylaga.Util.Trajectory;
 
 public class PlayerController implements GameController

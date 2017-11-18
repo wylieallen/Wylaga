@@ -1,14 +1,14 @@
-package Wylaga.Util;
+package Wylaga.Overstates.Game.Collisions;
 
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.*;
 
-public class Collision
+public class CollisionChecker
 {
     static private Point origin = new Point(0, 0);
 
-    static public boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
+    static private boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
     {
         // returns true if inner rectangle is completely inside
         if(innerMin.x < outerMin.x || innerMax.x > outerMax.x)
@@ -27,7 +27,7 @@ public class Collision
         }
     }
 
-    static public boolean rectanglesOverlap(Point min1, Point max1, Point min2, Point max2)
+    static private boolean rectanglesOverlap(Point min1, Point max1, Point min2, Point max2)
     {
         // Determines whether two rectangles overlap, based on current position and dimension.
         // Based on solution described at: http://www.geeksforgeeks.org/find-two-rectangles-overlap/
@@ -46,7 +46,7 @@ public class Collision
 
         else
         {
-            //System.out.println("Collision detected!");
+            //System.out.println("CollisionChecker detected!");
             return true;
         }
     }
@@ -56,21 +56,21 @@ public class Collision
         return new Point(min.x + dimension.width, min.y + dimension.height);
     }
 
-    static public boolean entityInWorld(Entity entity, Dimension dimension)
+    static public boolean entityInWorld(Entity entity, Dimension worldSize)
     {
         Point min1 = origin;
-        Point min2 = entity.getPosition();
-        Point max1 = makeMax(min1, dimension);
+        Point min2 = entity.getOrigin();
+        Point max1 = makeMax(min1, worldSize);
         Point max2 = makeMax(min2, entity.getDimension());
 
         return rectanglesBounded(min1, max1, min2, max2);
     }
 
-    static public boolean entityOnWorld(Entity entity, Dimension dimension)
+    static public boolean entityOnWorld(Entity entity, Dimension worldSize)
     {
         Point min1 = origin;
-        Point min2 = entity.getPosition();
-        Point max1 = makeMax(min1, dimension);
+        Point min2 = entity.getOrigin();
+        Point max1 = makeMax(min1, worldSize);
         Point max2 = makeMax(min2, entity.getDimension());
 
         return rectanglesOverlap(min1, max1, min2, max2);
@@ -85,8 +85,8 @@ public class Collision
         }
 
         //System.out.println("Checking for collision");
-        Point min1 = entity1.getPosition();
-        Point min2 = entity2.getPosition();
+        Point min1 = entity1.getOrigin();
+        Point min2 = entity2.getOrigin();
         Point max1 = makeMax(min1, entity1.getDimension());
         Point max2 = makeMax(min2, entity2.getDimension());
 

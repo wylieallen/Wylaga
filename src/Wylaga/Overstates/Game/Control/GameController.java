@@ -1,4 +1,4 @@
-package Wylaga.Control;
+package Wylaga.Overstates.Game.Control;
 
 public interface GameController
 {

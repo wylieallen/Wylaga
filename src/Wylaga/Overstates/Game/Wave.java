@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Game;
 
-import Wylaga.Control.WaveController;
+import Wylaga.Overstates.Game.Control.WaveController;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
@@ -25,9 +25,8 @@ public class Wave
         ships = new ArrayList<>();
 
         // todo: Wave shouldn't need to know all this position data to instantiate its ships
-        //for (int x = 32; x <= 500 - 32; x += 100)
-            //for (int y = 32; y <= 384 - 64 - 32; y += 75)
-        int x = 32, y = 32;
+        for (int x = 32; x <= 500 - 32; x += 100)
+            for (int y = 32; y <= 384 - 64 - 32; y += 75)
                 ships.add(new EnemyShip(new Point(x, y)));
 
         resetLeftShip();
@@ -75,9 +74,9 @@ public class Wave
         Point rightMax = new Point(-9999, 0);
         for(Ship ship : ships)
         {
-            if(ship.getPosition().x > rightMax.x)
+            if(ship.getOrigin().x > rightMax.x)
             {
-                rightMax = ship.getPosition();
+                rightMax = ship.getOrigin();
                 rightShip = ship;
             }
         }
@@ -88,9 +87,9 @@ public class Wave
         Point leftMax = new Point(9999, 0);
         for(Ship ship : ships)
         {
-            if(ship.getPosition().x < leftMax.x)
+            if(ship.getOrigin().x < leftMax.x)
             {
-                leftMax = ship.getPosition();
+                leftMax = ship.getOrigin();
                 leftShip = ship;
             }
         }

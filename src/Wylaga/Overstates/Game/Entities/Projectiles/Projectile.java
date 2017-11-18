@@ -20,7 +20,7 @@ public class Projectile extends Entity
     public Projectile(Ship creator)
     {
         // todo: factor out Ship dependency by having Creator parameterize with all this stuff that's currently queried from it:
-        super(new Point(creator.getPosition()), defaultDimension, creator.getTeam(), creator.getProjectileSpeed());
+        super(new Point(creator.getOrigin()), defaultDimension, creator.getTeam(), creator.getProjectileSpeed());
         int yInitial = (creator.getTeam() == Team.ENEMY) ? creator.getDimension().height : 0;
         super.translatePosition(creator.getDimension().width / 2 - defaultDimension.width / 2, yInitial);
         super.setTrajectory(creator.getProjectileTrajectory());

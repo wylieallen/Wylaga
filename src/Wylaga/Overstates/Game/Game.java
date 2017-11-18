@@ -1,13 +1,13 @@
 package Wylaga.Overstates.Game;
 
+import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
-import Wylaga.Util.Collision;
-import Wylaga.Util.CollisionGrid.Cell;
-import Wylaga.Util.CollisionGrid.Grid;
+import Wylaga.Overstates.Game.Collisions.Cell;
+import Wylaga.Overstates.Game.Collisions.Grid;
 
 
 import java.awt.*;
@@ -147,24 +147,22 @@ public class Game
         return waveCount;
     }
 
-    public void testWave()
-    {
-        spawnShip(new EnemyShip(new Point(300, 300)));
-    }
-
     private class CollisionManager
     {
         private Grid grid;
+        private ArrayList<EntityTuple> loggedCollisions;
 
         public CollisionManager()
         {
             grid = new Grid(1280, 720, 16, 9);
+            loggedCollisions = new ArrayList<>();
         }
 
         public void processCollisions()
         {
             constrainToWorld();
             resetGrid();
+            loggedCollisions.clear();
             for(Cell cell : grid.getCellList())
             {
                 processProjectiles(cell);
@@ -176,7 +174,7 @@ public class Game
         {
             for(Projectile projectile : cell.getProjectiles())
             {
-                if(!Collision.entityOnWorld(projectile, worldSize))
+                if(!CollisionChecker.entityOnWorld(projectile, worldSize))
                 {
                     projectile.deactivate();
                     continue;
@@ -184,9 +182,9 @@ public class Game
 
                 for(Ship ship : cell.getShips())
                 {
-                    if(ship.vulnerableTo(projectile) && Collision.entitiesCollide(projectile, ship) && !cell.collisionLogged(projectile, ship))
+                    if(ship.vulnerableTo(projectile) && CollisionChecker.entitiesCollide(projectile, ship) && !collisionLogged(projectile, ship))
                     {
-                        cell.logCollision(projectile, ship);
+                        logCollision(projectile, ship);
                         projectile.deactivate();
                         ship.takeDamage(projectile.getDamage());
                         break; // break out of inner loop and move on to next projectile
@@ -199,16 +197,11 @@ public class Game
         {
             if(playerShip.isAlive())
             {
-                if(!cell.getShips().isEmpty())
-                {
-                    System.out.println("Cell contains " + cell.getShips().size() + " ships");
-                }
                 for(Ship ship : cell.getShips())
                 {
-                    System.out.println("Cell " + cell.toString() + " Checking " + ship.toString());
-                    if(Collision.entitiesCollide(playerShip, ship) && !cell.collisionLogged(playerShip, ship))
+                    if(CollisionChecker.entitiesCollide(playerShip, ship) && !collisionLogged(playerShip, ship))
                     {
-                        cell.logCollision(playerShip, ship);
+                        logCollision(playerShip, ship);
                         playerShip.takeDamage(30);
                         ship.takeDamage(30);
                     }
@@ -218,9 +211,9 @@ public class Game
 
         private void constrainToWorld()
         {
-            if(!Collision.entityInWorld(playerShip, worldSize))
+            if(!CollisionChecker.entityInWorld(playerShip, worldSize))
             {
-                Point point = playerShip.getPosition();
+                Point point = playerShip.getOrigin();
 
                 int xMax = worldSize.width - playerShip.getDimension().width;
                 int yMax = worldSize.height - playerShip.getDimension().height;
@@ -256,6 +249,39 @@ public class Game
             grid.clear();
             grid.addShips(ships);
             grid.addProjectiles(projectiles);
+        }
+
+        public void logCollision(Entity entity1, Entity entity2)
+        {
+            loggedCollisions.add(new EntityTuple(entity1, entity2));
+        }
+
+        public boolean collisionLogged(Entity entity1, Entity entity2)
+        {
+            EntityTuple curCollision = new EntityTuple(entity1, entity2);
+            for(EntityTuple collision : loggedCollisions)
+            {
+                if(collision.equivalentTo(curCollision))
+                    return true;
+            }
+            return false;
+        }
+
+        private class EntityTuple
+        {
+            private Entity entity1;
+            private Entity entity2;
+
+            public EntityTuple(Entity entity1, Entity entity2)
+            {
+                this.entity1 = entity1;
+                this.entity2 = entity2;
+            }
+
+            public boolean equivalentTo(EntityTuple other)
+            {
+                return (this.entity1 == other.entity1 && this.entity2 == other.entity2) || (this.entity1 == other.entity2 && this.entity2 == other.entity1);
+            }
         }
     }
 }
