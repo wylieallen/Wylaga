@@ -19,5 +19,7 @@ public class Displayable
     public BufferedImage getImage() {return image;}
     public Point getPosition() {return position;}
 
+    // By default, Displayables don't do anything when updated.
+    // update() should be overridden by subclasses that want to take advantage of it.
     public void update() {};
 }
