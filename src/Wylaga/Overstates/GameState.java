@@ -59,15 +59,18 @@ public class GameState extends Overstate
         activeState.swapIn();
     }
 
-    public void update()
+    public void updateModel()
     {
         playerController.update();
 
         if(!paused)
-        {
             activeState.updateState();
-            super.update();
-        }
+    }
+
+    public void updateView()
+    {
+        if(!paused)
+            super.updateView();
 
         removeExpiredEntityDisplayables();
         addNewEntityDisplayables();

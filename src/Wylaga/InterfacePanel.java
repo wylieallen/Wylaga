@@ -15,12 +15,14 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
 
 public class InterfacePanel extends JPanel implements KeyListener
 {
     private BufferedImage image;
     private Renderer renderer;
     private javax.swing.Timer renderTimer;
+    private java.util.Timer stateTimer;
 
     private Overstate activeOverstate;
 
@@ -51,13 +53,24 @@ public class InterfacePanel extends JPanel implements KeyListener
                 System.out.printf(delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
 
-                activeOverstate.update();
+                activeOverstate.updateView();
                 renderer.drawOverstate(activeOverstate);
                 repaint();
 
                 renderTimer.restart();
             }
         });
+
+
+        stateTimer = new java.util.Timer();
+        stateTimer.schedule(new TimerTask()
+        {
+            public void run()
+            {
+                activeOverstate.updateModel();
+            }
+        }, 0, 17);
+
 
         prevTime = System.currentTimeMillis();
 

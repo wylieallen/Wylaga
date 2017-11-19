@@ -37,4 +37,6 @@ public abstract class Menu extends Overstate
         activeButton = button;
         activeButton.select();
     }
+
+    public void updateModel() {};
 }
