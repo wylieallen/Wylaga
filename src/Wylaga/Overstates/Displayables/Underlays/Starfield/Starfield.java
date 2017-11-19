@@ -33,7 +33,6 @@ public class Starfield extends Displayable
             {
                 if(Random.rollInt(1500) == 0)
                 {
-                    System.out.println("Adding star at " + i + "," + j);
                     stars.add(new PixelStar(new Point(i, j)));
                 }
             }
@@ -59,6 +58,7 @@ public class Starfield extends Displayable
 
         stars.removeAll(expiredStars);
 
+        /*
         for(int i = 0; i < 1280; i++)
         {
             if(Random.rollInt(700) == 0)
@@ -66,6 +66,10 @@ public class Starfield extends Displayable
                 stars.add(new PixelStar(new Point(i, -3)));
             }
         }
+        */
+        //stars.add(new PixelStar(new Point(Random.rollInt(1280), -3)));
+        stars.add(new PixelStar(new Point(Random.rollInt(1280), -3)));
+        stars.add(new PixelStar(new Point(Random.rollInt(1280), -3)));
     }
 
     public static Starfield getInstance() {return instance;}

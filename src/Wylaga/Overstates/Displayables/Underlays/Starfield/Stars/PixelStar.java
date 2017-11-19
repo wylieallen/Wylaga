@@ -40,13 +40,9 @@ public class PixelStar extends Star
         }
         else if(roll < 90)
         {
-            color = Color.GRAY;
-        }
-        else if(roll < 93)
-        {
             color = Color.YELLOW;
         }
-        else if(roll < 95)
+        else if(roll < 94)
         {
             color = Color.CYAN;
         }

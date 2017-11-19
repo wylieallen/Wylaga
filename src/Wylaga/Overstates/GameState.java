@@ -34,11 +34,15 @@ public class GameState extends Overstate
     private Set<EntityDisplayable> entityDisplayables;
     private EntityDisplayableFactory entityDisplayableFactory;
 
+    private boolean paused;
+
     public GameState()
     {
         entityDisplayableFactory = new PrimitiveEDFactory();
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
+
+        paused = false;
 
         //super.addUnderlay(new Displayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
         super.addUnderlay(Starfield.getInstance());
@@ -58,8 +62,12 @@ public class GameState extends Overstate
     public void update()
     {
         playerController.update();
-        activeState.updateState();
-        super.update();
+
+        if(!paused)
+        {
+            activeState.updateState();
+            super.update();
+        }
 
         removeExpiredEntityDisplayables();
         addNewEntityDisplayables();
@@ -131,6 +139,7 @@ public class GameState extends Overstate
 
     private void togglePause()
     {
+        /*
         if (activeState == pausedGameState)
         {
             changeState(pausedGameState.previousState);
@@ -140,6 +149,8 @@ public class GameState extends Overstate
             pausedGameState.previousState = activeState;
             changeState(pausedGameState);
         }
+        */
+        paused = !paused;
     }
 
     private void changeState(GameSubstate nextState)
