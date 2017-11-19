@@ -26,7 +26,9 @@ public class InterfacePanel extends JPanel implements KeyListener
 
     private Map<Integer, KeyRole> keyMap;
 
-    //private long prevTime;
+    private long prevTime;
+    private long frameCount = 0;
+    private double millisElapsed = 0;
 
     public InterfacePanel(int width, int height) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -42,9 +44,12 @@ public class InterfacePanel extends JPanel implements KeyListener
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
-                //long curTime = System.currentTimeMillis();
-                //System.out.println(curTime - prevTime);
-                //prevTime = curTime;
+                long curTime = System.currentTimeMillis();
+                long delta = curTime - prevTime;
+                millisElapsed += delta;
+                double msPerFrame = millisElapsed / ++frameCount;
+                System.out.printf(delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
+                prevTime = curTime;
 
                 activeOverstate.update();
                 renderer.drawOverstate(activeOverstate);
@@ -53,6 +58,8 @@ public class InterfacePanel extends JPanel implements KeyListener
                 renderTimer.restart();
             }
         });
+
+        prevTime = System.currentTimeMillis();
 
         renderTimer.start();
     }
