@@ -25,7 +25,7 @@ public abstract class Overstate
     public void addOverlay(Displayable displayable) {overlays.add(displayable);}
     public void addUnderlay(Displayable displayable) {underlays.add(displayable);}
 
-    public void updateView()
+    public void update()
     {
         updateDisplayables(underlays);
 
@@ -49,8 +49,6 @@ public abstract class Overstate
     {
         displayables.add(set);
     }
-
-    public abstract void updateModel();
 
     public abstract void parseKeyPress(KeyRole role);
     public abstract void parseKeyRelease(KeyRole role);
