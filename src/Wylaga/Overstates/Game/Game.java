@@ -65,6 +65,7 @@ public class Game
 
     private void updateEntities()
     {
+        newEntities.clear();
         updateShips();
         updateProjectiles();
     }
@@ -136,12 +137,7 @@ public class Game
     }
 
     public Set<Set<? extends Entity>> getEntities() { return entities; }
-    public Set<Entity> getNewEntities()
-    {
-        Set<Entity> oldNewEntities = newEntities;
-        newEntities = new HashSet<>();
-        return oldNewEntities;
-    }
+    public Set<Entity> getNewEntities() { return newEntities; }
     public PlayerShip getPlayerShip()
     {
         return playerShip;

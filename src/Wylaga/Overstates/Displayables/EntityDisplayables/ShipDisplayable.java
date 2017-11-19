@@ -19,7 +19,6 @@ public class ShipDisplayable extends EntityDisplayable
         this.hurtImage = hurtImage;
         this.state = new BaseState();
     }
-
     public void update() { state.update(); }
 
     private abstract class ShipState
