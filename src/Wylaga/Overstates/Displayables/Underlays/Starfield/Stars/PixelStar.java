@@ -1,4 +1,4 @@
-package Wylaga.Overstates.Displayables.Underlays.Stars;
+package Wylaga.Overstates.Displayables.Underlays.Starfield.Stars;
 
 import Wylaga.Util.Random;
 
@@ -7,13 +7,15 @@ import java.awt.image.BufferedImage;
 
 public class PixelStar extends Star
 {
+    private int velocity;
+
     public PixelStar(Point point)
     {
         super(point, new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB));
         Graphics2D g2d = super.getImage().createGraphics();
         int roll = Random.rollInt(10);
         int size = 0;
-        if (roll < 4)
+        if (roll < 6)
         {
             size = 1;
         }
@@ -21,7 +23,7 @@ public class PixelStar extends Star
         {
             size = 2;
         }
-        else if (roll <= 9)
+        else if (roll == 9)
         {
             size = 3;
         }
@@ -57,7 +59,38 @@ public class PixelStar extends Star
             color = Color.MAGENTA;
         }
 
-        g2d.setColor(color);
-        g2d.fillRect(0, 0, size, size);
+        if(size == 3)
+        {
+            int rgb = color.getRGB();
+            BufferedImage image = super.getImage();
+            if(Random.rollInt(2) == 0)
+            {
+                image.setRGB(1, 0, rgb);
+                image.setRGB(0, 1, rgb);
+                image.setRGB(1, 1, rgb);
+                image.setRGB(2, 1, rgb);
+                image.setRGB(1, 2, rgb);
+            }
+            else
+            {
+                image.setRGB(0, 0, rgb);
+                image.setRGB(2, 0, rgb);
+                image.setRGB(1, 1, rgb);
+                image.setRGB(0, 2, rgb);
+                image.setRGB(2, 2, rgb);
+            }
+        }
+        else
+        {
+            g2d.setColor(color);
+            g2d.fillRect(0, 0, size, size);
+        }
+
+        velocity = Random.rollInt(5) + 1;
+    }
+
+    public void update()
+    {
+        super.getPosition().translate(0, velocity);
     }
 }

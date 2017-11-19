@@ -1,4 +1,4 @@
-package Wylaga.Overstates.Displayables.Underlays.Stars;
+package Wylaga.Overstates.Displayables.Underlays.Starfield.Stars;
 
 import Wylaga.Overstates.Displayables.Displayable;
 

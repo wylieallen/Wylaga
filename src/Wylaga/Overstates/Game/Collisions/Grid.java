@@ -32,6 +32,8 @@ public class Grid
         cellWidth = width / cellCols;
         cellHeight = height / cellRows;
 
+        Dimension cellSize = new Dimension(cellWidth, cellHeight);
+
         cells = new Cell[cellCols][cellRows];
 
         occupiedCells = new HashSet<>();
@@ -40,7 +42,7 @@ public class Grid
         {
             for(int j = 0; j < cellRows; j++)
             {
-                cells[i][j] = new Cell();
+                cells[i][j] = new Cell(new Point(i * cellWidth,  j * cellHeight), cellSize);
             }
         }
     }
@@ -55,8 +57,8 @@ public class Grid
 
     public void addToCells(Entity entity)
     {
-        Point originCell = getCell(entity.getOrigin());
-        Point terminusCell = getCell(entity.getTerminus());
+        Point originCell = getCellIndices(entity.getOrigin());
+        Point terminusCell = getCellIndices(entity.getTerminus());
 
         for(int i = originCell.x; inRange(0, i, Math.min(terminusCell.x, cellCols - 1)); i++)
         {
@@ -71,12 +73,30 @@ public class Grid
 
     private boolean inRange(int min, int val, int max) { return min <= val && val <= max; }
 
-    private Point getCell(Point point)
+    private Point getCellIndices(Point point)
     {
         return new Point(point.x / cellWidth, point.y / cellHeight);
     }
 
     public Set<Cell> getOccupiedCells() { return occupiedCells; }
+
+    public int getCellWidth() { return cellWidth; }
+    public int getCellHeight() { return cellHeight; }
+    public int getCellCols() { return cellCols; }
+    public int getCellRows() { return cellRows; }
+
+    public Set<Cell> getAllCells()
+    {
+        Set<Cell> cellList = new HashSet<>();
+        for(int i = 0; i < cellCols; i++)
+        {
+            for(int j = 0; j < cellRows; j++)
+            {
+                cellList.add(cells[i][j]);
+            }
+        }
+        return cellList;
+    }
 
     public void clear()
     {

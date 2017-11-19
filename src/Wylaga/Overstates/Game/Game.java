@@ -58,9 +58,9 @@ public class Game
     {
         // Updating then colliding prevents player from going slightly out of bounds
         // Colliding then updating allows player to go slightly out of bounds before snapping back
-        collisionManager.processCollisions();
         wave.update();
         updateEntities();
+        collisionManager.processCollisions();
     }
 
     private void updateEntities()
@@ -146,6 +146,11 @@ public class Game
 
     public int getWaveCount() {
         return waveCount;
+    }
+
+    public Grid getGrid()
+    {
+        return collisionManager.grid;
     }
 
     private class CollisionManager

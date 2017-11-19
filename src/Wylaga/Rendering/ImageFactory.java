@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 public class ImageFactory
 {
 
-    private static final BufferedImage basePlayerImage = makeFilledRect(PlayerShip.defaultDimension, Color.YELLOW);
+    private static final BufferedImage basePlayerImage = makeFilledRect(PlayerShip.defaultDimension, Color.MAGENTA);
     private static final BufferedImage hurtPlayerImage = makeFilledRect(PlayerShip.defaultDimension, Color.RED);
-    private static final BufferedImage projectileImage = makeFilledOval(Projectile.defaultDimension, Color.ORANGE);
+    private static final BufferedImage projectileImage = makeFilledOval(Projectile.defaultDimension, Color.GREEN);
     private static final BufferedImage baseEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
     private static final BufferedImage hurtEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.RED);
 
