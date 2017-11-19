@@ -46,12 +46,12 @@ public class InterfacePanel extends JPanel implements KeyListener
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
-                long curTime = System.currentTimeMillis();
-                long delta = curTime - prevTime;
-                millisElapsed += delta;
-                double msPerFrame = millisElapsed / ++frameCount;
-                System.out.printf(delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
-                prevTime = curTime;
+                //long curTime = System.currentTimeMillis();
+                //long delta = curTime - prevTime;
+                //millisElapsed += delta;
+                //double msPerFrame = millisElapsed / ++frameCount;
+                //System.out.printf(delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
+                //prevTime = curTime;
 
                 activeOverstate.updateView();
                 renderer.drawOverstate(activeOverstate);
