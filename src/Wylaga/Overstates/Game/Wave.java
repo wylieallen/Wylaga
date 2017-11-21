@@ -16,6 +16,8 @@ public class Wave
     private Set<Ship> ships;
     private Ship leftShip;
     private Ship rightShip;
+    private Ship topShip;
+    private Ship bottomShip;
 
     public Wave(int waveNumber)
     {
@@ -31,6 +33,8 @@ public class Wave
 
         resetLeftShip();
         resetRightShip();
+        resetTopShip();
+        resetBottomShip();
     }
 
     public void update()
@@ -52,6 +56,14 @@ public class Wave
             if(expiredShips.contains(rightShip))
             {
                 resetRightShip();
+            }
+            if(expiredShips.contains(topShip))
+            {
+                resetTopShip();
+            }
+            if(expiredShips.contains(bottomShip))
+            {
+                resetBottomShip();
             }
 
             double speed = getSpeed();
@@ -95,8 +107,36 @@ public class Wave
         }
     }
 
+    private void resetTopShip()
+    {
+        Point topMax = new Point(0, 9999);
+        for(Ship ship : ships)
+        {
+            if(ship.getOrigin().y < topMax.y)
+            {
+                topMax = ship.getOrigin();
+                topShip = ship;
+            }
+        }
+    }
+
+    private void resetBottomShip()
+    {
+        Point bottomMax = new Point(0, -9999);
+        for(Ship ship : ships)
+        {
+            if(ship.getOrigin().y > bottomMax.y)
+            {
+                bottomMax = ship.getOrigin();
+                bottomShip = ship;
+            }
+        }
+    }
+
     public Ship getLeftShip() {return leftShip;}
     public Ship getRightShip() {return rightShip;}
+    public Ship getTopShip() {return topShip;}
+    public Ship getBottomShip() {return bottomShip;}
 
     public Set<Ship> getShips() {
         return ships;

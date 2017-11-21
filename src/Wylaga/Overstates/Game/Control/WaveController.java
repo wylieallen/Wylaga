@@ -36,6 +36,8 @@ public class WaveController implements GameController
     {
         Point leftPoint = wave.getLeftShip().getOrigin();
         Point rightPoint = wave.getRightShip().getOrigin();
+        Point topPoint = wave.getTopShip().getOrigin();
+        Point bottomPoint = wave.getBottomShip().getOrigin();
 
         int dx, dy;
 

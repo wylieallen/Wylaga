@@ -33,6 +33,7 @@ public class GameState extends Overstate
     private PlayerController playerController;
 
     private Set<EntityDisplayable> entityDisplayables;
+    private Set<Displayable> explosions;
     private EntityDisplayableFactory entityDisplayableFactory;
 
     private boolean paused;
@@ -49,12 +50,15 @@ public class GameState extends Overstate
         super.addUnderlay(Starfield.getInstance());
         //super.addUnderlay(new GridVisualizer(new Point(0, 0), new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB), game.getGrid()));
         super.addOverlay(new HealthHudOverlay(new Point(10, 10), game.getPlayerShip()));
-        super.addOverlay(new ScoreHudOverlay(new Point(10, 40), game));
-        super.addOverlay(new FuelHudOverlay(new Point(10, 70), game.getPlayerShip()));
+        super.addOverlay(new ScoreHudOverlay(new Point(10, 35), game));
+        super.addOverlay(new FuelHudOverlay(new Point(10, 60), game.getPlayerShip()));
 
         entityDisplayables = new HashSet<>();
         super.addDisplays(entityDisplayables);
         addNewEntityDisplayables();
+
+        explosions = new HashSet<>();
+        super.addDisplays(explosions);
 
         activeState = new PreWaveSubstate();
         activeState.swapIn();
@@ -77,16 +81,32 @@ public class GameState extends Overstate
     private void removeExpiredEntityDisplayables()
     {
         List<EntityDisplayable> expiredEntityDisplayables = new ArrayList<>();
+        List<Displayable> expiredExplosions = new ArrayList<>();
+        List<Displayable> successorDisplayables = new ArrayList<>();
 
         for(EntityDisplayable entityDisplayable : entityDisplayables)
         {
             if(entityDisplayable.expired())
             {
                 expiredEntityDisplayables.add(entityDisplayable);
+                Displayable successor = entityDisplayable.getSuccessorDisplayable();
+                successor.getPosition().translate(-(successor.getImage().getWidth() / 2), -(successor.getImage().getHeight() / 2));
+                successorDisplayables.add(successor);
             }
         }
 
+        for(Displayable explosion : explosions)
+        {
+            if(explosion.expired())
+            {
+                expiredExplosions.add(explosion);
+            }
+        }
+
+        explosions.removeAll(expiredExplosions);
         entityDisplayables.removeAll(expiredEntityDisplayables);
+
+        explosions.addAll(successorDisplayables);
     }
 
     private void addNewEntityDisplayables()

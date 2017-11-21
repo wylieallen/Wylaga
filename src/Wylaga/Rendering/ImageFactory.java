@@ -2293,7 +2293,7 @@ public class ImageFactory
         BufferedImage image = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
         Graphics g2d = image.createGraphics();
         g2d.setColor(color);
-        g2d.fillOval(0, 0, dimension.width,  dimension.height);
+        g2d.fillOval(0, 0, dimension.width - 1,  dimension.height - 1);
         g2d.setColor(Color.WHITE);
         g2d.drawOval(0, 0, dimension.width - 1, dimension.height - 1);
         return image;

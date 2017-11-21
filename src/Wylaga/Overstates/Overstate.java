@@ -13,9 +13,14 @@ public abstract class Overstate
 
     public Overstate()
     {
-        displayables = new HashSet<>();
+        // Underlays are drawn first, followed by displayables, followed by overlays.
+        // HashSet doesn't preserve insertion order, so there's no guarantee of draw order within a given layer.
         underlays = new HashSet<>();
         overlays = new HashSet<>();
+
+        // LinkedHashSet is used for displayables to preserve insertion order
+        // Concrete Overstates can add collections to displayables to expand layering beyond just underlays and overlays.
+        displayables = new LinkedHashSet<>();
     }
 
     public Set<Displayable> getUnderlays() {return underlays;}

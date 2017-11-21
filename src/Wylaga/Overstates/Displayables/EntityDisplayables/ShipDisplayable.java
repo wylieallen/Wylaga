@@ -1,5 +1,6 @@
 package Wylaga.Overstates.Displayables.EntityDisplayables;
 
+import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.image.BufferedImage;
@@ -11,14 +12,15 @@ public class ShipDisplayable extends EntityDisplayable
     private BufferedImage hurtImage;
     private ShipState state;
 
-    public ShipDisplayable(Ship ship, BufferedImage baseImage, BufferedImage hurtImage)
+    public ShipDisplayable(Ship ship, BufferedImage baseImage, BufferedImage hurtImage, Displayable successor)
     {
-        super(ship, baseImage);
+        super(ship, baseImage, successor);
         this.ship = ship;
         this.baseImage = baseImage;
         this.hurtImage = hurtImage;
         this.state = new BaseState();
     }
+
     public void update() { state.update(); }
 
     private abstract class ShipState

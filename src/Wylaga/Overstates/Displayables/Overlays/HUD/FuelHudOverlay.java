@@ -20,7 +20,7 @@ public class FuelHudOverlay extends HudOverlay
     public void drawImage()
     {
         g2d.setColor(Color.WHITE);
-        String string = "FUEL: " + ship.getCurFuel() + " / " + ship.getMaxFuel();
+        String string = "POWER: " + ship.getCurFuel() + " / " + ship.getMaxFuel();
         g2d.drawString(string,5, 12);
     }
 

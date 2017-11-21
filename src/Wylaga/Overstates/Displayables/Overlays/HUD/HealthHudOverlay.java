@@ -20,7 +20,7 @@ public class HealthHudOverlay extends HudOverlay
     public void drawImage()
     {
         g2d.setColor(Color.WHITE);
-        String string = "HP: " + ship.getHealth() + " / 100";
+        String string = "SHIELD: " + ship.getHealth() + " / 100";
         g2d.drawString(string,5, 12);
     }
 

@@ -12,7 +12,7 @@ public abstract class HudOverlay extends Displayable
 
     public HudOverlay(Point position)
     {
-        super(position, new BufferedImage(100, 20, BufferedImage.TYPE_INT_ARGB));
+        super(position, new BufferedImage(120, 20, BufferedImage.TYPE_INT_ARGB));
         BufferedImage image = super.getImage();
         this.g2d = image.createGraphics();
         g2d.setBackground(new Color(0, 0, 0, 0));

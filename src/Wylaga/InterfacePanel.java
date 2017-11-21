@@ -23,6 +23,8 @@ public class InterfacePanel extends JPanel implements KeyListener
     private javax.swing.Timer renderTimer;
 
     private Overstate activeOverstate;
+    private Overstate mainMenu;
+    private Overstate gameState;
 
     private Map<Integer, KeyRole> keyMap;
 
@@ -34,6 +36,8 @@ public class InterfacePanel extends JPanel implements KeyListener
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         activeOverstate = MenuFactory.makeStartMenu(this::deployMainMenu);
+        mainMenu = MenuFactory.makeMainMenu(this::startGame);
+        gameState = new GameState();
 
         renderer = new Renderer(image.createGraphics());
 
@@ -91,11 +95,11 @@ public class InterfacePanel extends JPanel implements KeyListener
         keyMap.put(KeyEvent.VK_ESCAPE, KeyRole.PAUSE);
     }
 
-    public void deployMainMenu() { activeOverstate = MenuFactory.makeMainMenu(this::startGame);}
+    public void deployMainMenu() { activeOverstate = mainMenu;}
 
     public void startGame()
     {
-        activeOverstate = new GameState();
+        activeOverstate = gameState;
     }
 
     public void keyTyped(KeyEvent e) {}

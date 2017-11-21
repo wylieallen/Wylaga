@@ -12,25 +12,29 @@ import java.awt.Point;
 
 public class MenuFactory
 {
+
     public static Menu makeMainMenu(ButtonFunction startGameFunction)
     {
-        Menu startMenu = new VerticalMenu();
+        Menu mainMenu = new VerticalMenu();
         //startMenu.addDisplay(new Displayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
-        startMenu.addUnderlay(Starfield.getInstance());
+        mainMenu.addUnderlay(Starfield.getInstance());
+        mainMenu.addDisplay(new Displayable(new Point(590, 650), ImageFactory.getSmallBasePlayerImage()));
+        mainMenu.addDisplay(new Displayable(new Point(665, 650), ImageFactory.getSmallBasePlayerImage()));
+        mainMenu.addDisplay(new Displayable(new Point(615, 600), ImageFactory.getBasePlayerImage()));
         Button gameStartButton = ButtonFactory.makeStartButton(VerticalMenu.buttonPoints[1], startGameFunction);
-        startMenu.addButton(gameStartButton);
+        mainMenu.addButton(gameStartButton);
         Button exitButton = ButtonFactory.makeExitButton(VerticalMenu.buttonPoints[2]);
-        startMenu.addButton(exitButton);
-        return startMenu;
+        mainMenu.addButton(exitButton);
+        return mainMenu;
     }
 
     public static Menu makeStartMenu(AbstractFunction initialFunction)
     {
         Menu startMenu = new TrivialMenu(initialFunction);
         startMenu.addUnderlay(Starfield.getInstance());
-        startMenu.addDisplay(new Displayable(new Point(590, 550), ImageFactory.getSmallBasePlayerImage()));
-        startMenu.addDisplay(new Displayable(new Point(665, 550), ImageFactory.getSmallBasePlayerImage()));
-        startMenu.addDisplay(new Displayable(new Point(615, 500), ImageFactory.getBasePlayerImage()));
+        startMenu.addDisplay(new Displayable(new Point(590, 650), ImageFactory.getSmallBasePlayerImage()));
+        startMenu.addDisplay(new Displayable(new Point(665, 650), ImageFactory.getSmallBasePlayerImage()));
+        startMenu.addDisplay(new Displayable(new Point(615, 600), ImageFactory.getBasePlayerImage()));
         return startMenu;
     }
 }
