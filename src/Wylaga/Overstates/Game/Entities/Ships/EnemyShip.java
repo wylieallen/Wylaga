@@ -2,6 +2,7 @@ package Wylaga.Overstates.Game.Entities.Ships;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
+import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 

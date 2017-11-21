@@ -2,6 +2,7 @@ package Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFacto
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayable;
+import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
@@ -17,6 +18,11 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile)
     {
         return new EntityDisplayable(projectile, ImageFactory.getProjectileImage());
+    }
+
+    public EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile)
+    {
+        return new EntityDisplayable(projectile, ImageFactory.getPlayerProjectileImage());
     }
 
     public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip)

@@ -1,5 +1,6 @@
 package Wylaga.Rendering;
 
+import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
@@ -12,9 +13,11 @@ public class ImageFactory
 
     private static final BufferedImage basePlayerImage = makeBigPlayerSprite(); //makeFilledRect(PlayerShip.defaultDimension, Color.MAGENTA);
     private static final BufferedImage hurtPlayerImage = makeBigHurtPlayerSprite(); //makeFilledRect(PlayerShip.defaultDimension, Color.RED);
+    private static final BufferedImage playerProjectileImage = makeBorderedRect(PlayerProjectile.defaultDimension, Color.RED);
     private static final BufferedImage projectileImage = makeFilledOval(Projectile.defaultDimension, Color.GREEN);
     private static final BufferedImage baseEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
     private static final BufferedImage hurtEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.RED);
+    private static final BufferedImage smallBasePlayerImage = makePlayerSprite();
 
     // Sprite construction:
 
@@ -2256,6 +2259,17 @@ public class ImageFactory
 
     // Geometric primitives:
 
+    public static BufferedImage makeBorderedRect(Dimension dimension, Color color)
+    {
+        BufferedImage image = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g2d = image.createGraphics();
+        g2d.setColor(color);
+        g2d.fillRect(0, 0, dimension.width,  dimension.height);
+        g2d.setColor(Color.WHITE);
+        g2d.drawRect(0, 0, dimension.width - 1, dimension.height - 1);
+        return image;
+    }
+
     public static BufferedImage makeBlackRect(int width, int height)
     {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -2370,4 +2384,10 @@ public class ImageFactory
     public static BufferedImage getBaseEnemyImage() { return baseEnemyImage; }
 
     public static BufferedImage getHurtEnemyImage() { return hurtEnemyImage; }
+
+    public static BufferedImage getPlayerProjectileImage() {
+        return playerProjectileImage;
+    }
+
+    public static BufferedImage getSmallBasePlayerImage() { return smallBasePlayerImage; }
 }

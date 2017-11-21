@@ -54,7 +54,7 @@ public abstract class Ship extends Entity
         return newProjectiles;
     }
 
-    private Projectile getNewProjectile()
+    protected Projectile getNewProjectile()
     {
         return new Projectile(this);
     }

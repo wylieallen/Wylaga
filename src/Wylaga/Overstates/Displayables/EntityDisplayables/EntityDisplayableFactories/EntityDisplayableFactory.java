@@ -9,5 +9,6 @@ public interface EntityDisplayableFactory
 {
     public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip);
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile);
+    public EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile);
     public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip);
 }

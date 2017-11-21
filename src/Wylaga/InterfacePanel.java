@@ -33,7 +33,7 @@ public class InterfacePanel extends JPanel implements KeyListener
     public InterfacePanel(int width, int height) {
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        activeOverstate = MenuFactory.makeStartMenu(this::startGame);
+        activeOverstate = MenuFactory.makeStartMenu(this::deployMainMenu);
 
         renderer = new Renderer(image.createGraphics());
 
@@ -44,12 +44,19 @@ public class InterfacePanel extends JPanel implements KeyListener
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
+                // FPS monitoring:
+                /*
                 long curTime = System.currentTimeMillis();
                 long delta = curTime - prevTime;
                 millisElapsed += delta;
                 double msPerFrame = millisElapsed / ++frameCount;
-                System.out.printf(delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
+                if(delta > 28)
+                {
+                    System.out.println("!");
+                }
+                System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
+                */
 
                 activeOverstate.update();
                 renderer.drawOverstate(activeOverstate);
@@ -83,6 +90,8 @@ public class InterfacePanel extends JPanel implements KeyListener
         keyMap.put(KeyEvent.VK_ENTER, KeyRole.SELECT);
         keyMap.put(KeyEvent.VK_ESCAPE, KeyRole.PAUSE);
     }
+
+    public void deployMainMenu() { activeOverstate = MenuFactory.makeMainMenu(this::startGame);}
 
     public void startGame()
     {

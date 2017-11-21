@@ -29,6 +29,14 @@ public class Projectile extends Entity
         active = true;
     }
 
+    public Projectile(Point position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage)
+    {
+        super(position, dimension, team, speed);
+        super.setTrajectory(trajectory);
+        this.damage = damage;
+        this.active = true;
+    }
+
     // Entity interface:
     public void update()
     {
