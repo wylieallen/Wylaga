@@ -1,9 +1,11 @@
 package Wylaga.Overstates;
 
+import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Displayables.Displayable;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Overstate
 {
@@ -15,8 +17,8 @@ public abstract class Overstate
     {
         // Underlays are drawn first, followed by displayables, followed by overlays.
         // HashSet doesn't preserve insertion order, so there's no guarantee of draw order within a given layer.
-        underlays = new HashSet<>();
-        overlays = new HashSet<>();
+        underlays = Collections.newSetFromMap(new ConcurrentHashMap<Displayable, Boolean>());;
+        overlays = Collections.newSetFromMap(new ConcurrentHashMap<Displayable, Boolean>());;
 
         // LinkedHashSet is used for displayables to preserve insertion order
         // Concrete Overstates can add collections to displayables to expand layering beyond just underlays and overlays.

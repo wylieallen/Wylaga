@@ -55,7 +55,7 @@ public class GameState extends Overstate
         super.addDisplays(entityDisplayables);
         addNewEntityDisplayables();
 
-        explosions = new HashSet<>();
+        explosions = Collections.newSetFromMap(new ConcurrentHashMap<Displayable, Boolean>());
         super.addDisplays(explosions);
 
         activeState = new PreWaveSubstate();
@@ -220,7 +220,7 @@ public class GameState extends Overstate
 
         protected boolean readyToTransitionState()
         {
-            return ++counter >= 180;
+            return ++counter >= 160;
         }
 
         protected GameSubstate getNextState()

@@ -5,8 +5,11 @@ import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageFactory
 {
@@ -15,14 +18,43 @@ public class ImageFactory
     private static final BufferedImage hurtPlayerImage = makeBigHurtPlayerSprite(); //makeFilledRect(PlayerShip.defaultDimension, Color.RED);
     private static final BufferedImage playerProjectileImage = makeBorderedRect(PlayerProjectile.defaultDimension, Color.RED);
     private static final BufferedImage projectileImage = makeFilledOval(Projectile.defaultDimension, Color.GREEN);
-    private static final BufferedImage baseEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
-    private static final BufferedImage hurtEnemyImage = makeFilledOval(EnemyShip.defaultDimension, Color.RED);
+
+    private static final BufferedImage baseEnemyImage = makeBaseEnemySprite();//makeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
+    private static final BufferedImage hurtEnemyImage = makeHurtEnemySprite();//makeFilledOval(EnemyShip.defaultDimension, Color.RED);
     private static final BufferedImage smallBasePlayerImage = makePlayerSprite();
+
 
     // Sprite construction:
 
+    private static BufferedImage makeBaseEnemySprite()
+    {
+        try
+        {
+            return ImageIO.read(new File("BaseEnemy.png"));
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static BufferedImage makeHurtEnemySprite()
+    {
+        try
+        {
+            return ImageIO.read(new File("HurtEnemy.png"));
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private static BufferedImage makeBigHurtPlayerSprite()
     {
+
         BufferedImage image = new BufferedImage(50, 39, BufferedImage.TYPE_INT_ARGB);
         int bodyRGB = 0xFFFF0000;
 
