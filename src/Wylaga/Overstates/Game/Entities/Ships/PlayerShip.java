@@ -12,7 +12,7 @@ import java.awt.*;
 public class PlayerShip extends Ship
 {
     public static final Dimension defaultDimension = new Dimension(50, 39);
-    private static final int defaultSpeed = 5, defaultHealth = 100000, defaultScorePenalty = -100;
+    private static final int defaultSpeed = 5, defaultHealth = 100, defaultScorePenalty = -100;
 
     private SpecialModule specialModule = new TurboModule();
 
