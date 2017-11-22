@@ -42,11 +42,7 @@ public class Explosion extends Displayable
 
     public void update()
     {
-        //System.out.println("Updating an explosion");
-
-
         --lifespan;
-
 
         g2d.clearRect(0, 0, size, size);
 
