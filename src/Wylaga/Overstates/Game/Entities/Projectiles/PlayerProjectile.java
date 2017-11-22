@@ -16,7 +16,7 @@ public class PlayerProjectile extends Projectile
     public PlayerProjectile(PlayerShip creator)
     {
         super(new Point(creator.getOrigin()), defaultDimension, Team.PLAYER, defaultSpeed, Trajectory.getDirection(0, -1), 10);
-        super.translatePosition((creator.getDimension().width / 2) - (defaultDimension.width / 2), -defaultDimension.height);
+        super.translatePosition((creator.getDimension().width / 2) - (defaultDimension.width / 2), -defaultDimension.height + 10);
     }
 
     public static Dimension getDefaultDimension() {return defaultDimension;}

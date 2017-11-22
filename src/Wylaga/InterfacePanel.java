@@ -15,12 +15,14 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
 
 public class InterfacePanel extends JPanel implements KeyListener
 {
     private BufferedImage image;
     private Renderer renderer;
     private javax.swing.Timer renderTimer;
+    private java.util.Timer gameTimer;
 
     private Overstate activeOverstate;
     private Overstate mainMenu;
@@ -44,12 +46,12 @@ public class InterfacePanel extends JPanel implements KeyListener
         initializeKeyMap();
 
         // 1 frame per 17 ms ~= 60 frames per second
-        renderTimer = new javax.swing.Timer(17, new ActionListener() {
+        renderTimer = new javax.swing.Timer(14, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
                 // FPS monitoring:
-                /*
+
                 long curTime = System.currentTimeMillis();
                 long delta = curTime - prevTime;
                 millisElapsed += delta;
@@ -60,15 +62,25 @@ public class InterfacePanel extends JPanel implements KeyListener
                 }
                 System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
-                */
 
-                activeOverstate.update();
+
+                //activeOverstate.updateModel();
+                activeOverstate.updateView();
                 renderer.drawOverstate(activeOverstate);
                 repaint();
 
                 renderTimer.restart();
             }
         });
+
+
+
+        gameTimer = new java.util.Timer();
+        gameTimer.schedule(new TimerTask()
+        {
+           public void run() {activeOverstate.updateModel();}
+        }, 0, 20);
+
 
         prevTime = System.currentTimeMillis();
 

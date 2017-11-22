@@ -65,7 +65,6 @@ public class Game
 
     private void updateEntities()
     {
-        newEntities.clear();
         updateShips();
         updateProjectiles();
     }
@@ -118,26 +117,33 @@ public class Game
         return wave.isDestroyed();
     }
 
-    private void spawnShip(Ship ship)
+    private synchronized void spawnShip(Ship ship)
     {
         ships.add(ship);
         newEntities.add(ship);
     }
 
-    private void spawnShips(Set<Ship> newShips)
+    private synchronized void spawnShips(Set<Ship> newShips)
     {
         ships.addAll(newShips);
         newEntities.addAll(newShips);
     }
 
-    private void spawnProjectiles(Set<Projectile> newProjectiles)
+    private synchronized void spawnProjectiles(Set<Projectile> newProjectiles)
     {
         projectiles.addAll(newProjectiles);
         newEntities.addAll(newProjectiles);
     }
 
     public Set<Set<? extends Entity>> getEntities() { return entities; }
-    public Set<Entity> getNewEntities() { return newEntities; }
+
+    public synchronized Set<Entity> getNewEntities()
+    {
+        Set<Entity> newbies = newEntities;
+        newEntities = new HashSet<>();
+        return newbies;
+    }
+
     public PlayerShip getPlayerShip()
     {
         return playerShip;
