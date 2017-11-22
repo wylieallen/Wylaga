@@ -17,7 +17,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip)
     {
         return new ShipDisplayable(playerShip, ImageFactory.getBasePlayerImage(), ImageFactory.getHurtPlayerImage(), ImageFactory.getFiringPlayerImage(),
-                new Explosion(playerShip.getOrigin(), 500, Color.CYAN, 100));
+                new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100));
     }
 
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile)
@@ -35,6 +35,6 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip)
     {
         return new ShipDisplayable(enemyShip, ImageFactory.getBaseEnemyImage(), ImageFactory.getHurtEnemyImage(), ImageFactory.getFiringEnemyImage(),
-                new Explosion(enemyShip.getOrigin(), 240, Color.ORANGE, 80));
+                new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80));
     }
 }
