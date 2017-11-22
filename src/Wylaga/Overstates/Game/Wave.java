@@ -26,10 +26,9 @@ public class Wave
         controller = new WaveController(this);
         ships = new HashSet<>();
 
-        // todo: Wave shouldn't need to know all this position data to instantiate its ships
-        for (int x = 32; x <= 500 - 32; x += 100)
-            for (int y = 32; y <= 384 - 64 - 32; y += 75)
-                ships.add(new EnemyShip(new Point(x, y)));
+        for (int i = 0; i < 5; i++)
+            for(int j = 0; j < 4; j++)
+                ships.add(new EnemyShip(new Point((440 - 13) + 100 * i, -325 + 75 * j)));
 
         resetLeftShip();
         resetRightShip();

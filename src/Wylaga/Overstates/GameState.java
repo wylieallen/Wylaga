@@ -19,10 +19,8 @@ import sun.awt.image.BufferedImageDevice;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameState extends Overstate
 {
@@ -53,7 +51,7 @@ public class GameState extends Overstate
         super.addOverlay(new ScoreHudOverlay(new Point(10, 35), game));
         super.addOverlay(new FuelHudOverlay(new Point(10, 60), game.getPlayerShip()));
 
-        entityDisplayables = new HashSet<>();
+        entityDisplayables = Collections.newSetFromMap(new ConcurrentHashMap<EntityDisplayable, Boolean>());
         super.addDisplays(entityDisplayables);
         addNewEntityDisplayables();
 

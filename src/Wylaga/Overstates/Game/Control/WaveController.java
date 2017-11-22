@@ -39,6 +39,12 @@ public class WaveController implements GameController
         Point topPoint = wave.getTopShip().getOrigin();
         Point bottomPoint = wave.getBottomShip().getOrigin();
 
+        if(topPoint.y < 32)
+        {
+            trajectory = Trajectory.getDirection(0, 1);
+            return;
+        }
+
         int dx, dy;
 
         if(trajectory.getDx() == 1)
@@ -56,7 +62,7 @@ public class WaveController implements GameController
         }
         else if(trajectory.getDx() == -1)
         {
-            if(leftPoint.x <= 64)
+            if(leftPoint.x <= 32)
             {
                 dx = 0;
                 dy = 1;
