@@ -7,6 +7,7 @@ import Wylaga.Util.Trajectory;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Explosion extends Displayable
         {
             particle.update();
             //g2d.drawImage(particle.image, particle.origin.x, particle.origin.y, null);
-            g2d.fillRect(particle.position.x, particle.position.y, 2, 2);
+            g2d.fillRect((int) particle.position.x, (int) particle.position.y, 2, 2);
         }
 
     }
@@ -65,25 +66,25 @@ public class Explosion extends Displayable
     private class Particle
     {
         private Point origin;
-        private Point position;
+        private Point2D.Double position;
         private BufferedImage image;
         private Trajectory trajectory;
         private int speed;
-        private int dx;
-        private int dy;
+        private double dx;
+        private double dy;
 
         public Particle(Point origin, int width, int height)
         {
             this.origin = origin;
-            this.position = new Point(origin.x, origin.y);
+            this.position = new Point2D.Double(origin.x, origin.y);
             this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = image.createGraphics();
             this.speed = Random.rollInt(12) + 4;
             this.trajectory = new Trajectory(Random.rollInt(100) - 50, Random.rollInt(100) - 50);
             //System.out.println("Traj: " + trajectory.getDx() + "," + trajectory.getDy());
 
-            this.dx = (int) (trajectory.getDx() * speed);
-            this.dy = (int) (trajectory.getDy() * speed);
+            this.dx = (trajectory.getDx() * speed);
+            this.dy = (trajectory.getDy() * speed);
 
             if(dx == 0 && dy == 0)
             {
@@ -96,7 +97,7 @@ public class Explosion extends Displayable
 
         public void update()
         {
-            position.translate(dx, dy);
+            position.setLocation(position.x + dx, position.y + dy);
         }
 
         public BufferedImage getImage() {return image;}
