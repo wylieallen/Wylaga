@@ -13,16 +13,19 @@ import java.io.IOException;
 
 public class ImageFactory
 {
-
+    // Image IO is handled as soon as the ImageFactory class is loaded:
     private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png"); //makeFilledRect(PlayerShip.defaultDimension, Color.MAGENTA);
     private static final BufferedImage hurtPlayerImage = loadImage("HurtPlayer.png"); //makeFilledRect(PlayerShip.defaultDimension, Color.RED);
+    private static final BufferedImage firingPlayerImage = loadImage("FiringPlayer.png");
+
     private static final BufferedImage playerProjectileImage = loadImage("PlayerProjectile.png");
     private static final BufferedImage projectileImage = loadImage("Projectile.png");
 
-    private static final BufferedImage baseEnemyImage = loadImage("BaseEnemy.png");//makeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
+    private static final BufferedImage baseEnemyImage = loadImage("BaseEnemy.png");//massskeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
     private static final BufferedImage hurtEnemyImage = loadImage("HurtEnemy.png");//makeFilledOval(EnemyShip.defaultDimension, Color.RED);
-    private static final BufferedImage smallBasePlayerImage = loadImage("MiniPlayer.png");
+    private static final BufferedImage firingEnemyImage = loadImage("FiringEnemy.png");
 
+    private static final BufferedImage smallBasePlayerImage = loadImage("MiniPlayer.png");
 
     // Sprite construction:
 
@@ -172,4 +175,12 @@ public class ImageFactory
     }
 
     public static BufferedImage getSmallBasePlayerImage() { return smallBasePlayerImage; }
+
+    public static BufferedImage getFiringPlayerImage() {
+        return firingPlayerImage;
+    }
+
+    public static BufferedImage getFiringEnemyImage() {
+        return firingEnemyImage;
+    }
 }

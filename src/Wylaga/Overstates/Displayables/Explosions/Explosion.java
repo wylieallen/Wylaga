@@ -59,7 +59,7 @@ public class Explosion extends Displayable
 
     public boolean expired()
     {
-        return lifespan <= 0 || super.getPosition().y < -50;
+        return lifespan <= 0;
     }
 
     private class Particle

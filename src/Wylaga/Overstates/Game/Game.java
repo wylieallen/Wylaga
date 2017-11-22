@@ -117,19 +117,19 @@ public class Game
         return wave.isDestroyed();
     }
 
-    private synchronized void spawnShip(Ship ship)
+    private void spawnShip(Ship ship)
     {
         ships.add(ship);
         newEntities.add(ship);
     }
 
-    private synchronized void spawnShips(Set<Ship> newShips)
+    private void spawnShips(Set<Ship> newShips)
     {
         ships.addAll(newShips);
         newEntities.addAll(newShips);
     }
 
-    private synchronized void spawnProjectiles(Set<Projectile> newProjectiles)
+    private void spawnProjectiles(Set<Projectile> newProjectiles)
     {
         projectiles.addAll(newProjectiles);
         newEntities.addAll(newProjectiles);
@@ -137,7 +137,7 @@ public class Game
 
     public Set<Set<? extends Entity>> getEntities() { return entities; }
 
-    public synchronized Set<Entity> getNewEntities()
+    public Set<Entity> getNewEntities()
     {
         Set<Entity> newbies = newEntities;
         newEntities = new HashSet<>();
@@ -185,7 +185,7 @@ public class Game
         {
             for(Projectile projectile : cell.getProjectiles())
             {
-                if(!CollisionChecker.entityOnWorld(projectile, worldSize))
+                if(!CollisionChecker.entityNearWorld(projectile, worldSize))
                 {
                     projectile.deactivate();
                     continue;

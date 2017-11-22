@@ -10,14 +10,16 @@ public class ShipDisplayable extends EntityDisplayable
     private Ship ship;
     private BufferedImage baseImage;
     private BufferedImage hurtImage;
+    private BufferedImage firingImage;
     private ShipState state;
 
-    public ShipDisplayable(Ship ship, BufferedImage baseImage, BufferedImage hurtImage, Displayable successor)
+    public ShipDisplayable(Ship ship, BufferedImage baseImage, BufferedImage hurtImage, BufferedImage firingImage, Displayable successor)
     {
         super(ship, baseImage, successor);
         this.ship = ship;
         this.baseImage = baseImage;
         this.hurtImage = hurtImage;
+        this.firingImage = firingImage;
         this.state = new BaseState();
     }
 
@@ -45,9 +47,37 @@ public class ShipDisplayable extends EntityDisplayable
 
     private class BaseState extends ShipState
     {
-        protected boolean updateCondition() { return prevHealth > ship.getHealth(); }
-        protected ShipState nextState() { return new HurtState(); }
-        protected BufferedImage nextImage() { return hurtImage; }
+        private boolean firing = false;
+        private boolean hurt = false;
+
+        protected boolean updateCondition()
+        {
+            if(prevHealth > ship.getHealth())
+            {
+                hurt = true;
+                return true;
+            }
+            else if (ship.isFiring())
+            {
+                firing = true;
+                return true;
+            }
+            return false;
+        }
+
+        protected ShipState nextState()
+        {
+            if(hurt) return new HurtState();
+            if(firing) return new FiringState();
+            return new BaseState();
+        }
+
+        protected BufferedImage nextImage()
+        {
+            if(hurt) return hurtImage;
+            if(firing) return firingImage;
+            return baseImage;
+        }
     }
 
     private class HurtState extends ShipState
@@ -55,7 +85,41 @@ public class ShipDisplayable extends EntityDisplayable
         private int hurtAnimationDuration = 2;
 
         protected boolean updateCondition() { return --hurtAnimationDuration <= 0; }
-        protected ShipState nextState() { return new BaseState(); }
-        protected BufferedImage nextImage() { return baseImage; }
+        protected ShipState nextState()
+        {
+            if(ship.isFiring()) return new FiringState();
+            return new BaseState();
+        }
+        protected BufferedImage nextImage()
+        {
+            if(ship.isFiring()) return firingImage;
+            return baseImage;
+        }
+    }
+
+    private class FiringState extends ShipState
+    {
+        private FiringState() { prevHealth = ship.getHealth(); }
+
+        protected final int prevHealth;
+        private int firingAnimationDuration = 2;
+        private boolean hurt = false;
+
+        protected boolean updateCondition()
+        {
+            if (--firingAnimationDuration <= 0)
+            {
+                return true;
+            }
+            else if (prevHealth > ship.getHealth())
+            {
+                hurt = true;
+                return true;
+            }
+            return false;
+        }
+
+        protected ShipState nextState() { return hurt ? new HurtState() : new BaseState(); }
+        protected BufferedImage nextImage() { return hurt ? hurtImage : baseImage; }
     }
 }

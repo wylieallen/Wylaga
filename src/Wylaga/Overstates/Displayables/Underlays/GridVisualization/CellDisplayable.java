@@ -36,14 +36,7 @@ public class CellDisplayable extends Displayable
 
     public Color getColor()
     {
-        if(cellPopulation < 3)
-        {
-            return colors[cellPopulation];
-        }
-        else
-        {
-            return colors[3];
-        }
+        return cellPopulation < 3 ? colors[cellPopulation] : colors[3];
     }
 
     public void update()

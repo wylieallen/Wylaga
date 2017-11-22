@@ -16,25 +16,25 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
 {
     public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip)
     {
-        return new ShipDisplayable(playerShip, ImageFactory.getBasePlayerImage(), ImageFactory.getHurtPlayerImage(),
-                new Explosion(playerShip.getOrigin(), 500, Color.RED, 100));
+        return new ShipDisplayable(playerShip, ImageFactory.getBasePlayerImage(), ImageFactory.getHurtPlayerImage(), ImageFactory.getFiringPlayerImage(),
+                new Explosion(playerShip.getOrigin(), 500, Color.CYAN, 100));
     }
 
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile)
     {
         return new EntityDisplayable(projectile, ImageFactory.getProjectileImage(),
-                new Explosion(projectile.getOrigin(), 140, Color.ORANGE, 30));
+                new Explosion(projectile.getOrigin(), 140, Color.GREEN, 30));
     }
 
     public EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile)
     {
         return new EntityDisplayable(projectile, ImageFactory.getPlayerProjectileImage(),
-                new Explosion(projectile.getOrigin(),Random.rollInt(120) + 80, Color.ORANGE , 30));
+                new Explosion(projectile.getOrigin(),Random.rollInt(120) + 80, Color.RED , 30));
     }
 
     public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip)
     {
-        return new ShipDisplayable(enemyShip, ImageFactory.getBaseEnemyImage(), ImageFactory.getHurtEnemyImage(),
-                new Explosion(enemyShip.getOrigin(), 240, Color.RED, 80));
+        return new ShipDisplayable(enemyShip, ImageFactory.getBaseEnemyImage(), ImageFactory.getHurtEnemyImage(), ImageFactory.getFiringEnemyImage(),
+                new Explosion(enemyShip.getOrigin(), 240, Color.ORANGE, 80));
     }
 }

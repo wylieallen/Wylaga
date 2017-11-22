@@ -7,6 +7,7 @@ import java.awt.*;
 public class CollisionChecker
 {
     static private Point origin = new Point(0, 0);
+    static private Point farTopLeft = new Point(-75, -75);
 
     static private boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
     {
@@ -54,6 +55,16 @@ public class CollisionChecker
     static private Point makeMax(Point min, Dimension dimension)
     {
         return new Point(min.x + dimension.width, min.y + dimension.height);
+    }
+
+    static public boolean entityNearWorld(Entity entity, Dimension worldSize)
+    {
+        Point min1 = farTopLeft;
+        Point min2 = entity.getOrigin();
+        Point max1 = makeMax(min1, new Dimension(worldSize.width + 100, worldSize.height + 100));
+        Point max2 = makeMax(min2, entity.getDimension());
+
+        return rectanglesBounded(min1, max1, min2, max2);
     }
 
     static public boolean entityInWorld(Entity entity, Dimension worldSize)
