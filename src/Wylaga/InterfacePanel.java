@@ -39,7 +39,7 @@ public class InterfacePanel extends JPanel implements KeyListener
 
         activeOverstate = MenuFactory.makeStartMenu(this::deployMainMenu);
         mainMenu = MenuFactory.makeMainMenu(this::startGame);
-        gameState = new GameState();
+        gameState = new GameState(this::returnToMainMenu);
 
         renderer = new Renderer(image.createGraphics());
 
@@ -105,6 +105,12 @@ public class InterfacePanel extends JPanel implements KeyListener
 
         keyMap.put(KeyEvent.VK_ENTER, KeyRole.SELECT);
         keyMap.put(KeyEvent.VK_ESCAPE, KeyRole.PAUSE);
+    }
+
+    public void returnToMainMenu()
+    {
+        activeOverstate = mainMenu;
+        gameState = new GameState(this::returnToMainMenu);
     }
 
     public void deployMainMenu() { activeOverstate = mainMenu;}

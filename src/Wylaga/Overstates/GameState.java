@@ -7,6 +7,7 @@ import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
 import Wylaga.Overstates.Displayables.Underlays.GridVisualization.GridVisualizer;
 import Wylaga.Overstates.Displayables.Underlays.Starfield.Starfield;
 import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.AbstractFunction;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;
 import Wylaga.Overstates.Displayables.*;
@@ -36,13 +37,17 @@ public class GameState extends Overstate
 
     private boolean paused;
 
-    public GameState()
+    private AbstractFunction postGameFunction;
+
+    public GameState(AbstractFunction postGameFunction)
     {
         entityDisplayableFactory = new PrimitiveEDFactory();
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
 
         paused = false;
+
+        this.postGameFunction = postGameFunction;
 
         //super.addUnderlay(new Displayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
         super.addUnderlay(Starfield.getInstance());
@@ -66,13 +71,16 @@ public class GameState extends Overstate
     {
         playerController.update();
         if(!paused)
-            activeState.updateState();
+            advanceGame();
     }
 
     public void updateView()
     {
         if(!paused)
+        {
+            activeState.updateState();
             super.updateView();
+        }
 
         removeExpiredEntityDisplayables();
         addNewEntityDisplayables();
@@ -189,8 +197,6 @@ public class GameState extends Overstate
 
         public void updateState()
         {
-            advanceGame();
-
             if(readyToTransitionState())
             {
                 changeState(getNextState());
@@ -273,13 +279,19 @@ public class GameState extends Overstate
 
     private class GameOverSubstate extends GameSubstate
     {
+        private int counter;
+
         public GameOverSubstate()
         {
+            counter = 0;
             this.addDisplay(new GameOverDisplay(new Point(440, 320)));
         }
 
         protected boolean readyToTransitionState()
         {
+            if(++counter >= 300)
+                postGameFunction.execute();
+
             return false;
         }
 
