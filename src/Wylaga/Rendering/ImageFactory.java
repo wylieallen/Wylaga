@@ -1,10 +1,5 @@
 package Wylaga.Rendering;
 
-import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
-import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
-import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,18 +9,27 @@ import java.io.IOException;
 public class ImageFactory
 {
     // Image IO is handled as soon as the ImageFactory class is loaded:
-    private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png"); //makeFilledRect(PlayerShip.defaultDimension, Color.MAGENTA);
-    private static final BufferedImage hurtPlayerImage = loadImage("HurtPlayer.png"); //makeFilledRect(PlayerShip.defaultDimension, Color.RED);
-    private static final BufferedImage firingPlayerImage = loadImage("FiringPlayer.png");
+    private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png");
 
     private static final BufferedImage playerProjectileImage = loadImage("PlayerProjectile.png");
     private static final BufferedImage projectileImage = loadImage("Projectile.png");
 
-    private static final BufferedImage baseEnemyImage = loadImage("BaseEnemy.png");//massskeFilledOval(EnemyShip.defaultDimension, Color.BLUE);
-    private static final BufferedImage hurtEnemyImage = loadImage("HurtEnemy.png");//makeFilledOval(EnemyShip.defaultDimension, Color.RED);
-    private static final BufferedImage firingEnemyImage = loadImage("FiringEnemy.png");
-
     private static final BufferedImage smallBasePlayerImage = loadImage("MiniPlayer.png");
+
+    private static final BufferedImage enemyBaseChassis = loadImage("ComponentImages/EnemyBaseChassis.png");
+    private static final BufferedImage enemyHurtChassis = loadImage("ComponentImages/EnemyHurtChassis.png");
+    private static final BufferedImage enemyBaseWeapon = loadImage("ComponentImages/EnemyBaseWeapon.png");
+    private static final BufferedImage enemyFiringWeapon = loadImage("ComponentImages/EnemyFiringWeapon.png");
+    private static final BufferedImage enemyBaseEngine = loadImage("ComponentImages/EnemyBaseEngine.png");
+    private static final BufferedImage enemyBoostEngine = loadImage("ComponentImages/EnemyBoostEngine.png");
+
+    private static final BufferedImage playerBaseChassis = loadImage("ComponentImages/PlayerBaseChassis.png");
+    private static final BufferedImage playerHurtChassis = loadImage("ComponentImages/PlayerHurtChassis.png");
+    private static final BufferedImage playerBaseWeapon = loadImage("ComponentImages/PlayerBaseWeapon.png");
+    private static final BufferedImage playerFiringWeapon = loadImage("ComponentImages/PlayerFiringWeapon.png");
+    private static final BufferedImage playerBaseEngine = loadImage("ComponentImages/PlayerBaseEngine.png");
+    private static final BufferedImage playerBoostEngine = loadImage("ComponentImages/PlayerBoostEngine.png");
+
 
     // Sprite construction:
 
@@ -159,16 +163,10 @@ public class ImageFactory
         return basePlayerImage;
     }
 
-    public static BufferedImage getHurtPlayerImage() { return hurtPlayerImage; }
-
     public static BufferedImage getProjectileImage()
     {
         return projectileImage;
     }
-
-    public static BufferedImage getBaseEnemyImage() { return baseEnemyImage; }
-
-    public static BufferedImage getHurtEnemyImage() { return hurtEnemyImage; }
 
     public static BufferedImage getPlayerProjectileImage() {
         return playerProjectileImage;
@@ -176,11 +174,39 @@ public class ImageFactory
 
     public static BufferedImage getSmallBasePlayerImage() { return smallBasePlayerImage; }
 
-    public static BufferedImage getFiringPlayerImage() {
-        return firingPlayerImage;
+    public static BufferedImage getPlayerHurtChassis() {
+        return playerHurtChassis;
     }
 
-    public static BufferedImage getFiringEnemyImage() {
-        return firingEnemyImage;
+    public static BufferedImage getPlayerBaseChassis() {
+        return playerBaseChassis;
     }
+
+    public static BufferedImage getPlayerFiringWeapon() {
+        return playerFiringWeapon;
+    }
+
+    public static BufferedImage getPlayerBaseWeapon() {
+        return playerBaseWeapon;
+    }
+
+    public static BufferedImage getPlayerBaseEngine() {
+        return playerBaseEngine;
+    }
+
+    public static BufferedImage getPlayerBoostEngine() {
+        return playerBoostEngine;
+    }
+
+    public static BufferedImage getEnemyBaseChassis() { return enemyBaseChassis; }
+
+    public static BufferedImage getEnemyHurtChassis() { return enemyHurtChassis; }
+
+    public static BufferedImage getEnemyFiringWeapon() { return enemyFiringWeapon; }
+
+    public static BufferedImage getEnemyBaseWeapon() { return enemyBaseWeapon; }
+
+    public static BufferedImage getEnemyBaseEngine() { return enemyBaseEngine; }
+
+    public static BufferedImage getEnemyBoostEngine() { return enemyBoostEngine; }
 }

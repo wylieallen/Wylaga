@@ -1,11 +1,11 @@
 package Wylaga.Overstates.Displayables.Overlays;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GetReadyDisplay extends Displayable
+public class GetReadyDisplay extends SimpleDisplayable
 {
     private Graphics2D g2d;
     private int counter = 0;

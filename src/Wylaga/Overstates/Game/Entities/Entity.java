@@ -69,7 +69,7 @@ public abstract class Entity
     // expired() returns true when the Entity has outlived its usefulness.
     public abstract boolean expired();
 
-    // getDisplayable() uses double dispatch to request an appropriate EntityDisplayable.
+    // getDisplayable() uses double dispatch to request an appropriate SimpleEntityDisplayable.
     // Concrete subclasses of Entity must define the EDF method that is called.
     public abstract EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory);
 

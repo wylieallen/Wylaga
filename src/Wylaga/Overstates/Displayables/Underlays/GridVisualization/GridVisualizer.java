@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Displayables.Underlays.GridVisualization;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
 
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GridVisualizer extends Displayable
+public class GridVisualizer extends SimpleDisplayable
 {
     private Set<CellDisplayable> cellDisplayables;
     private Graphics2D g2d;

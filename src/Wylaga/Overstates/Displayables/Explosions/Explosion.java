@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Displayables.Explosions;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Util.Random;
 import Wylaga.Util.Trajectory;
 
@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Explosion extends Displayable
+public class Explosion extends SimpleDisplayable
 {
     private Graphics2D g2d;
 

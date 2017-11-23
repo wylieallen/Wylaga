@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Displayables.Underlays.Starfield;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Displayables.Underlays.Starfield.Stars.PixelStar;
 import Wylaga.Overstates.Displayables.Underlays.Starfield.Stars.Star;
 import Wylaga.Util.Random;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Starfield extends Displayable
+public class Starfield extends SimpleDisplayable
 {
     private static Starfield instance = new Starfield();
 

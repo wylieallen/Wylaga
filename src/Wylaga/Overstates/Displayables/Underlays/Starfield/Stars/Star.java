@@ -1,11 +1,11 @@
 package Wylaga.Overstates.Displayables.Underlays.Starfield.Stars;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Star extends Displayable
+public abstract class Star extends SimpleDisplayable
 {
     public Star(Point point, BufferedImage image)
     {

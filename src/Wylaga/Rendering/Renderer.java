@@ -5,8 +5,6 @@ import Wylaga.Overstates.Overstate;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 public class Renderer
 {
@@ -34,8 +32,7 @@ public class Renderer
     {
         for(Displayable displayable : set)
         {
-            Point position = displayable.getPosition();
-            g2d.drawImage(displayable.getImage(), position.x, position.y, null);
+            displayable.draw(g2d);
         }
     }
 }

@@ -3,6 +3,10 @@ package Wylaga.Overstates.Game.Entities.Ships;
 import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipChassis;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipPropulsion;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipSpecial;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
 import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
@@ -20,8 +24,22 @@ public abstract class Ship extends Entity
     private Trajectory projectileTrajectory;
     private double projectileSpeed = 12;
 
+    private ShipChassis chassis;
+    private ShipWeapon weapon;
+    private ShipSpecial special;
+    private ShipPropulsion propulsion;
+
     // =================================================================================================================
     // Constructor:
+
+    public Ship(Point point, Team team, ShipChassis chassis, ShipWeapon weapon, ShipSpecial special, ShipPropulsion propulsion)
+    {
+        super(point, chassis.getDimension(), team, propulsion.getSpeed());
+        this.chassis = chassis;
+        this.weapon = weapon;
+        this.special = special;
+        this.propulsion = propulsion;
+    }
 
     public Ship(Point position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
     {

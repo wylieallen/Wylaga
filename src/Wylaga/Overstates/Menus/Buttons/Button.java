@@ -1,13 +1,13 @@
 package Wylaga.Overstates.Menus.Buttons;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
 import Wylaga.Overstates.Menus.Buttons.Functions.NullButtonFunction;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-public class Button extends Displayable
+public class Button extends SimpleDisplayable
 {
     private BufferedImage baseImage;
     private BufferedImage hoverImage;

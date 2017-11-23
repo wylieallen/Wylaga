@@ -1,12 +1,12 @@
 package Wylaga.Overstates.Displayables.Overlays;
 
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GameOverDisplay extends Displayable
+public class GameOverDisplay extends SimpleDisplayable
 {
     private static BufferedImage img = getGameOverImg();
 

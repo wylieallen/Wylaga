@@ -19,6 +19,11 @@ public class PlayerProjectile extends Projectile
         super.translatePosition((creator.getDimension().width / 2) - (defaultDimension.width / 2), -defaultDimension.height + 10);
     }
 
+    public PlayerProjectile(Point origin, Team team, int speed, Trajectory trajectory, int damage)
+    {
+        super(origin, defaultDimension, team, speed, trajectory, damage);
+    }
+
     public static Dimension getDefaultDimension() {return defaultDimension;}
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory edf)

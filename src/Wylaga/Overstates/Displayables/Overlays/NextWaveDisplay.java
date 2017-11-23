@@ -1,12 +1,12 @@
 package Wylaga.Overstates.Displayables.Overlays;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class NextWaveDisplay extends Displayable
+public class NextWaveDisplay extends SimpleDisplayable
 {
     private Game game;
     private Graphics2D g2d;

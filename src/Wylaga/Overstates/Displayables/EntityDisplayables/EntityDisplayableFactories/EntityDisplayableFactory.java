@@ -7,8 +7,8 @@ import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
 public interface EntityDisplayableFactory
 {
-    public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip);
-    public EntityDisplayable makeProjectileDisplayable(Projectile projectile);
-    public EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile);
-    public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip);
+    EntityDisplayable makePlayerDisplayable(PlayerShip playerShip);
+    EntityDisplayable makeProjectileDisplayable(Projectile projectile);
+    EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile);
+    EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip);
 }

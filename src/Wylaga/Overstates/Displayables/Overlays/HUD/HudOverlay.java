@@ -1,11 +1,11 @@
 package Wylaga.Overstates.Displayables.Overlays.HUD;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class HudOverlay extends Displayable
+public abstract class HudOverlay extends SimpleDisplayable
 {
     private Graphics2D g2d;
     private int width, height;

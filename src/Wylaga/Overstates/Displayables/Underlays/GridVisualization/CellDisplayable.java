@@ -1,14 +1,12 @@
 package Wylaga.Overstates.Displayables.Underlays.GridVisualization;
 
-import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Collisions.Cell;
-import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CellDisplayable extends Displayable
+public class CellDisplayable extends SimpleDisplayable
 {
     private static Color[] colors = initializeColors();
 

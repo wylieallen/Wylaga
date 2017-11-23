@@ -1,8 +1,8 @@
 package Wylaga.Overstates;
 
-import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
-import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Displayables.Displayable;
+import Wylaga.Overstates.Displayables.SimpleDisplayable;
+import Wylaga.Util.KeyRole;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
