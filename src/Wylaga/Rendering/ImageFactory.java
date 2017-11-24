@@ -22,6 +22,8 @@ public class ImageFactory
     private static final BufferedImage enemyFiringWeapon = loadImage("ComponentImages/EnemyFiringWeapon.png");
     private static final BufferedImage enemyBaseEngine = loadImage("ComponentImages/EnemyBaseEngine.png");
     private static final BufferedImage enemyBoostEngine = loadImage("ComponentImages/EnemyBoostEngine.png");
+    private static final BufferedImage enemyBrakeImage = enemyBoostEngine;
+
 
     private static final BufferedImage playerBaseChassis = loadImage("ComponentImages/PlayerBaseChassis.png");
     private static final BufferedImage playerHurtChassis = loadImage("ComponentImages/PlayerHurtChassis.png");
@@ -29,6 +31,7 @@ public class ImageFactory
     private static final BufferedImage playerFiringWeapon = loadImage("ComponentImages/PlayerFiringWeapon.png");
     private static final BufferedImage playerBaseEngine = loadImage("ComponentImages/PlayerBaseEngine.png");
     private static final BufferedImage playerBoostEngine = loadImage("ComponentImages/PlayerBoostEngine.png");
+    private static final BufferedImage playerBrakeImage = loadImage("ComponentImages/PlayerBrakeEngine.png");
 
 
     // Sprite construction:
@@ -209,4 +212,12 @@ public class ImageFactory
     public static BufferedImage getEnemyBaseEngine() { return enemyBaseEngine; }
 
     public static BufferedImage getEnemyBoostEngine() { return enemyBoostEngine; }
+
+    public static BufferedImage getPlayerBrakeImage() {
+        return playerBrakeImage;
+    }
+
+    public static BufferedImage getEnemyBrakeImage() {
+        return enemyBrakeImage;
+    }
 }

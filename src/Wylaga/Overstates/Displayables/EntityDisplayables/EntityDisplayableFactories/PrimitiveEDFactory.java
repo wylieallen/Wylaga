@@ -21,8 +21,9 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     {
         ChassisDisplayable chassisDisplayable = new ChassisDisplayable(playerShip, new Point(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis());
         WeaponDisplayable weaponDisplayable = new WeaponDisplayable(playerShip, new Point(22, 0), ImageFactory.getPlayerBaseWeapon(), ImageFactory.getPlayerFiringWeapon());
-        EngineDisplayable engineDisplayable = new EngineDisplayable(playerShip, new Point(12, 35), ImageFactory.getPlayerBaseEngine(), ImageFactory.getPlayerBoostEngine(), true);
-        return new ShipDisplayable(playerShip.getOrigin(), playerShip, new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100),
+        EngineDisplayable engineDisplayable = new EngineDisplayable(playerShip, new Point(12, 35), ImageFactory.getPlayerBaseEngine(), ImageFactory.getPlayerBoostEngine(),
+                ImageFactory.getPlayerBrakeImage(), true);
+        return new ShipDisplayable(playerShip, new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100),
                 chassisDisplayable, engineDisplayable, weaponDisplayable);
     }
 
@@ -30,8 +31,9 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     {
         ChassisDisplayable chassisDisplayable = new ChassisDisplayable(enemyShip, new Point(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis());
         WeaponDisplayable weaponDisplayable = new WeaponDisplayable(enemyShip, new Point(6, 22), ImageFactory.getEnemyBaseWeapon(), ImageFactory.getEnemyFiringWeapon());
-        EngineDisplayable engineDisplayable = new EngineDisplayable(enemyShip, new Point(7, 0), ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBoostEngine(), false);
-        return new ShipDisplayable(enemyShip.getOrigin(), enemyShip, new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80),
+        EngineDisplayable engineDisplayable = new EngineDisplayable(enemyShip, new Point(7, 0), ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBoostEngine(),
+                ImageFactory.getEnemyBrakeImage(), false);
+        return new ShipDisplayable(enemyShip, new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80),
                 chassisDisplayable, engineDisplayable, weaponDisplayable);
     }
 

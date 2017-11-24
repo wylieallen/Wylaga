@@ -11,14 +11,16 @@ public class EngineDisplayable extends SimpleDisplayable
     private Ship ship;
     private BufferedImage baseImage;
     private BufferedImage boostImage;
+    private BufferedImage brakeImage;
     private EngineDisplayable.State currentState;
 
-    public EngineDisplayable(Ship ship, Point offsetPoint, BufferedImage baseImage, BufferedImage boostImage, boolean isPlayer)
+    public EngineDisplayable(Ship ship, Point offsetPoint, BufferedImage baseImage, BufferedImage boostImage, BufferedImage brakeImage, boolean isPlayer)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;
         this.baseImage = baseImage;
         this.boostImage = boostImage;
+        this.brakeImage = brakeImage;
         this.currentState = isPlayer ? new BaseState() : new EnemyBaseState();
     }
 
@@ -27,6 +29,8 @@ public class EngineDisplayable extends SimpleDisplayable
     {
         currentState.update();
     }
+
+    //==================================================================================================================
 
     private interface State {void update();}
 
@@ -43,6 +47,10 @@ public class EngineDisplayable extends SimpleDisplayable
             {
                 currentState = new BoostState();
             }
+            else if (ship.getTrajectory().getDy() > 0)
+            {
+                currentState = new BrakeState();
+            }
         }
     }
 
@@ -55,9 +63,30 @@ public class EngineDisplayable extends SimpleDisplayable
 
         public void update()
         {
-            if(ship.getTrajectory().getDy() >= 0)
+            if(ship.getTrajectory().getDy() == 0)
             {
                 currentState = new BaseState();
+            }
+            else if (ship.getTrajectory().getDy() > 0)
+            {
+                currentState = new BrakeState();
+            }
+        }
+    }
+
+    private class BrakeState implements State
+    {
+        private BrakeState() { setImage(brakeImage); }
+
+        public void update()
+        {
+            if(ship.getTrajectory().getDy() == 0)
+            {
+                currentState = new BaseState();
+            }
+            else if(ship.getTrajectory().getDy() < 0)
+            {
+                currentState = new BoostState();
             }
         }
     }
