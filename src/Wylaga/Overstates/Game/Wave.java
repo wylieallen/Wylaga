@@ -5,6 +5,7 @@ import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class Wave
 
         for (int i = 0; i < 5; i++)
             for(int j = 0; j < 4; j++)
-                ships.add(new EnemyShip(new Point((440 - 13) + 100 * i, -325 + 75 * j)));
+                ships.add(new EnemyShip(new Point2D.Double((440 - 13) + 100 * i, -325 + 75 * j)));
 
         resetLeftShip();
         resetRightShip();
@@ -82,7 +83,7 @@ public class Wave
 
     private void resetRightShip()
     {
-        Point rightMax = new Point(-9999, 0);
+        Point2D.Double rightMax = new Point2D.Double(-9999, 0);
         for(Ship ship : ships)
         {
             if(ship.getOrigin().x > rightMax.x)
@@ -95,7 +96,7 @@ public class Wave
 
     private void resetLeftShip()
     {
-        Point leftMax = new Point(9999, 0);
+        Point2D.Double leftMax = new Point2D.Double(9999, 0);
         for(Ship ship : ships)
         {
             if(ship.getOrigin().x < leftMax.x)
@@ -108,7 +109,7 @@ public class Wave
 
     private void resetTopShip()
     {
-        Point topMax = new Point(0, 9999);
+        Point2D.Double topMax = new Point2D.Double(0, 9999);
         for(Ship ship : ships)
         {
             if(ship.getOrigin().y < topMax.y)
@@ -121,7 +122,7 @@ public class Wave
 
     private void resetBottomShip()
     {
-        Point bottomMax = new Point(0, -9999);
+        Point2D.Double bottomMax = new Point2D.Double(0, -9999);
         for(Ship ship : ships)
         {
             if(ship.getOrigin().y > bottomMax.y)

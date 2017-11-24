@@ -3,6 +3,7 @@ package Wylaga.Overstates.Displayables.Overlays.HUD;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public abstract class HudOverlay extends SimpleDisplayable
@@ -10,7 +11,7 @@ public abstract class HudOverlay extends SimpleDisplayable
     private Graphics2D g2d;
     private int width, height;
 
-    public HudOverlay(Point position)
+    public HudOverlay(Point2D.Double position)
     {
         super(position, new BufferedImage(120, 20, BufferedImage.TYPE_INT_ARGB));
         BufferedImage image = super.getImage();

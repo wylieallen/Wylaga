@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Game;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class NextWaveDisplay extends SimpleDisplayable
@@ -18,7 +19,7 @@ public class NextWaveDisplay extends SimpleDisplayable
         return img;
     }
 
-    public NextWaveDisplay(Point pos, Game game)
+    public NextWaveDisplay(Point2D.Double pos, Game game)
     {
         super(pos, makeImg());
         this.game = game;

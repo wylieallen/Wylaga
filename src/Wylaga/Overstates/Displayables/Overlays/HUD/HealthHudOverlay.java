@@ -3,6 +3,7 @@ package Wylaga.Overstates.Displayables.Overlays.HUD;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class HealthHudOverlay extends HudOverlay
 {
@@ -10,7 +11,7 @@ public class HealthHudOverlay extends HudOverlay
     private Graphics2D g2d;
     private int prevHealth;
 
-    public HealthHudOverlay(Point position, PlayerShip ship)
+    public HealthHudOverlay(Point2D.Double position, PlayerShip ship)
     {
         super(position);
         this.ship = ship;

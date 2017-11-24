@@ -3,6 +3,7 @@ package Wylaga.Overstates.Game.Collisions;
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,9 +74,9 @@ public class Grid
 
     private boolean inRange(int min, int val, int max) { return min <= val && val <= max; }
 
-    private Point getCellIndices(Point point)
+    private Point getCellIndices(Point2D.Double point)
     {
-        return new Point(point.x / cellWidth, point.y / cellHeight);
+        return new Point((int) point.x / cellWidth, (int) point.y / cellHeight);
     }
 
     public Set<Cell> getOccupiedCells() { return occupiedCells; }

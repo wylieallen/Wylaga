@@ -7,12 +7,13 @@ import Wylaga.Util.Trajectory;
 
 import java.awt.Point;
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 
 // Entity represents a game object that is subject to collision.
 
 public abstract class Entity
 {
-    private Point position;
+    private Point2D.Double position;
     private Dimension dimension;
     private Team team;
     private Trajectory trajectory;
@@ -21,7 +22,7 @@ public abstract class Entity
     // =================================================================================================================
     // Constructor:
 
-    public Entity(Point position, Dimension dimension, Team team, double speed)
+    public Entity(Point2D.Double position, Dimension dimension, Team team, double speed)
     {
         this.position = position;
         this.dimension = dimension;
@@ -33,14 +34,14 @@ public abstract class Entity
     // =================================================================================================================
     // Mutators:
 
-    protected void translatePosition(int dx, int dy)
+    protected void translatePosition(double dx, double dy)
     {
-        position.translate(dx, dy);
+        position.setLocation(position.x + dx, position.y + dy);
     }
 
     protected void translatePosition(Trajectory trajectory)
     {
-       translatePosition((int) (trajectory.getDx() * speed), (int) (trajectory.getDy() * speed));
+       translatePosition((trajectory.getDx() * speed), (trajectory.getDy() * speed));
     }
 
     protected void propelSelf()
@@ -57,8 +58,8 @@ public abstract class Entity
     public Trajectory getTrajectory() {return trajectory;}
     public Dimension getDimension() {return dimension;}
     public Team getTeam() {return team;}
-    public Point getOrigin() {return position;}
-    public Point getTerminus() {return new Point(position.x + dimension.width, position.y + dimension.height);}
+    public Point2D.Double getOrigin() {return position;}
+    public Point2D.Double getTerminus() {return new Point2D.Double(position.x + dimension.width, position.y + dimension.height);}
 
     // =================================================================================================================
     // Abstract methods:

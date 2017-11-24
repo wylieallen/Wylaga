@@ -5,6 +5,7 @@ import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class GridVisualizer extends SimpleDisplayable
     private Set<CellDisplayable> cellDisplayables;
     private Graphics2D g2d;
 
-    public GridVisualizer(Point point, BufferedImage image, Grid grid)
+    public GridVisualizer(Point2D.Double point, BufferedImage image, Grid grid)
     {
         super(point, image);
         g2d = image.createGraphics();
@@ -33,7 +34,7 @@ public class GridVisualizer extends SimpleDisplayable
         for(CellDisplayable cell : cellDisplayables)
         {
             cell.update();
-            g2d.drawImage(cell.getImage(), cell.getPosition().x, cell.getPosition().y, null);
+            g2d.drawImage(cell.getImage(), (int) cell.getPosition().x, (int) cell.getPosition().y, null);
         }
     }
 }

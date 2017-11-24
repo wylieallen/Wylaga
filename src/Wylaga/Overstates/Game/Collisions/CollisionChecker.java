@@ -3,13 +3,14 @@ package Wylaga.Overstates.Game.Collisions;
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class CollisionChecker
 {
-    static private Point origin = new Point(0, 0);
-    static private Point farTopLeft = new Point(-75, -75);
+    static private Point2D.Double origin = new Point2D.Double(0, 0);
+    static private Point2D.Double farTopLeft = new Point2D.Double(-75, -75);
 
-    static private boolean rectanglesBounded(Point outerMin, Point outerMax, Point innerMin, Point innerMax)
+    static private boolean rectanglesBounded(Point2D.Double outerMin, Point2D.Double outerMax, Point2D.Double innerMin, Point2D.Double innerMax)
     {
         // returns true if inner rectangle is completely inside
         if(innerMin.x < outerMin.x || innerMax.x > outerMax.x)
@@ -28,7 +29,7 @@ public class CollisionChecker
         }
     }
 
-    static private boolean rectanglesOverlap(Point min1, Point max1, Point min2, Point max2)
+    static private boolean rectanglesOverlap(Point2D.Double min1, Point2D.Double max1, Point2D.Double min2, Point2D.Double max2)
     {
         // Determines whether two rectangles overlap, based on current position and dimension.
         // Based on solution described at: http://www.geeksforgeeks.org/find-two-rectangles-overlap/
@@ -52,37 +53,37 @@ public class CollisionChecker
         }
     }
 
-    static private Point makeMax(Point min, Dimension dimension)
+    static private Point2D.Double makeMax(Point2D.Double min, Dimension dimension)
     {
-        return new Point(min.x + dimension.width, min.y + dimension.height);
+        return new Point2D.Double(min.x + dimension.width, min.y + dimension.height);
     }
 
     static public boolean entityNearWorld(Entity entity, Dimension worldSize)
     {
-        Point min1 = farTopLeft;
-        Point min2 = entity.getOrigin();
-        Point max1 = makeMax(min1, new Dimension(worldSize.width + 100, worldSize.height + 100));
-        Point max2 = makeMax(min2, entity.getDimension());
+        Point2D.Double min1 = farTopLeft;
+        Point2D.Double min2 = entity.getOrigin();
+        Point2D.Double max1 = makeMax(min1, new Dimension(worldSize.width + 100, worldSize.height + 100));
+        Point2D.Double max2 = makeMax(min2, entity.getDimension());
 
         return rectanglesBounded(min1, max1, min2, max2);
     }
 
     static public boolean entityInWorld(Entity entity, Dimension worldSize)
     {
-        Point min1 = origin;
-        Point min2 = entity.getOrigin();
-        Point max1 = makeMax(min1, worldSize);
-        Point max2 = makeMax(min2, entity.getDimension());
+        Point2D.Double min1 = origin;
+        Point2D.Double min2 = entity.getOrigin();
+        Point2D.Double max1 = makeMax(min1, worldSize);
+        Point2D.Double max2 = makeMax(min2, entity.getDimension());
 
         return rectanglesBounded(min1, max1, min2, max2);
     }
 
     static public boolean entityOnWorld(Entity entity, Dimension worldSize)
     {
-        Point min1 = origin;
-        Point min2 = entity.getOrigin();
-        Point max1 = makeMax(min1, worldSize);
-        Point max2 = makeMax(min2, entity.getDimension());
+        Point2D.Double min1 = origin;
+        Point2D.Double min2 = entity.getOrigin();
+        Point2D.Double max1 = makeMax(min1, worldSize);
+        Point2D.Double max2 = makeMax(min2, entity.getDimension());
 
         return rectanglesOverlap(min1, max1, min2, max2);
     }
@@ -96,10 +97,10 @@ public class CollisionChecker
         }
 
         //System.out.println("Checking for collision");
-        Point min1 = entity1.getOrigin();
-        Point min2 = entity2.getOrigin();
-        Point max1 = makeMax(min1, entity1.getDimension());
-        Point max2 = makeMax(min2, entity2.getDimension());
+        Point2D.Double min1 = entity1.getOrigin();
+        Point2D.Double min2 = entity2.getOrigin();
+        Point2D.Double max1 = makeMax(min1, entity1.getDimension());
+        Point2D.Double max2 = makeMax(min2, entity2.getDimension());
 
         return rectanglesOverlap(min1, max1, min2, max2);
     }

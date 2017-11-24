@@ -3,6 +3,7 @@ package Wylaga.Overstates.Displayables.Overlays.HUD;
 import Wylaga.Overstates.Game.Game;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class ScoreHudOverlay extends HudOverlay
 {
@@ -10,7 +11,7 @@ public class ScoreHudOverlay extends HudOverlay
     private Graphics2D g2d;
     private int prevScore;
 
-    public ScoreHudOverlay(Point position, Game game)
+    public ScoreHudOverlay(Point2D.Double position, Game game)
     {
         super(position);
         this.game = game;

@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class EngineDisplayable extends SimpleDisplayable
@@ -14,7 +15,7 @@ public class EngineDisplayable extends SimpleDisplayable
     private BufferedImage brakeImage;
     private EngineDisplayable.State currentState;
 
-    public EngineDisplayable(Ship ship, Point offsetPoint, BufferedImage baseImage, BufferedImage boostImage, BufferedImage brakeImage, boolean isPlayer)
+    public EngineDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage boostImage, BufferedImage brakeImage, boolean isPlayer)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;

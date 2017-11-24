@@ -3,6 +3,7 @@ package Wylaga.Overstates.Displayables.Overlays.HUD;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class FuelHudOverlay extends HudOverlay
 {
@@ -10,7 +11,7 @@ public class FuelHudOverlay extends HudOverlay
     private PlayerShip ship;
     private int prevFuel;
 
-    public FuelHudOverlay(Point position, PlayerShip ship)
+    public FuelHudOverlay(Point2D.Double position, PlayerShip ship)
     {
         super(position);
         this.ship = ship;

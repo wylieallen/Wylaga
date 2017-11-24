@@ -9,6 +9,7 @@ import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Projectile extends Entity
 {
@@ -21,7 +22,7 @@ public class Projectile extends Entity
     public Projectile(Ship creator)
     {
         // todo: factor out Ship dependency by having Creator parameterize with all this stuff that's currently queried from it:
-        super(new Point(creator.getOrigin()), defaultDimension, creator.getTeam(), creator.getProjectileSpeed());
+        super(new Point2D.Double(creator.getOrigin().x, creator.getOrigin().y), defaultDimension, creator.getTeam(), creator.getProjectileSpeed());
         int yInitial = (creator.getTeam() == Team.ENEMY) ? creator.getDimension().height : 0;
         super.translatePosition(creator.getDimension().width / 2 - defaultDimension.width / 2, yInitial);
         super.setTrajectory(creator.getProjectileTrajectory());
@@ -29,7 +30,7 @@ public class Projectile extends Entity
         active = true;
     }
 
-    public Projectile(Point position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage)
+    public Projectile(Point2D.Double position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage)
     {
         super(position, dimension, team, speed);
         super.setTrajectory(trajectory);

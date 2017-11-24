@@ -1,14 +1,15 @@
 package Wylaga.Overstates.Displayables;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class CompositeDisplayable implements Displayable
 {
-    private Point position;
+    private Point2D.Double position;
     private Displayable[] components;
 
-    public CompositeDisplayable(Point position, Displayable... components)
+    public CompositeDisplayable(Point2D.Double position, Displayable... components)
     {
         this.position = position;
         this.components = components;
@@ -30,9 +31,9 @@ public class CompositeDisplayable implements Displayable
         }
     }
 
-    public void drawWithOffset(Graphics2D g2d, Point offset)
+    public void drawWithOffset(Graphics2D g2d, Point2D.Double offset)
     {
-        Point offsetPos = new Point(position.x + offset.x, position.y + offset.y);
+        Point2D.Double offsetPos = new Point2D.Double((int) position.x + offset.x, (int) position.y + offset.y);
         for(Displayable component : components)
         {
             component.drawWithOffset(g2d, offsetPos);
@@ -44,7 +45,7 @@ public class CompositeDisplayable implements Displayable
         return components[0].getImage();
     }
 
-    public Point getPosition()
+    public Point2D.Double getPosition()
     {
         return position;
     }

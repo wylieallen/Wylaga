@@ -17,6 +17,7 @@ import Wylaga.Overstates.Game.Game;
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -49,9 +50,9 @@ public class GameState extends Overstate
         //super.addUnderlay(new SimpleDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
         super.addUnderlay(Starfield.getInstance());
         //super.addUnderlay(new GridVisualizer(new Point(0, 0), new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB), game.getGrid()));
-        super.addOverlay(new HealthHudOverlay(new Point(10, 10), game.getPlayerShip()));
-        super.addOverlay(new ScoreHudOverlay(new Point(10, 35), game));
-        super.addOverlay(new FuelHudOverlay(new Point(10, 60), game.getPlayerShip()));
+        super.addOverlay(new HealthHudOverlay(new Point2D.Double(10, 10), game.getPlayerShip()));
+        super.addOverlay(new ScoreHudOverlay(new Point2D.Double(10, 35), game));
+        super.addOverlay(new FuelHudOverlay(new Point2D.Double(10, 60), game.getPlayerShip()));
 
         entityDisplayables = Collections.newSetFromMap(new ConcurrentHashMap<EntityDisplayable, Boolean>());
         super.addDisplays(entityDisplayables);
@@ -95,7 +96,7 @@ public class GameState extends Overstate
             {
                 expiredEntityDisplayables.add(entityDisplayable);
                 Displayable successor = entityDisplayable.getSuccessorDisplayable();
-                successor.getPosition().translate(-(successor.getImage().getWidth() / 2), -(successor.getImage().getHeight() / 2));
+                successor.getPosition().setLocation(successor.getPosition().x - (successor.getImage().getWidth() / 2), successor.getPosition().y - (successor.getImage().getHeight() / 2));
                 successorDisplayables.add(successor);
             }
         }
@@ -217,8 +218,8 @@ public class GameState extends Overstate
         public PreWaveSubstate()
         {
             counter = 0;
-            this.addDisplay(new GetReadyDisplay(new Point(440, 320))); // prev x: 320, 375
-            this.addDisplay(new NextWaveDisplay(new Point(490, 200), game));
+            this.addDisplay(new GetReadyDisplay(new Point2D.Double(440, 320))); // prev x: 320, 375
+            this.addDisplay(new NextWaveDisplay(new Point2D.Double(490, 200), game));
         }
 
         protected boolean readyToTransitionState()
@@ -260,7 +261,7 @@ public class GameState extends Overstate
         public PostWaveSubstate()
         {
             counter = 0;
-            this.addDisplay(new WaveCompleteDisplay(new Point(440, 320)));
+            this.addDisplay(new WaveCompleteDisplay(new Point2D.Double(440, 320)));
         }
 
         protected boolean readyToTransitionState()
@@ -281,7 +282,7 @@ public class GameState extends Overstate
         public GameOverSubstate()
         {
             counter = 0;
-            this.addDisplay(new GameOverDisplay(new Point(440, 320)));
+            this.addDisplay(new GameOverDisplay(new Point2D.Double(440, 320)));
         }
 
         protected boolean readyToTransitionState()

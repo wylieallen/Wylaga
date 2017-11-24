@@ -3,13 +3,14 @@ package Wylaga.Overstates.Displayables.Underlays.Starfield.Stars;
 import Wylaga.Util.Random;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class PixelStar extends Star
 {
     private int velocity;
 
-    public PixelStar(Point point)
+    public PixelStar(Point2D.Double point)
     {
         super(point, new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB));
         Graphics2D g2d = super.getImage().createGraphics();
@@ -87,6 +88,6 @@ public class PixelStar extends Star
 
     public void update()
     {
-        super.getPosition().translate(0, velocity);
+        super.getPosition().setLocation(super.getPosition().x, super.getPosition().y + velocity);
     }
 }

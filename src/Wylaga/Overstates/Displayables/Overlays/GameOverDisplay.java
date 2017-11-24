@@ -4,13 +4,14 @@ package Wylaga.Overstates.Displayables.Overlays;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class GameOverDisplay extends SimpleDisplayable
 {
     private static BufferedImage img = getGameOverImg();
 
-    public GameOverDisplay(Point pos)
+    public GameOverDisplay(Point2D.Double pos)
     {
         super(pos, img);
     }

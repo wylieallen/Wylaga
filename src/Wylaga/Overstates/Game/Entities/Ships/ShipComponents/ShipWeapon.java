@@ -6,6 +6,7 @@ import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ public abstract class ShipWeapon
         {
             protected void populateProjectiles(Set<Projectile> projectiles, Point shipOrigin)
             {
-                projectiles.add(new PlayerProjectile(new Point(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
+                projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
                         Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
             }
         };

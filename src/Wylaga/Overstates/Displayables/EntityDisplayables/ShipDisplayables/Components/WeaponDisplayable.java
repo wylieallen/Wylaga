@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class WeaponDisplayable extends SimpleDisplayable
@@ -13,7 +14,7 @@ public class WeaponDisplayable extends SimpleDisplayable
     private BufferedImage firingImage;
     private WeaponDisplayable.State currentState;
 
-    public WeaponDisplayable(Ship ship, Point offsetPoint, BufferedImage baseImage, BufferedImage firingImage)
+    public WeaponDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage firingImage)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;

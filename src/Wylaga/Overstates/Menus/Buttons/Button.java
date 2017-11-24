@@ -5,6 +5,7 @@ import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
 import Wylaga.Overstates.Menus.Buttons.Functions.NullButtonFunction;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class Button extends SimpleDisplayable
@@ -14,7 +15,7 @@ public class Button extends SimpleDisplayable
     private BufferedImage pressImage;
     private ButtonFunction function = NullButtonFunction.instance;
 
-    public Button(Point position, BufferedImage baseImage, BufferedImage hoverImage, BufferedImage pressImage)
+    public Button(Point2D.Double position, BufferedImage baseImage, BufferedImage hoverImage, BufferedImage pressImage)
     {
         super(position, baseImage);
         this.baseImage = baseImage;

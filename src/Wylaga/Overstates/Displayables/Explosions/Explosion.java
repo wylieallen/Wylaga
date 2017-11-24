@@ -24,7 +24,7 @@ public class Explosion extends SimpleDisplayable
 
     private List<Particle> particles;
 
-    public Explosion(Point point, int size, Color color, int particleCount)
+    public Explosion(Point2D.Double point, int size, Color color, int particleCount)
     {
         super(point, new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB));
         this.size = size;

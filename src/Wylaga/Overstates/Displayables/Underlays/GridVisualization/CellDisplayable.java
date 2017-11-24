@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Collisions.Cell;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class CellDisplayable extends SimpleDisplayable
@@ -27,7 +28,7 @@ public class CellDisplayable extends SimpleDisplayable
 
     public CellDisplayable(Cell cell)
     {
-        super(cell.getOrigin(), new BufferedImage(cell.getSize().width, cell.getSize().height, BufferedImage.TYPE_INT_ARGB));
+        super(new Point2D.Double(cell.getOrigin().x, cell.getOrigin().y), new BufferedImage(cell.getSize().width, cell.getSize().height, BufferedImage.TYPE_INT_ARGB));
         this.g2d = super.getImage().createGraphics();
         this.cell = cell;
     }

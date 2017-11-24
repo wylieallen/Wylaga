@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class ChassisDisplayable extends SimpleDisplayable
@@ -13,7 +14,7 @@ public class ChassisDisplayable extends SimpleDisplayable
     private BufferedImage hurtImage;
     private ChassisDisplayable.State currentState;
 
-    public ChassisDisplayable(Ship ship, Point offsetPoint, BufferedImage baseImage, BufferedImage hurtImage)
+    public ChassisDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage hurtImage)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;

@@ -2,7 +2,8 @@ package Wylaga.Overstates.Game;
 
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
-import Wylaga.Overstates.Game.Entities.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
+import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
@@ -12,9 +13,8 @@ import Wylaga.Util.Random;
 
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.geom.Point2D;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Game
@@ -88,7 +88,7 @@ public class Game
                 expiredShips.add(ship);
                 score += ship.getPoints();
                 if(Random.rollInt(10) == 0)
-                    spawnPickup(new Pickup(ship.getOrigin(), () -> playerShip.heal(10)));
+                    spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
             }
             else if(ship.isFiring())
             {
@@ -256,6 +256,11 @@ public class Game
         {
             for(Pickup pickup : cell.getPickups())
             {
+                if(!CollisionChecker.entityNearWorld(pickup, worldSize))
+                {
+                    pickup.deactivate();
+                    continue;
+                }
                 if(CollisionChecker.entitiesCollide(playerShip, pickup) && !collisionLogged(playerShip, pickup))
                 {
                     logCollision(playerShip, pickup);
@@ -269,13 +274,14 @@ public class Game
         {
             if(!CollisionChecker.entityInWorld(playerShip, worldSize))
             {
-                Point point = playerShip.getOrigin();
+                Point2D.Double point = playerShip.getOrigin();
 
                 int xMax = worldSize.width - playerShip.getDimension().width;
                 int yMax = worldSize.height - playerShip.getDimension().height;
 
-                int x = point.x;
-                int y = point.y;
+                // We want pixel fidelity here, so cast position to int for processing:
+                int x = (int) point.x;
+                int y = (int) point.y;
 
                 if(point.x < 0)
                 {
@@ -295,7 +301,6 @@ public class Game
                     y = yMax;
                 }
 
-                //System.out.println("Setting loc");
                 point.setLocation(x, y);
             }
         }

@@ -3,6 +3,7 @@ package Wylaga.Overstates.Displayables.Overlays;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class GetReadyDisplay extends SimpleDisplayable
@@ -10,7 +11,7 @@ public class GetReadyDisplay extends SimpleDisplayable
     private Graphics2D g2d;
     private int counter = 0;
 
-    public GetReadyDisplay(Point position)
+    public GetReadyDisplay(Point2D.Double position)
     {
         super(position, makeGetReadyImg());
         g2d = super.getImage().createGraphics();

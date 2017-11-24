@@ -6,13 +6,14 @@ import Wylaga.Util.Random;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class WaveController implements GameController
 {
     private Wave wave;
 
-    private int yInitial;
-    private int heightTracker;
+    private double yInitial;
+    private double heightTracker;
 
     private Trajectory trajectory;
 
@@ -34,10 +35,10 @@ public class WaveController implements GameController
 
     public void updateTrajectory()
     {
-        Point leftPoint = wave.getLeftShip().getOrigin();
-        Point rightPoint = wave.getRightShip().getOrigin();
-        Point topPoint = wave.getTopShip().getOrigin();
-        Point bottomPoint = wave.getBottomShip().getOrigin();
+        Point2D.Double leftPoint = wave.getLeftShip().getOrigin();
+        Point2D.Double rightPoint = wave.getRightShip().getOrigin();
+        Point2D.Double topPoint = wave.getTopShip().getOrigin();
+        Point2D.Double bottomPoint = wave.getBottomShip().getOrigin();
 
         if(topPoint.y < 32)
         {

@@ -11,6 +11,7 @@ import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public abstract class Ship extends Entity
     // =================================================================================================================
     // Constructor:
 
-    public Ship(Point point, Team team, ShipChassis chassis, ShipWeapon weapon, ShipSpecial special, ShipPropulsion propulsion)
+    public Ship(Point2D.Double point, Team team, ShipChassis chassis, ShipWeapon weapon, ShipSpecial special, ShipPropulsion propulsion)
     {
         super(point, chassis.getDimension(), team, propulsion.getSpeed());
         this.chassis = chassis;
@@ -42,7 +43,7 @@ public abstract class Ship extends Entity
         this.propulsion = propulsion;
     }
 
-    public Ship(Point position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
+    public Ship(Point2D.Double position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
     {
         super(position, dimension, team, speed);
         firing = false;

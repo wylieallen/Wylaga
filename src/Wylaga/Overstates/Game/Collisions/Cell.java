@@ -1,7 +1,7 @@
 package Wylaga.Overstates.Game.Collisions;
 
 
-import Wylaga.Overstates.Game.Entities.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
