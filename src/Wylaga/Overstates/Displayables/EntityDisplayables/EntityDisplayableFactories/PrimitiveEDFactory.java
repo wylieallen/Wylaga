@@ -11,6 +11,7 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.SimpleEntityDisplayable
 import Wylaga.Overstates.Displayables.Explosions.Explosion;
 import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.PowerPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.ScorePickup;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Rendering.ImageFactory;
@@ -67,5 +68,10 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makeScorePickupDisplayable(ScorePickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getScorePickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
+    }
+
+    public EntityDisplayable makePowerPickupDisplayable(PowerPickup pickup)
+    {
+        return new SimpleEntityDisplayable(pickup, ImageFactory.getPowerPickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }
 }

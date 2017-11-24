@@ -4,6 +4,7 @@ import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.PowerPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.ScorePickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
@@ -89,10 +90,15 @@ public class Game
                 expiredShips.add(ship);
                 addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
-                    if(Random.rollInt(2) == 0)
+                {
+                    int roll = Random.rollInt(3);
+                    if (roll == 0)
                         spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
-                    else
+                    else if (roll == 1)
                         spawnPickup(new ScorePickup(ship.getOrigin(), () -> addPoints(30)));
+                    else
+                        spawnPickup(new PowerPickup(ship.getOrigin(), playerShip));
+                }
             }
             else if(ship.isFiring())
             {
@@ -285,7 +291,7 @@ public class Game
                 int xMax = worldSize.width - playerShip.getDimension().width;
                 int yMax = worldSize.height - playerShip.getDimension().height;
 
-                // We want pixel fidelity here, so cast position to int for processing:
+                // We're concerned with pixel fidelity here, so cast position to int for processing:
                 int x = (int) point.x;
                 int y = (int) point.y;
 

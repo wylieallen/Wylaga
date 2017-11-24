@@ -53,6 +53,13 @@ public class PlayerShip extends Ship
     public int getMaxFuel() { return maxFuel; }
     public int getCurFuel() { return curFuel; }
 
+    public void addFuel(int fuel)
+    {
+        curFuel += fuel;
+        if(maxFuel < curFuel)
+            curFuel = maxFuel;
+    }
+
     private interface SpecialModule
     {
         void update();

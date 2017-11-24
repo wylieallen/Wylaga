@@ -24,7 +24,6 @@ public class ImageFactory
     private static final BufferedImage enemyBoostEngine = loadImage("ComponentImages/EnemyBoostEngine.png");
     private static final BufferedImage enemyBrakeImage = enemyBoostEngine;
 
-
     private static final BufferedImage playerBaseChassis = loadImage("ComponentImages/PlayerBaseChassis.png");
     private static final BufferedImage playerHurtChassis = loadImage("ComponentImages/PlayerHurtChassis.png");
     private static final BufferedImage playerBaseWeapon = loadImage("ComponentImages/PlayerBaseWeapon.png");
@@ -37,7 +36,7 @@ public class ImageFactory
 
     private static final BufferedImage healthPickupImage = loadImage("HealthPickup.png");
     private static final BufferedImage scorePickupImage = loadImage("ScorePickup.png");
-
+    private static final BufferedImage powerPickupImage = loadImage("PowerPickup.png");
 
     // Sprite construction:
 
@@ -237,4 +236,6 @@ public class ImageFactory
     public static BufferedImage getHealthPickupImage() { return healthPickupImage; }
 
     public static BufferedImage getScorePickupImage() { return scorePickupImage; }
+
+    public static BufferedImage getPowerPickupImage() { return powerPickupImage; }
 }
