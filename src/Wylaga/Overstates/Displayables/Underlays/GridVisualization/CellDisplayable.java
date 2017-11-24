@@ -40,7 +40,7 @@ public class CellDisplayable extends SimpleDisplayable
 
     public void update()
     {
-        cellPopulation = cell.getShips().size() + cell.getProjectiles().size();
+        cellPopulation = cell.getShips().size() + cell.getProjectiles().size() + cell.getPickups().size();
         g2d.setColor(getColor());
         g2d.fillRect(0, 0, cell.getSize().width, cell.getSize().height);
         g2d.setColor(Color.LIGHT_GRAY);

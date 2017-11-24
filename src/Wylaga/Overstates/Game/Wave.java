@@ -141,4 +141,8 @@ public class Wave
     public Set<Ship> getShips() {
         return ships;
     }
+
+    public int getWaveNumber() {
+        return waveNumber;
+    }
 }

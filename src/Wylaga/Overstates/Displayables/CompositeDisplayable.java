@@ -3,13 +3,17 @@ package Wylaga.Overstates.Displayables;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CompositeDisplayable implements Displayable
 {
     private Point2D.Double position;
-    private Displayable[] components;
+    private Set<Displayable> components;
 
-    public CompositeDisplayable(Point2D.Double position, Displayable... components)
+    public CompositeDisplayable(Point2D.Double position, Set<Displayable> components)
     {
         this.position = position;
         this.components = components;
@@ -17,10 +21,16 @@ public class CompositeDisplayable implements Displayable
 
     public void update()
     {
+        Set<Displayable> expiredComponents = new HashSet<>();
         for(Displayable component : components)
         {
             component.update();
+            if(component.expired())
+            {
+                expiredComponents.add(component);
+            }
         }
+        components.removeAll(expiredComponents);
     }
 
     public void draw(Graphics2D g2d)
@@ -42,7 +52,7 @@ public class CompositeDisplayable implements Displayable
 
     public BufferedImage getImage()
     {
-        return components[0].getImage();
+        return null;
     }
 
     public Point2D.Double getPosition()

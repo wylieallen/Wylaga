@@ -34,7 +34,9 @@ public class ImageFactory
     private static final BufferedImage playerBrakeImage = loadImage("ComponentImages/PlayerBrakeEngine.png");
     private static final BufferedImage playerBaseSpecial = loadImage("ComponentImages/PlayerBaseSpecial.png");
     private static final BufferedImage playerDeployedSpecial = loadImage("ComponentImages/PlayerDeployedSpecial.png");
+
     private static final BufferedImage healthPickupImage = loadImage("HealthPickup.png");
+    private static final BufferedImage scorePickupImage = loadImage("ScorePickup.png");
 
 
     // Sprite construction:
@@ -233,4 +235,6 @@ public class ImageFactory
     }
 
     public static BufferedImage getHealthPickupImage() { return healthPickupImage; }
+
+    public static BufferedImage getScorePickupImage() { return scorePickupImage; }
 }

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class PixelStar extends Star
 {
-    private int velocity;
+    private double velocity;
 
     public PixelStar(Point2D.Double point)
     {
@@ -83,7 +83,7 @@ public class PixelStar extends Star
             g2d.fillRect(0, 0, size, size);
         }
 
-        velocity = Random.rollInt(5) + 1;
+        velocity = Random.rollDouble(5.99) + 0.01;
     }
 
     public void update()

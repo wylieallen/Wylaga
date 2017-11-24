@@ -4,6 +4,7 @@ import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.ScorePickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
@@ -86,9 +87,12 @@ public class Game
             if(ship.expired())
             {
                 expiredShips.add(ship);
-                score += ship.getPoints();
+                addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
-                    spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
+                    if(Random.rollInt(2) == 0)
+                        spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
+                    else
+                        spawnPickup(new ScorePickup(ship.getOrigin(), () -> addPoints(30)));
             }
             else if(ship.isFiring())
             {
@@ -141,6 +145,8 @@ public class Game
     {
         return wave.isDestroyed();
     }
+
+    private void addPoints(int points) { score += points; }
 
     private void spawnShip(Ship ship)
     {

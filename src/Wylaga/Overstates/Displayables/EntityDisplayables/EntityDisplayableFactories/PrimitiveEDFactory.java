@@ -1,5 +1,6 @@
 package Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories;
 
+import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.*;
 import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Components.ChassisDisplayable;
@@ -8,7 +9,9 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Compon
 import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Components.WeaponDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.SimpleEntityDisplayable;
 import Wylaga.Overstates.Displayables.Explosions.Explosion;
+import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
 import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
+import Wylaga.Overstates.Game.Entities.Pickups.ScorePickup;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
@@ -17,28 +20,31 @@ import Wylaga.Util.Random;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PrimitiveEDFactory implements EntityDisplayableFactory
 {
     public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip)
     {
-        ChassisDisplayable chassisDisplayable = new ChassisDisplayable(playerShip, new Point2D.Double(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis());
-        WeaponDisplayable weaponDisplayable = new WeaponDisplayable(playerShip, new Point2D.Double(22, 0), ImageFactory.getPlayerBaseWeapon(), ImageFactory.getPlayerFiringWeapon());
-        EngineDisplayable engineDisplayable = new EngineDisplayable(playerShip, new Point2D.Double(12, 35), ImageFactory.getPlayerBaseEngine(), ImageFactory.getPlayerBoostEngine(),
-                ImageFactory.getPlayerBrakeImage(), true);
-        SpecialDisplayable specialDisplayable = new SpecialDisplayable(playerShip, new Point2D.Double(7, 24), ImageFactory.getPlayerBaseSpecial(), ImageFactory.getPlayerDeployedSpecial());
-        return new ShipDisplayable(playerShip, new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100),
-                chassisDisplayable, engineDisplayable, weaponDisplayable, specialDisplayable);
+        Set<Displayable> shipComponents = new HashSet<>();
+        shipComponents.add( new ChassisDisplayable(playerShip, new Point2D.Double(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis()));
+        shipComponents.add( new WeaponDisplayable(playerShip, new Point2D.Double(22, 0), ImageFactory.getPlayerBaseWeapon(), ImageFactory.getPlayerFiringWeapon()));
+        shipComponents.add( new EngineDisplayable(playerShip, new Point2D.Double(12, 35), ImageFactory.getPlayerBaseEngine(), ImageFactory.getPlayerBoostEngine(),
+                ImageFactory.getPlayerBrakeImage(), true));
+        shipComponents.add(new SpecialDisplayable(playerShip, new Point2D.Double(7, 24), ImageFactory.getPlayerBaseSpecial(), ImageFactory.getPlayerDeployedSpecial()));
+
+        return new ShipDisplayable(playerShip, new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100), shipComponents);
     }
 
     public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip)
     {
-        ChassisDisplayable chassisDisplayable = new ChassisDisplayable(enemyShip, new Point2D.Double(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis());
-        WeaponDisplayable weaponDisplayable = new WeaponDisplayable(enemyShip, new Point2D.Double(6, 22), ImageFactory.getEnemyBaseWeapon(), ImageFactory.getEnemyFiringWeapon());
-        EngineDisplayable engineDisplayable = new EngineDisplayable(enemyShip, new Point2D.Double(7, 0), ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBoostEngine(),
-                ImageFactory.getEnemyBrakeImage(), false);
-        return new ShipDisplayable(enemyShip, new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80),
-                chassisDisplayable, engineDisplayable, weaponDisplayable);
+        Set<Displayable> shipComponents = new HashSet<>();
+        shipComponents.add( new ChassisDisplayable(enemyShip, new Point2D.Double(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis()));
+        shipComponents.add( new WeaponDisplayable(enemyShip, new Point2D.Double(6, 22), ImageFactory.getEnemyBaseWeapon(), ImageFactory.getEnemyFiringWeapon()));
+        shipComponents.add( new EngineDisplayable(enemyShip, new Point2D.Double(7, 0), ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBoostEngine(),
+                ImageFactory.getEnemyBrakeImage(), false));
+        return new ShipDisplayable(enemyShip, new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80), shipComponents);
     }
 
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile)
@@ -53,8 +59,13 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
                 new Explosion(projectile.getOrigin(),Random.rollInt(120) + 80, Color.RED , 30));
     }
 
-    public EntityDisplayable makeHealthPickupDisplayable(Pickup pickup)
+    public EntityDisplayable makeHealthPickupDisplayable(HealthPickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getHealthPickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
+    }
+
+    public EntityDisplayable makeScorePickupDisplayable(ScorePickup pickup)
+    {
+        return new SimpleEntityDisplayable(pickup, ImageFactory.getScorePickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }
 }

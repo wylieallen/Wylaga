@@ -5,15 +5,16 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.*;
+import java.util.Set;
 
 public class CompositeEntityDisplayable extends CompositeDisplayable implements EntityDisplayable
 {
     private Entity entity;
     private Displayable successor;
 
-    public CompositeEntityDisplayable(Entity entity, Displayable successor, Displayable... displayables)
+    public CompositeEntityDisplayable(Entity entity, Displayable successor, Set<Displayable> components)
     {
-        super(entity.getOrigin(), displayables);
+        super(entity.getOrigin(), components);
         this.entity = entity;
         this.successor = successor;
     }

@@ -6,6 +6,7 @@ import Wylaga.Overstates.Displayables.Overlays.*;
 import Wylaga.Overstates.Displayables.Overlays.HUD.FuelHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.HealthHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
+import Wylaga.Overstates.Displayables.Underlays.GridVisualization.GridVisualizer;
 import Wylaga.Overstates.Displayables.Underlays.Starfield.Starfield;
 import Wylaga.Util.AbstractFunction;
 import Wylaga.Util.KeyRole;
@@ -18,6 +19,7 @@ import Wylaga.Overstates.Game.Entities.Entity;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,9 +49,9 @@ public class GameState extends Overstate
 
         this.postGameFunction = postGameFunction;
 
-        //super.addUnderlay(new SimpleDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        //super.addUnderlay(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(1280, 720)));
         super.addUnderlay(Starfield.getInstance());
-        //super.addUnderlay(new GridVisualizer(new Point(0, 0), new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB), game.getGrid()));
+        //super.addUnderlay(new GridVisualizer(new Point2D.Double(0, 0), new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB), game.getGrid()));
         super.addOverlay(new HealthHudOverlay(new Point2D.Double(10, 10), game.getPlayerShip()));
         super.addOverlay(new ScoreHudOverlay(new Point2D.Double(10, 35), game));
         super.addOverlay(new FuelHudOverlay(new Point2D.Double(10, 60), game.getPlayerShip()));

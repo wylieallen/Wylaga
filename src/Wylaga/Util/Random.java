@@ -7,4 +7,6 @@ public class Random extends java.util.Random
     private Random() { super(); }
 
     public static int rollInt(int bound) { return instance.nextInt(bound); }
+
+    public static double rollDouble(double bound) { return instance.nextDouble() * bound; }
 }
