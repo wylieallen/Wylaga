@@ -1,6 +1,7 @@
 package Wylaga.Overstates.Game.Collisions;
 
 
+import Wylaga.Overstates.Game.Entities.Pickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 
@@ -12,6 +13,7 @@ public class Cell
 {
     private Set<Ship> ships;
     private Set<Projectile> projectiles;
+    private Set<Pickup> pickups;
 
     private Point origin;
     private Dimension size;
@@ -22,6 +24,7 @@ public class Cell
         this.size = size;
         ships = new HashSet<>();
         projectiles = new HashSet<>();
+        pickups = new HashSet<>();
     }
 
     public void addShip(Ship ship)
@@ -32,9 +35,11 @@ public class Cell
     {
         projectiles.add(projectile);
     }
+    public void addPickup(Pickup pickup) { pickups.add(pickup); }
 
     public Set<Ship> getShips() {return ships;}
     public Set<Projectile> getProjectiles() {return projectiles;}
+    public Set<Pickup> getPickups() {return pickups;}
     public Point getOrigin() {return origin;}
     public Dimension getSize() {return size;}
 
@@ -42,5 +47,6 @@ public class Cell
     {
         ships.clear();
         projectiles.clear();
+        pickups.clear();
     }
 }

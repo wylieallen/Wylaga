@@ -60,7 +60,7 @@ public class InterfacePanel extends JPanel implements KeyListener
                 {
                     System.out.println("!");
                 }
-                System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
+                //System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
 
 

@@ -2,11 +2,13 @@ package Wylaga.Overstates.Game;
 
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
+import Wylaga.Overstates.Game.Entities.Pickup;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
+import Wylaga.Util.Random;
 
 
 import java.awt.*;
@@ -20,9 +22,11 @@ public class Game
     private Set<Set<? extends Entity>> entities;
     private Set<Ship> ships;
     private Set<Projectile> projectiles;
+    private Set<Pickup> pickups;
 
     private Set<Ship> expiredShips;
     private Set<Projectile> expiredProjectiles;
+    private Set<Pickup> expiredPickups;
     private Set<Entity> newEntities;
 
     private Dimension worldSize = new Dimension(1280, 720);
@@ -43,11 +47,13 @@ public class Game
 
         expiredShips = new HashSet<>();
         expiredProjectiles = new HashSet<>();
+        expiredPickups = new HashSet<>();
         newEntities = new HashSet<>();
 
         entities = new HashSet<>();
         entities.add(ships = new HashSet<>());
         entities.add(projectiles = new HashSet<>());
+        entities.add(pickups = new HashSet<>());
 
         spawnShip(playerShip = new PlayerShip());
         wave = new NullWave();
@@ -67,6 +73,7 @@ public class Game
     {
         updateShips();
         updateProjectiles();
+        updatePickups();
     }
 
     private void updateShips()
@@ -80,6 +87,8 @@ public class Game
             {
                 expiredShips.add(ship);
                 score += ship.getPoints();
+                if(Random.rollInt(10) == 0)
+                    spawnPickup(new Pickup(ship.getOrigin(), () -> playerShip.heal(10)));
             }
             else if(ship.isFiring())
             {
@@ -104,6 +113,22 @@ public class Game
         }
 
         projectiles.removeAll(expiredProjectiles);
+    }
+
+    private void updatePickups()
+    {
+        expiredPickups.clear();
+
+        for(Pickup pickup : pickups)
+        {
+            pickup.update();
+            if(pickup.expired())
+            {
+                expiredPickups.add(pickup);
+            }
+        }
+
+        pickups.removeAll(expiredPickups);
     }
 
     public void nextWave()
@@ -133,6 +158,12 @@ public class Game
     {
         projectiles.addAll(newProjectiles);
         newEntities.addAll(newProjectiles);
+    }
+
+    private void spawnPickup(Pickup pickup)
+    {
+        pickups.add(pickup);
+        newEntities.add(pickup);
     }
 
     public Set<Set<? extends Entity>> getEntities() { return entities; }
@@ -178,6 +209,7 @@ public class Game
             {
                 processProjectiles(cell);
                 processShips(cell);
+                processPickups(cell);
             }
         }
 
@@ -216,6 +248,19 @@ public class Game
                         playerShip.takeDamage(30);
                         ship.takeDamage(30);
                     }
+                }
+            }
+        }
+
+        private void processPickups(Cell cell)
+        {
+            for(Pickup pickup : cell.getPickups())
+            {
+                if(CollisionChecker.entitiesCollide(playerShip, pickup) && !collisionLogged(playerShip, pickup))
+                {
+                    logCollision(playerShip, pickup);
+                    pickup.trigger();
+                    pickup.deactivate();
                 }
             }
         }
@@ -260,6 +305,7 @@ public class Game
             grid.clear();
             grid.addAll(ships);
             grid.addAll(projectiles);
+            grid.addAll(pickups);
             loggedCollisions.clear();
         }
 

@@ -16,6 +16,7 @@ import java.util.Set;
 
 public abstract class Ship extends Entity
 {
+    private int maxHealth = 100;
     private int health;
     private int points;
 
@@ -106,6 +107,12 @@ public abstract class Ship extends Entity
     public void takeDamage(int damage)
     {
         health -= damage;
+    }
+
+    public void heal(int healing)
+    {
+        health += healing;
+        if(health > maxHealth) health = maxHealth;
     }
 
     public void addToCell(Cell cell) { cell.addShip(this); }

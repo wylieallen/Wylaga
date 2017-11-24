@@ -47,6 +47,7 @@ public class PlayerShip extends Ship
     }
 
     public void setSpecial(boolean special) { this.special = special; }
+    public boolean specialDeployed() { return special; }
 
     public int getMaxFuel() { return maxFuel; }
     public int getCurFuel() { return curFuel; }
