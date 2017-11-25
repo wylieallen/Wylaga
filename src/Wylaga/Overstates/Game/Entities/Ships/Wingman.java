@@ -15,6 +15,7 @@ public class Wingman extends PlayerShip
 
     private PlayerShip leader;
     private Point offset;
+    private boolean shootNext;
 
     public Wingman(PlayerShip leader, Point offset)
     {
@@ -22,13 +23,14 @@ public class Wingman extends PlayerShip
                 30, 0);
         this.offset = offset;
         this.leader = leader;
+        this.shootNext = false;
     }
 
     public void update()
     {
         super.update();
         super.setTrajectory(leader.getTrajectory());
-        super.setFiring(leader.isFiring());
+        super.setFiring(shootNext);
         super.setCurFuel(leader.getCurFuel());
         super.setSpecial(leader.specialDeployed());
 
@@ -36,6 +38,8 @@ public class Wingman extends PlayerShip
         {
             super.getOrigin().setLocation(leader.getOrigin().x + offset.x, leader.getOrigin().y + offset.y);
         }
+
+        shootNext = leader.isFiring();
     }
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
