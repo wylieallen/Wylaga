@@ -8,6 +8,7 @@ import Wylaga.Overstates.Displayables.Overlays.HUD.HealthHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
 import Wylaga.Overstates.Displayables.Underlays.GridVisualization.GridVisualizer;
 import Wylaga.Overstates.Displayables.Underlays.Starfield.Starfield;
+import Wylaga.Rendering.ImageFactory;
 import Wylaga.Util.AbstractFunction;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;
@@ -88,8 +89,9 @@ public class GameState extends Overstate
 
     private void removeExpiredEntityDisplayables()
     {
+        // Check entities:
+
         List<EntityDisplayable> expiredEntityDisplayables = new ArrayList<>();
-        List<Displayable> expiredExplosions = new ArrayList<>();
         List<Displayable> successorDisplayables = new ArrayList<>();
 
         for(EntityDisplayable entityDisplayable : entityDisplayables)
@@ -103,6 +105,12 @@ public class GameState extends Overstate
             }
         }
 
+        entityDisplayables.removeAll(expiredEntityDisplayables);
+
+        // Check explosions:
+
+        List<Displayable> expiredExplosions = new ArrayList<>();
+
         for(Displayable explosion : explosions)
         {
             if(explosion.expired())
@@ -112,8 +120,6 @@ public class GameState extends Overstate
         }
 
         explosions.removeAll(expiredExplosions);
-        entityDisplayables.removeAll(expiredEntityDisplayables);
-
         explosions.addAll(successorDisplayables);
     }
 
@@ -182,6 +188,7 @@ public class GameState extends Overstate
         paused = !paused;
     }
 
+    // Todo: this is basically the model bleeding into the view, exacerbates threading issues
     private void changeState(GameSubstate nextState)
     {
         activeState.swapOut();

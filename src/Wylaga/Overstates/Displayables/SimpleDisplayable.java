@@ -27,7 +27,7 @@ public class SimpleDisplayable implements Displayable {
     // By default, Displayables don't do anything when updated.
     // update() should be overridden by subclasses that want to take advantage of it.
     @Override
-    public void update() {};
+    public void update() {}
 
     // By default, Displayables don't expire.
     // expired() should be overridden by subclasses that want to take advantage of it.

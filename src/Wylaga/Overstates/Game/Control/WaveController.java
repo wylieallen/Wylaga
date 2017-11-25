@@ -33,7 +33,7 @@ public class WaveController implements GameController
         }
     }
 
-    public void updateTrajectory()
+    private void updateTrajectory()
     {
         Point2D.Double leftPoint = wave.getLeftShip().getOrigin();
         Point2D.Double rightPoint = wave.getRightShip().getOrigin();

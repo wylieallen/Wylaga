@@ -33,5 +33,5 @@ public abstract class HudOverlay extends SimpleDisplayable
     }
 
     protected abstract boolean stateChanged();
-    public abstract void drawImage();
+    protected abstract void drawImage();
 }

@@ -4,7 +4,7 @@ public class NonButton extends Button
 {
     private static NonButton instance = new NonButton();
 
-    public NonButton()
+    private NonButton()
     {
         super(null, null, null, null);
     }

@@ -58,7 +58,7 @@ public class PlayerController implements GameController
         }
     }
 
-    public void reset()
+    private void reset()
     {
         actionDepressed = specialDepressed = leftDepressed = rightDepressed = upDepressed = downDepressed = shotFired = false;
     }

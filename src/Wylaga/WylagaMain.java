@@ -16,7 +16,7 @@ public class WylagaMain
         });
     }
 
-    public static void createAndShowGUI()
+    private static void createAndShowGUI()
     {
         JFrame frame = new JFrame();
         frame.setTitle("Wylaga v0.0");

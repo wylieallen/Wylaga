@@ -2,29 +2,29 @@ package Wylaga.Overstates.Game;
 
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
-import Wylaga.Overstates.Game.Entities.Pickups.HealthPickup;
-import Wylaga.Overstates.Game.Entities.Pickups.Pickup;
-import Wylaga.Overstates.Game.Entities.Pickups.PowerPickup;
-import Wylaga.Overstates.Game.Entities.Pickups.ScorePickup;
+import Wylaga.Overstates.Game.Entities.Pickups.*;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
+import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Util.Random;
 
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 public class Game
 {
-    private Set<Set<? extends Entity>> entities;
-    private Set<Ship> ships;
-    private Set<Projectile> projectiles;
-    private Set<Pickup> pickups;
+    private List<List<? extends Entity>> entities;
+    private List<Ship> ships;
+    private List<Projectile> projectiles;
+    private List<Pickup> pickups;
 
     private Set<Ship> expiredShips;
     private Set<Projectile> expiredProjectiles;
@@ -37,6 +37,8 @@ public class Game
     private int waveCount;
 
     private PlayerShip playerShip;
+    private Wingman leftWingman;
+    private Wingman rightWingman;
 
     private Wave wave;
 
@@ -52,12 +54,15 @@ public class Game
         expiredPickups = new HashSet<>();
         newEntities = new HashSet<>();
 
-        entities = new HashSet<>();
-        entities.add(ships = new HashSet<>());
-        entities.add(projectiles = new HashSet<>());
-        entities.add(pickups = new HashSet<>());
+        entities = new ArrayList<>();
+        entities.add(ships = new ArrayList<>());
+        entities.add(projectiles = new ArrayList<>());
+        entities.add(pickups = new ArrayList<>());
 
         spawnShip(playerShip = new PlayerShip());
+        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
+        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
+
         wave = new NullWave();
         collisionManager = new CollisionManager();
     }
@@ -66,9 +71,18 @@ public class Game
     {
         // Updating then colliding prevents player from going slightly out of bounds
         // Colliding then updating allows player to go slightly out of bounds before snapping back
+        collisionManager.constrainToWorld();
         wave.update();
         updateEntities();
         collisionManager.processCollisions();
+    }
+
+    public void respawnWingmen()
+    {
+        leftWingman.terminate();
+        rightWingman.terminate();
+        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 50)));
+        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 50)));
     }
 
     private void updateEntities()
@@ -91,13 +105,15 @@ public class Game
                 addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
                 {
-                    int roll = Random.rollInt(3);
-                    if (roll == 0)
+                    int roll = Random.rollInt(10);
+                    if (roll < 3)
                         spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
-                    else if (roll == 1)
+                    else if (roll < 6)
                         spawnPickup(new ScorePickup(ship.getOrigin(), () -> addPoints(30)));
-                    else
+                    else if (roll < 8)
                         spawnPickup(new PowerPickup(ship.getOrigin(), playerShip));
+                    else
+                        spawnPickup(new WingmanPickup(ship.getOrigin(), this::respawnWingmen));
                 }
             }
             else if(ship.isFiring())
@@ -178,7 +194,7 @@ public class Game
         newEntities.add(pickup);
     }
 
-    public Set<Set<? extends Entity>> getEntities() { return entities; }
+    public List<List<? extends Entity>> getEntities() { return entities; }
 
     public Set<Entity> getNewEntities()
     {
@@ -215,13 +231,15 @@ public class Game
 
         public void processCollisions()
         {
-            constrainToWorld();
             resetGrid();
             for(Cell cell : grid.getOccupiedCells())
             {
                 processProjectiles(cell);
-                processShips(cell);
-                processPickups(cell);
+                if(playerShip.isAlive())
+                {
+                    processShips(cell);
+                    processPickups(cell);
+                }
             }
         }
 
@@ -229,7 +247,7 @@ public class Game
         {
             for(Projectile projectile : cell.getProjectiles())
             {
-                if(!CollisionChecker.entityNearWorld(projectile, worldSize))
+                if(CollisionChecker.entityNotNearWorld(projectile, worldSize))
                 {
                     projectile.deactivate();
                     continue;
@@ -237,7 +255,7 @@ public class Game
 
                 for(Ship ship : cell.getShips())
                 {
-                    if(ship.vulnerableTo(projectile) && CollisionChecker.entitiesCollide(projectile, ship) && !collisionLogged(projectile, ship))
+                    if(ship.vulnerableTo(projectile) && CollisionChecker.entitiesCollide(projectile, ship) && collisionNotLogged(projectile, ship))
                     {
                         logCollision(projectile, ship);
                         projectile.deactivate();
@@ -250,14 +268,13 @@ public class Game
 
         private void processShips(Cell cell)
         {
-            if(playerShip.isAlive())
+            for(Ship ship : cell.getShips())
             {
-                for(Ship ship : cell.getShips())
+                for(Ship otherShip : cell.getShips())
                 {
-                    if(CollisionChecker.entitiesCollide(playerShip, ship) && !collisionLogged(playerShip, ship))
-                    {
-                        logCollision(playerShip, ship);
-                        playerShip.takeDamage(30);
+                    if (ship.getTeam() != otherShip.getTeam() && CollisionChecker.entitiesCollide(otherShip, ship) && collisionNotLogged(otherShip, ship)) {
+                        logCollision(otherShip, ship);
+                        otherShip.takeDamage(30);
                         ship.takeDamage(30);
                     }
                 }
@@ -268,12 +285,12 @@ public class Game
         {
             for(Pickup pickup : cell.getPickups())
             {
-                if(!CollisionChecker.entityNearWorld(pickup, worldSize))
+                if(CollisionChecker.entityNotNearWorld(pickup, worldSize))
                 {
                     pickup.deactivate();
                     continue;
                 }
-                if(CollisionChecker.entitiesCollide(playerShip, pickup) && !collisionLogged(playerShip, pickup))
+                if(CollisionChecker.entitiesCollide(playerShip, pickup) && collisionNotLogged(playerShip, pickup))
                 {
                     logCollision(playerShip, pickup);
                     pickup.trigger();
@@ -282,10 +299,12 @@ public class Game
             }
         }
 
-        private void constrainToWorld()
+        public void constrainToWorld()
         {
             if(!CollisionChecker.entityInWorld(playerShip, worldSize))
             {
+                playerShip.flagAsConstrained();
+
                 Point2D.Double point = playerShip.getOrigin();
 
                 int xMax = worldSize.width - playerShip.getDimension().width;
@@ -314,6 +333,19 @@ public class Game
                 }
 
                 point.setLocation(x, y);
+
+                if(leftWingman.isAlive())
+                {
+                    leftWingman.getOrigin().setLocation(x - 25, y + 46);
+                }
+                if(rightWingman.isAlive())
+                {
+                    rightWingman.getOrigin().setLocation(x + 50, y + 46);
+                }
+            }
+            else
+            {
+                playerShip.flagAsUnconstrained();
             }
         }
 
@@ -331,15 +363,15 @@ public class Game
             loggedCollisions.add(new EntityPair(entity1, entity2));
         }
 
-        public boolean collisionLogged(Entity entity1, Entity entity2)
+        public boolean collisionNotLogged(Entity entity1, Entity entity2)
         {
             EntityPair curCollision = new EntityPair(entity1, entity2);
             for(EntityPair collision : loggedCollisions)
             {
                 if(collision.equivalentTo(curCollision))
-                    return true;
+                    return false;
             }
-            return false;
+            return true;
         }
 
         private class EntityPair

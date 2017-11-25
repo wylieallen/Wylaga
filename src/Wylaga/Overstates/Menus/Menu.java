@@ -13,7 +13,7 @@ import java.util.Set;
 public abstract class Menu extends Overstate
 {
     protected List<Button> buttons;
-    protected Set<Displayable> displays;
+    private Set<Displayable> displays;
 
     protected Button activeButton = NonButton.getInstance();
 

@@ -13,7 +13,7 @@ public class CompositeDisplayable implements Displayable
     private Point2D.Double position;
     private Set<Displayable> components;
 
-    public CompositeDisplayable(Point2D.Double position, Set<Displayable> components)
+    protected CompositeDisplayable(Point2D.Double position, Set<Displayable> components)
     {
         this.position = position;
         this.components = components;

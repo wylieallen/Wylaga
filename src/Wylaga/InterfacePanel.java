@@ -52,7 +52,6 @@ public class InterfacePanel extends JPanel implements KeyListener
 
                 // FPS monitoring:
 
-                /*
                 long curTime = System.currentTimeMillis();
                 long delta = curTime - prevTime;
                 millisElapsed += delta;
@@ -61,9 +60,8 @@ public class InterfacePanel extends JPanel implements KeyListener
                 {
                     System.out.println("!");
                 }
-                //System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
+                System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
-                */
 
                 //activeOverstate.updateModel();
                 activeOverstate.updateView();
@@ -73,8 +71,6 @@ public class InterfacePanel extends JPanel implements KeyListener
                 renderTimer.restart();
             }
         });
-
-
 
         gameTimer = new java.util.Timer();
         gameTimer.schedule(new TimerTask()
@@ -108,15 +104,15 @@ public class InterfacePanel extends JPanel implements KeyListener
         keyMap.put(KeyEvent.VK_ESCAPE, KeyRole.PAUSE);
     }
 
-    public void returnToMainMenu()
+    private void returnToMainMenu()
     {
         activeOverstate = mainMenu;
         gameState = new GameState(this::returnToMainMenu);
     }
 
-    public void deployMainMenu() { activeOverstate = mainMenu;}
+    private void deployMainMenu() { activeOverstate = mainMenu;}
 
-    public void startGame()
+    private void startGame()
     {
         activeOverstate = gameState;
     }

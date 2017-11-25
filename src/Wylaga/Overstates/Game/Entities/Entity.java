@@ -22,7 +22,7 @@ public abstract class Entity
     // =================================================================================================================
     // Constructor:
 
-    public Entity(Point2D.Double position, Dimension dimension, Team team, double speed)
+    protected Entity(Point2D.Double position, Dimension dimension, Team team, double speed)
     {
         this.position = position;
         this.dimension = dimension;
@@ -39,7 +39,7 @@ public abstract class Entity
         position.setLocation(position.x + dx, position.y + dy);
     }
 
-    protected void translatePosition(Trajectory trajectory)
+    private void translatePosition(Trajectory trajectory)
     {
        translatePosition((trajectory.getDx() * speed), (trajectory.getDy() * speed));
     }
@@ -55,6 +55,7 @@ public abstract class Entity
     // =================================================================================================================
     // Accessors:
 
+    public double getSpeed() {return speed;}
     public Trajectory getTrajectory() {return trajectory;}
     public Dimension getDimension() {return dimension;}
     public Team getTeam() {return team;}

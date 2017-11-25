@@ -33,7 +33,7 @@ public class CellDisplayable extends SimpleDisplayable
         this.cell = cell;
     }
 
-    public Color getColor()
+    private Color getColor()
     {
         return cellPopulation < 3 ? colors[cellPopulation] : colors[3];
     }

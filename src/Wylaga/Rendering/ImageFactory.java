@@ -8,35 +8,55 @@ import java.io.IOException;
 
 public class ImageFactory
 {
+    private static final String compDir = "ComponentImages/";
+    private static final String enemyDir = compDir + "Enemy/";
+    private static final String playerDir = compDir + "Player/";
+    private static final String wingmanDir = compDir + "Wingman/";
+
     // Image IO is handled as soon as the ImageFactory class is loaded:
     private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png");
 
     private static final BufferedImage playerProjectileImage = loadImage("PlayerProjectile.png");
     private static final BufferedImage projectileImage = loadImage("Projectile.png");
+    private static final BufferedImage wingmanProjectileImage = playerProjectileImage.getSubimage(1, 1, 1, 10);
 
     private static final BufferedImage smallBasePlayerImage = loadImage("MiniPlayer.png");
 
-    private static final BufferedImage enemyBaseChassis = loadImage("ComponentImages/EnemyBaseChassis.png");
-    private static final BufferedImage enemyHurtChassis = loadImage("ComponentImages/EnemyHurtChassis.png");
-    private static final BufferedImage enemyBaseWeapon = loadImage("ComponentImages/EnemyBaseWeapon.png");
-    private static final BufferedImage enemyFiringWeapon = loadImage("ComponentImages/EnemyFiringWeapon.png");
-    private static final BufferedImage enemyBaseEngine = loadImage("ComponentImages/EnemyBaseEngine.png");
-    private static final BufferedImage enemyBoostEngine = loadImage("ComponentImages/EnemyBoostEngine.png");
+    private static final BufferedImage enemyBaseChassis = loadImage(enemyDir + "EnemyBaseChassis.png");
+    private static final BufferedImage enemyHurtChassis = loadImage(enemyDir +"EnemyHurtChassis.png");
+    private static final BufferedImage enemyBaseWeapon = loadImage(enemyDir + "EnemyBaseWeapon.png");
+    private static final BufferedImage enemyFiringWeapon = loadImage(enemyDir + "EnemyFiringWeapon.png");
+    private static final BufferedImage enemyBaseEngine = loadImage(enemyDir + "EnemyBaseEngine.png");
+    private static final BufferedImage enemyBoostEngine = loadImage(enemyDir + "EnemyBoostEngine.png");
     private static final BufferedImage enemyBrakeImage = enemyBoostEngine;
 
-    private static final BufferedImage playerBaseChassis = loadImage("ComponentImages/PlayerBaseChassis.png");
-    private static final BufferedImage playerHurtChassis = loadImage("ComponentImages/PlayerHurtChassis.png");
-    private static final BufferedImage playerBaseWeapon = loadImage("ComponentImages/PlayerBaseWeapon.png");
-    private static final BufferedImage playerFiringWeapon = loadImage("ComponentImages/PlayerFiringWeapon.png");
-    private static final BufferedImage playerBaseEngine = loadImage("ComponentImages/PlayerBaseEngine.png");
-    private static final BufferedImage playerBoostEngine = loadImage("ComponentImages/PlayerBoostEngine.png");
-    private static final BufferedImage playerBrakeImage = loadImage("ComponentImages/PlayerBrakeEngine.png");
-    private static final BufferedImage playerBaseSpecial = loadImage("ComponentImages/PlayerBaseSpecial.png");
-    private static final BufferedImage playerDeployedSpecial = loadImage("ComponentImages/PlayerDeployedSpecial.png");
+    private static final BufferedImage playerBaseChassis = loadImage(playerDir + "PlayerBaseChassis.png");
+    private static final BufferedImage playerHurtChassis = loadImage(playerDir + "PlayerHurtChassis.png");
+    private static final BufferedImage playerBaseWeapon = loadImage(playerDir + "PlayerBaseWeapon.png");
+    private static final BufferedImage playerFiringWeapon = loadImage(playerDir + "PlayerFiringWeapon.png");
+    private static final BufferedImage playerBaseEngine = loadImage(playerDir + "PlayerBaseEngine.png");
+    private static final BufferedImage playerBoostEngine = loadImage(playerDir + "PlayerBoostEngine1.png");
+    private static final BufferedImage playerBoostEngine2 = loadImage(playerDir + "PlayerBoostEngine2.png");
+    private static final BufferedImage playerBrakeImage = loadImage(playerDir + "PlayerBrakeEngine.png");
+    private static final BufferedImage playerBaseSpecial = loadImage(playerDir + "PlayerBaseSpecial.png");
+    private static final BufferedImage playerDeployedSpecial = loadImage(playerDir + "PlayerDeployedSpecial.png");
+
+    private static final BufferedImage wingmanHurtChassis = loadImage(wingmanDir + "WingmanHurtChassis.png");
+    private static final BufferedImage wingmanBaseChassis = loadImage(wingmanDir + "WingmanBaseChassis.png");
+    private static final BufferedImage wingmanBaseWeapon = loadImage(wingmanDir + "WingmanBaseWeapon.png");
+    private static final BufferedImage wingmanFiringWeapon = loadImage(wingmanDir + "WingmanFiringWeapon.png");
+    private static final BufferedImage wingmanBaseEngine = loadImage(wingmanDir + "WingmanBaseEngine.png");
+    private static final BufferedImage wingmanBoostEngine = loadImage(wingmanDir + "WingmanBoostEngine1.png");
+    private static final BufferedImage wingmanBoostEngine2 = loadImage(wingmanDir + "WingmanBoostEngine2.png");
+    private static final BufferedImage wingmanBrakeImage = loadImage(wingmanDir + "WingmanBrakeEngine.png");
+    private static final BufferedImage wingmanBaseSpecial = loadImage(wingmanDir + "WingmanBaseSpecial.png");
+    private static final BufferedImage wingmanDeployedSpecial = loadImage(wingmanDir + "WingmanDeployedSpecial.png");
 
     private static final BufferedImage healthPickupImage = loadImage("HealthPickup.png");
     private static final BufferedImage scorePickupImage = loadImage("ScorePickup.png");
     private static final BufferedImage powerPickupImage = loadImage("PowerPickup.png");
+    private static final BufferedImage wingmanPickupImage = loadImage("WingmanPickup.png");
+
 
     // Sprite construction:
 
@@ -238,4 +258,52 @@ public class ImageFactory
     public static BufferedImage getScorePickupImage() { return scorePickupImage; }
 
     public static BufferedImage getPowerPickupImage() { return powerPickupImage; }
+
+    public static BufferedImage getPlayerBoostEngine2() {
+        return playerBoostEngine2;
+    }
+
+    public static BufferedImage getWingmanHurtChassis() {
+        return wingmanHurtChassis;
+    }
+
+    public static BufferedImage getWingmanBaseChassis() {
+        return wingmanBaseChassis;
+    }
+
+    public static BufferedImage getWingmanBaseWeapon() {
+        return wingmanBaseWeapon;
+    }
+
+    public static BufferedImage getWingmanFiringWeapon() {
+        return wingmanFiringWeapon;
+    }
+
+    public static BufferedImage getWingmanBaseEngine() {
+        return wingmanBaseEngine;
+    }
+
+    public static BufferedImage getWingmanBoostEngine() {
+        return wingmanBoostEngine;
+    }
+
+    public static BufferedImage getWingmanBoostEngine2() {
+        return wingmanBoostEngine2;
+    }
+
+    public static BufferedImage getWingmanBrakeImage() {
+        return wingmanBrakeImage;
+    }
+
+    public static BufferedImage getWingmanBaseSpecial() {
+        return wingmanBaseSpecial;
+    }
+
+    public static BufferedImage getWingmanDeployedSpecial() {
+        return wingmanDeployedSpecial;
+    }
+
+    public static BufferedImage getWingmanPickupImage() { return wingmanPickupImage; }
+
+    public static BufferedImage getWingmanProjectileImage() { return wingmanProjectileImage; }
 }

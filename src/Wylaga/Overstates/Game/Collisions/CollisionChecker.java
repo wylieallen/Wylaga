@@ -58,14 +58,14 @@ public class CollisionChecker
         return new Point2D.Double(min.x + dimension.width, min.y + dimension.height);
     }
 
-    static public boolean entityNearWorld(Entity entity, Dimension worldSize)
+    static public boolean entityNotNearWorld(Entity entity, Dimension worldSize)
     {
         Point2D.Double min1 = farTopLeft;
         Point2D.Double min2 = entity.getOrigin();
         Point2D.Double max1 = makeMax(min1, new Dimension(worldSize.width + 100, worldSize.height + 100));
         Point2D.Double max2 = makeMax(min2, entity.getDimension());
 
-        return rectanglesBounded(min1, max1, min2, max2);
+        return !rectanglesBounded(min1, max1, min2, max2);
     }
 
     static public boolean entityInWorld(Entity entity, Dimension worldSize)

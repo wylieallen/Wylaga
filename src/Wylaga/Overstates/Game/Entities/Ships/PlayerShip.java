@@ -18,9 +18,18 @@ public class PlayerShip extends Ship
     private SpecialModule specialModule = new TurboModule();
 
     private boolean special;
+    private boolean underConstraint;
 
     private int maxFuel;
     private int curFuel;
+
+    public PlayerShip(Point2D.Double origin, Dimension dimension, int health, int scorePenalty)
+    {
+        super(origin, dimension, Team.PLAYER, defaultSpeed, health, Trajectory.getDirection(0, -1), scorePenalty);
+        special = false;
+        underConstraint = false;
+        curFuel = maxFuel = 200;
+    }
 
     public PlayerShip()
     {
@@ -53,11 +62,20 @@ public class PlayerShip extends Ship
     public int getMaxFuel() { return maxFuel; }
     public int getCurFuel() { return curFuel; }
 
+    public void flagAsUnconstrained() {underConstraint = false;}
+    public void flagAsConstrained() {underConstraint = true;}
+    public boolean isUnderConstraint() {return underConstraint;}
+
     public void refuel(int fuel)
     {
         curFuel += fuel;
         if(maxFuel < curFuel)
             curFuel = maxFuel;
+    }
+
+    public void setCurFuel(int fuel)
+    {
+        curFuel = fuel;
     }
 
     private interface SpecialModule

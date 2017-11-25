@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 // Grid partitions a 2D space into rectangular Cells, which it stores and facilitates access to.
 public class Grid
@@ -48,7 +49,7 @@ public class Grid
         }
     }
 
-    public void addAll(Set<? extends Entity> entities)
+    public void addAll(List<? extends Entity> entities)
     {
         for(Entity entity : entities)
         {
@@ -56,14 +57,14 @@ public class Grid
         }
     }
 
-    public void addToCells(Entity entity)
+    private void addToCells(Entity entity)
     {
         Point originCell = getCellIndices(entity.getOrigin());
         Point terminusCell = getCellIndices(entity.getTerminus());
 
-        for(int i = originCell.x; inRange(0, i, Math.min(terminusCell.x, cellCols - 1)); i++)
+        for(int i = originCell.x; inRange(i, Math.min(terminusCell.x, cellCols - 1)); i++)
         {
-            for(int j = originCell.y; inRange(0, j, Math.min(terminusCell.y, cellRows - 1)); j++)
+            for(int j = originCell.y; inRange(j, Math.min(terminusCell.y, cellRows - 1)); j++)
             {
                 Cell cell = cells[i][j];
                 entity.addToCell(cell);
@@ -72,7 +73,7 @@ public class Grid
         }
     }
 
-    private boolean inRange(int min, int val, int max) { return min <= val && val <= max; }
+    private boolean inRange(int val, int max) { return 0 <= val && val <= max; }
 
     private Point getCellIndices(Point2D.Double point)
     {

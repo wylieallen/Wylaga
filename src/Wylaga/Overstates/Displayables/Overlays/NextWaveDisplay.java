@@ -15,8 +15,7 @@ public class NextWaveDisplay extends SimpleDisplayable
 
     private static BufferedImage makeImg()
     {
-        BufferedImage img = new BufferedImage(384, 64, BufferedImage.TYPE_INT_ARGB);
-        return img;
+        return new BufferedImage(384, 64, BufferedImage.TYPE_INT_ARGB);
     }
 
     public NextWaveDisplay(Point2D.Double pos, Game game)

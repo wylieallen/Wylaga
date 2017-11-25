@@ -12,15 +12,17 @@ public class EngineDisplayable extends SimpleDisplayable
     private Ship ship;
     private BufferedImage baseImage;
     private BufferedImage boostImage;
+    private BufferedImage boostImage2;
     private BufferedImage brakeImage;
     private EngineDisplayable.State currentState;
 
-    public EngineDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage boostImage, BufferedImage brakeImage, boolean isPlayer)
+    public EngineDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage boostImage, BufferedImage boostImage2, BufferedImage brakeImage, boolean isPlayer)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;
         this.baseImage = baseImage;
         this.boostImage = boostImage;
+        this.boostImage2 = boostImage2;
         this.brakeImage = brakeImage;
         this.currentState = isPlayer ? new BaseState() : new EnemyBaseState();
     }
@@ -62,6 +64,8 @@ public class EngineDisplayable extends SimpleDisplayable
             setImage(boostImage);
         }
 
+        private int counter = 10;
+
         public void update()
         {
             if(ship.getTrajectory().getDy() == 0)
@@ -71,6 +75,33 @@ public class EngineDisplayable extends SimpleDisplayable
             else if (ship.getTrajectory().getDy() > 0)
             {
                 currentState = new BrakeState();
+            }
+            else if (--counter <= 0)
+            {
+                currentState = new BoostState2();
+            }
+        }
+    }
+
+    private class BoostState2 implements State
+    {
+        private BoostState2() { setImage(boostImage2); }
+
+        private int counter = 20;
+
+        public void update()
+        {
+            if(ship.getTrajectory().getDy() == 0)
+            {
+                currentState = new BaseState();
+            }
+            else if (ship.getTrajectory().getDy() > 0)
+            {
+                currentState = new BrakeState();
+            }
+            else if (--counter <= 0)
+            {
+                currentState = new BoostState();
             }
         }
     }
