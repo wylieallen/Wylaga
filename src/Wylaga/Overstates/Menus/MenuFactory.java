@@ -1,14 +1,13 @@
 package Wylaga.Overstates.Menus;
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
-import Wylaga.Overstates.Displayables.Underlays.Starfield.Starfield;
+import Wylaga.Overstates.Displayables.Underlays.Starfield;
 import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Menus.Buttons.Button;
 import Wylaga.Overstates.Menus.Buttons.ButtonFactory;
 import Wylaga.Util.AbstractFunction;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 
 public class MenuFactory
