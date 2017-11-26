@@ -24,6 +24,8 @@ import java.util.Set;
 
 public class PrimitiveEDFactory implements EntityDisplayableFactory
 {
+    // Ships:
+
     public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip)
     {
         Set<Displayable> shipComponents = new HashSet<>();
@@ -57,6 +59,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
         return new ShipDisplayable(wingman, new Explosion(wingman.getOrigin(), 250, Color.MAGENTA, 80), shipComponents);
     }
 
+    // Projectiles:
 
     public EntityDisplayable makeProjectileDisplayable(Projectile projectile)
     {
@@ -75,6 +78,8 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
         return new SimpleEntityDisplayable(projectile, ImageFactory.getWingmanProjectileImage(),
                 new Explosion(projectile.getOrigin(), 80, Color.RED, 20));
     }
+
+    // Pickups:
 
     public EntityDisplayable makeHealthPickupDisplayable(HealthPickup pickup)
     {

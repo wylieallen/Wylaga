@@ -46,7 +46,7 @@ public class InterfacePanel extends JPanel implements KeyListener
         initializeKeyMap();
 
         // 1 frame per 17 ms ~= 60 frames per second
-        renderTimer = new javax.swing.Timer(14, new ActionListener() {
+        renderTimer = new javax.swing.Timer(12, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 

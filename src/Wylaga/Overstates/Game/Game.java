@@ -1,5 +1,6 @@
 package Wylaga.Overstates.Game;
 
+import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Pickups.*;
@@ -14,17 +15,16 @@ import Wylaga.Util.Random;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Game
 {
-    private List<List<? extends Entity>> entities;
-    private List<Ship> ships;
-    private List<Projectile> projectiles;
-    private List<Pickup> pickups;
+    private Set<Set<? extends Entity>> entities;
+    private Set<Ship> ships;
+    private Set<Projectile> projectiles;
+    private Set<Pickup> pickups;
 
     private Set<Ship> expiredShips;
     private Set<Projectile> expiredProjectiles;
@@ -52,12 +52,12 @@ public class Game
         expiredShips = new HashSet<>();
         expiredProjectiles = new HashSet<>();
         expiredPickups = new HashSet<>();
-        newEntities = new HashSet<>();
+        newEntities = Collections.newSetFromMap(new ConcurrentHashMap<Entity, Boolean>());
 
-        entities = new ArrayList<>();
-        entities.add(ships = new ArrayList<>());
-        entities.add(projectiles = new ArrayList<>());
-        entities.add(pickups = new ArrayList<>());
+        entities = Collections.newSetFromMap(new ConcurrentHashMap<Set<? extends Entity>, Boolean>());
+        entities.add(ships = Collections.newSetFromMap(new ConcurrentHashMap<Ship, Boolean>()));
+        entities.add(projectiles = Collections.newSetFromMap(new ConcurrentHashMap<Projectile, Boolean>()));
+        entities.add(pickups = Collections.newSetFromMap(new ConcurrentHashMap<Pickup, Boolean>()));
 
         spawnShip(playerShip = new PlayerShip());
         spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
@@ -194,7 +194,7 @@ public class Game
         newEntities.add(pickup);
     }
 
-    public List<List<? extends Entity>> getEntities() { return entities; }
+    public Set<Set<? extends Entity>> getEntities() { return entities; }
 
     public Set<Entity> getNewEntities()
     {

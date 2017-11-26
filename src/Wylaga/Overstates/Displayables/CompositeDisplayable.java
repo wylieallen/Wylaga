@@ -50,6 +50,11 @@ public class CompositeDisplayable implements Displayable
         }
     }
 
+    public void add(Displayable displayable)
+    {
+        components.add(displayable);
+    }
+
     public BufferedImage getImage()
     {
         return null;

@@ -49,7 +49,7 @@ public class Grid
         }
     }
 
-    public void addAll(List<? extends Entity> entities)
+    public void addAll(Set<? extends Entity> entities)
     {
         for(Entity entity : entities)
         {

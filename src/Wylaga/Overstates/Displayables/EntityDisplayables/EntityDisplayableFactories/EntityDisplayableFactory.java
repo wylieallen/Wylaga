@@ -10,17 +10,19 @@ import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 
 public interface EntityDisplayableFactory
 {
+    // Ships:
     EntityDisplayable makePlayerDisplayable(PlayerShip playerShip);
     EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip);
     EntityDisplayable makeWingmanDisplayable(Wingman wingman);
 
+    // Projectiles:
     EntityDisplayable makeProjectileDisplayable(Projectile projectile);
     EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile);
     EntityDisplayable makeWingmanProjectileDisplayable(Projectile wingmanProjectile);
 
+    // Pickups:
     EntityDisplayable makeHealthPickupDisplayable(HealthPickup pickup);
     EntityDisplayable makeScorePickupDisplayable(ScorePickup scorePickup);
     EntityDisplayable makePowerPickupDisplayable(PowerPickup powerPickup);
     EntityDisplayable makeWingmanPickupDisplayable(WingmanPickup wingmanPickup);
-
 }

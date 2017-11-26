@@ -12,4 +12,10 @@ public abstract class Star extends SimpleDisplayable
     {
         super(point, image);
     }
+
+    @Override
+    public boolean expired()
+    {
+        return super.getPosition().y > 720;
+    }
 }

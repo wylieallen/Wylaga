@@ -1,5 +1,7 @@
 package Wylaga.Util;
 
+import java.awt.geom.Point2D;
+
 public class Trajectory
 {
     // Static cardinal directions:
@@ -29,6 +31,11 @@ public class Trajectory
     public Trajectory(double dx, double dy)
     {
         setAsUnitVector(dx, dy);
+    }
+
+    public Trajectory(Point2D.Double origin, Point2D.Double destination)
+    {
+        this(destination.x - origin.x, destination.y - origin.y);
     }
 
     private void setAsUnitVector(double dx, double dy)
