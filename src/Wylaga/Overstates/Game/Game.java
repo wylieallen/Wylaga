@@ -7,7 +7,6 @@ import Wylaga.Overstates.Game.Entities.Pickups.*;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
-import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Util.Random;
@@ -224,7 +223,7 @@ public class Game
         public void processCollisions()
         {
             resetGrid();
-            for(Cell cell : grid.getOccupiedCells())
+            for(Grid.Cell cell : grid.getOccupiedCells())
             {
                 processProjectiles(cell);
                 if(playerShip.isAlive())
@@ -235,7 +234,7 @@ public class Game
             }
         }
 
-        private void processProjectiles(Cell cell)
+        private void processProjectiles(Grid.Cell cell)
         {
             for(Projectile projectile : cell.getProjectiles())
             {
@@ -258,7 +257,7 @@ public class Game
             }
         }
 
-        private void processShips(Cell cell)
+        private void processShips(Grid.Cell cell)
         {
             for(Ship ship : cell.getShips())
             {
@@ -273,7 +272,7 @@ public class Game
             }
         }
 
-        private void processPickups(Cell cell)
+        private void processPickups(Grid.Cell cell)
         {
             for(Pickup pickup : cell.getPickups())
             {

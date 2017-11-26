@@ -2,7 +2,7 @@ package Wylaga.Overstates.Game.Entities.Projectiles;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
-import Wylaga.Overstates.Game.Collisions.Cell;
+import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Entities.Team;
@@ -19,7 +19,9 @@ public class Projectile extends Entity
     private int damage;
     private boolean active;
 
-    public Projectile(Ship creator)
+    private EDVF edvf;
+
+    public Projectile(Ship creator, EDVF edvf)
     {
         // todo: factor out Ship dependency by having Creator parameterize with all this stuff that's currently queried from it:
         super(new Point2D.Double(creator.getOrigin().x, creator.getOrigin().y), defaultDimension, creator.getTeam(), creator.getProjectileSpeed());
@@ -27,15 +29,17 @@ public class Projectile extends Entity
         super.translatePosition(creator.getDimension().width / 2 - defaultDimension.width / 2, yInitial);
         super.setTrajectory(creator.getProjectileTrajectory());
         this.damage = defaultDamage;
-        active = true;
+        this.active = true;
+        this.edvf = edvf;
     }
 
-    public Projectile(Point2D.Double position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage)
+    public Projectile(Point2D.Double position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage, EDVF edvf)
     {
         super(position, dimension, team, speed);
         super.setTrajectory(trajectory);
         this.damage = damage;
         this.active = true;
+        this.edvf = edvf;
     }
 
     // Entity interface:
@@ -47,7 +51,6 @@ public class Projectile extends Entity
 
     // Projectile interface:
     public int getDamage() {return damage;}
-    public Team getTeam() {return super.getTeam();}
     public void deactivate()
     {
         active = false;
@@ -55,8 +58,14 @@ public class Projectile extends Entity
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
     {
-        return entityDisplayableFactory.makeProjectileDisplayable(this);
+        return edvf.getDisplayable(entityDisplayableFactory, this);
     }
 
-    public void addToCell(Cell cell) { cell.addProjectile(this); }
+    public void addToCell(Grid.Cell cell) { cell.addProjectile(this); }
+
+    // EDVF = EntityDisplayableVendingFunction
+    public interface EDVF
+    {
+        EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory, Projectile projectile);
+    }
 }

@@ -2,10 +2,9 @@ package Wylaga.Overstates.Game.Entities;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
-import Wylaga.Overstates.Game.Collisions.Cell;
+import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Util.Trajectory;
 
-import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
@@ -71,11 +70,11 @@ public abstract class Entity
     // expired() returns true when the Entity has outlived its usefulness.
     public abstract boolean expired();
 
-    // getDisplayable() uses double dispatch to request an appropriate SimpleEntityDisplayable.
+    // getDisplayable() uses double dispatch to request an appropriate EntityDisplayable.
     // Concrete subclasses of Entity must define the EDF method that is called.
     public abstract EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory);
 
     // addToCell() similarly allows concrete Entities to define which of a Cell's Lists they'll be added to.
-    public abstract void addToCell(Cell cell);
+    public abstract void addToCell(Grid.Cell cell);
 }
 

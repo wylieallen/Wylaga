@@ -18,6 +18,8 @@ public class Starfield extends CompositeDisplayable
 {
     private static Starfield instance = new Starfield();
 
+    private static final int density = 2;
+
     private Starfield()
     {
         super(new Point2D.Double(0, 0), makeStars(1280, 720));
@@ -31,8 +33,8 @@ public class Starfield extends CompositeDisplayable
 
         for(int j = 0; j < height; j++)
         {
-            stars.add(new PixelStar(new Point2D.Double(Random.rollInt(width), j)));
-            stars.add(new PixelStar(new Point2D.Double(Random.rollInt(width), j)));
+            for(int i = 0; i < density; i++)
+                stars.add(new PixelStar(new Point2D.Double(Random.rollInt(width), j)));
         }
 
         return stars;
@@ -41,8 +43,9 @@ public class Starfield extends CompositeDisplayable
     public void update()
     {
         super.update();
-        super.add(new PixelStar(new Point2D.Double(Random.rollInt(1280), -3)));
-        super.add(new PixelStar(new Point2D.Double(Random.rollInt(1280), -3)));
+        for(int i = 0; i < density; i++)
+            super.add(new PixelStar(new Point2D.Double(Random.rollInt(1280), -3)));
+        //super.add(new PixelStar(new Point2D.Double(Random.rollInt(1280), -3)));
     }
 
     public static Starfield getInstance() {return instance;}

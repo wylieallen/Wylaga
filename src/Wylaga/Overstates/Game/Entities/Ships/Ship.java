@@ -1,6 +1,7 @@
 package Wylaga.Overstates.Game.Entities.Ships;
 
-import Wylaga.Overstates.Game.Collisions.Cell;
+import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
+import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipChassis;
@@ -76,7 +77,7 @@ public abstract class Ship extends Entity
 
     protected Projectile getNewProjectile()
     {
-        return new Projectile(this);
+        return new Projectile(this, EntityDisplayableFactory::makeProjectileDisplayable);
     }
 
     public boolean vulnerableTo(Projectile projectile)
@@ -116,7 +117,7 @@ public abstract class Ship extends Entity
         if(health > maxHealth) health = maxHealth;
     }
 
-    public void addToCell(Cell cell) { cell.addShip(this); }
+    public void addToCell(Grid.Cell cell) { cell.addShip(this); }
 
     public void update()
     {

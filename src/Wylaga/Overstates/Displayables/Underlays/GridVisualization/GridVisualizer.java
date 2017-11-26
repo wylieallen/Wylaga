@@ -1,7 +1,6 @@
 package Wylaga.Overstates.Displayables.Underlays.GridVisualization;
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
-import Wylaga.Overstates.Game.Collisions.Cell;
 import Wylaga.Overstates.Game.Collisions.Grid;
 
 import java.awt.*;
@@ -20,7 +19,7 @@ public class GridVisualizer extends SimpleDisplayable
         super(point, image);
         g2d = image.createGraphics();
         cellDisplayables = new HashSet<>();
-        for(Cell cell : grid.getAllCells())
+        for(Grid.Cell cell : grid.getAllCells())
         {
             cellDisplayables.add(new CellDisplayable(cell));
         }
