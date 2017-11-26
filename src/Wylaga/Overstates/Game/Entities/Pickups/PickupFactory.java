@@ -14,45 +14,17 @@ public class PickupFactory
         int roll = Random.rollInt(10);
         if (roll < 3)
         {
-            return new Pickup(point, () -> game.getPlayerShip().heal(10))
-            {
-                @Override
-                public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
-                {
-                    return entityDisplayableFactory.makeHealthPickupDisplayable(this);
-                }
-            };
+            return new Pickup(point, () -> game.getPlayerShip().heal(10), EntityDisplayableFactory::makeHealthPickupDisplayable);
         }
         else if (roll < 6)
         {
-            return new Pickup(point, () -> game.addPoints(30))
-            {
-                @Override
-                public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
-                {
-                    return entityDisplayableFactory.makeScorePickupDisplayable(this);
-                }
-            };
+            return new Pickup(point, () -> game.addPoints(30), EntityDisplayableFactory::makeScorePickupDisplayable);
         }
         else if (roll < 8)
         {
-            return new Pickup(point, () -> game.getPlayerShip().refuel(50))
-            {
-                @Override
-                public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
-                {
-                    return entityDisplayableFactory.makePowerPickupDisplayable(this);
-                }
-            };
+            return new Pickup(point, () -> game.getPlayerShip().refuel(50), EntityDisplayableFactory::makePowerPickupDisplayable);
         }
         else
-            return new Pickup(point, game::respawnWingmen)
-            {
-                @Override
-                public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
-                {
-                    return entityDisplayableFactory.makeWingmanPickupDisplayable(this);
-                }
-            };
+            return new Pickup(point, game::respawnWingmen, EntityDisplayableFactory::makeWingmanPickupDisplayable);
     }
 }
