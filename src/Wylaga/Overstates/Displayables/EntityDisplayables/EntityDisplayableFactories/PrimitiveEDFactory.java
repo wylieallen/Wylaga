@@ -81,22 +81,22 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
 
     // Pickups:
 
-    public EntityDisplayable makeHealthPickupDisplayable(HealthPickup pickup)
+    public EntityDisplayable makeHealthPickupDisplayable(Pickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getHealthPickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }
 
-    public EntityDisplayable makeScorePickupDisplayable(ScorePickup pickup)
+    public EntityDisplayable makeScorePickupDisplayable(Pickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getScorePickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }
 
-    public EntityDisplayable makePowerPickupDisplayable(PowerPickup pickup)
+    public EntityDisplayable makePowerPickupDisplayable(Pickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getPowerPickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }
 
-    public EntityDisplayable makeWingmanPickupDisplayable(WingmanPickup pickup)
+    public EntityDisplayable makeWingmanPickupDisplayable(Pickup pickup)
     {
         return new SimpleEntityDisplayable(pickup, ImageFactory.getWingmanPickupImage(), new Explosion(pickup.getOrigin(), 100, Color.LIGHT_GRAY, 30));
     }

@@ -21,8 +21,8 @@ public interface EntityDisplayableFactory
     EntityDisplayable makeWingmanProjectileDisplayable(Projectile wingmanProjectile);
 
     // Pickups:
-    EntityDisplayable makeHealthPickupDisplayable(HealthPickup pickup);
-    EntityDisplayable makeScorePickupDisplayable(ScorePickup scorePickup);
-    EntityDisplayable makePowerPickupDisplayable(PowerPickup powerPickup);
-    EntityDisplayable makeWingmanPickupDisplayable(WingmanPickup wingmanPickup);
+    EntityDisplayable makeHealthPickupDisplayable(Pickup pickup);
+    EntityDisplayable makeScorePickupDisplayable(Pickup pickup);
+    EntityDisplayable makePowerPickupDisplayable(Pickup pickup);
+    EntityDisplayable makeWingmanPickupDisplayable(Pickup pickup);
 }

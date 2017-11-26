@@ -105,15 +105,7 @@ public class Game
                 addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
                 {
-                    int roll = Random.rollInt(10);
-                    if (roll < 3)
-                        spawnPickup(new HealthPickup(ship.getOrigin(), playerShip));
-                    else if (roll < 6)
-                        spawnPickup(new ScorePickup(ship.getOrigin(), () -> addPoints(30)));
-                    else if (roll < 8)
-                        spawnPickup(new PowerPickup(ship.getOrigin(), playerShip));
-                    else
-                        spawnPickup(new WingmanPickup(ship.getOrigin(), this::respawnWingmen));
+                    spawnPickup(PickupFactory.makePickup(this, ship.getOrigin()));
                 }
             }
             else if(ship.isFiring())
@@ -168,7 +160,7 @@ public class Game
         return wave.isDestroyed();
     }
 
-    private void addPoints(int points) { score += points; }
+    public void addPoints(int points) { score += points; }
 
     private void spawnShip(Ship ship)
     {
