@@ -6,6 +6,7 @@ import Wylaga.Overstates.Displayables.Overlays.HUD.FuelHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.HealthHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
 import Wylaga.Overstates.Displayables.Underlays.GridVisualizer;
+import Wylaga.Overstates.Displayables.Underlays.Starfield;
 import Wylaga.Util.AbstractFunction;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;
@@ -21,7 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class GameState extends Overstate
 {
-    private PausedGameSubstate pausedGameState = new PausedGameSubstate();
     private GameSubstate activeState;
 
     private Game game;
@@ -46,8 +46,8 @@ public class GameState extends Overstate
         this.postGameFunction = postGameFunction;
 
         //super.addUnderlay(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(1280, 720)));
-        //super.addUnderlay(Starfield.getInstance());
-        super.addUnderlay(new GridVisualizer(new Point2D.Double(0, 0), game.getGrid()));
+        super.addUnderlay(Starfield.getInstance());
+        //super.addUnderlay(new GridVisualizer(new Point2D.Double(0, 0), game.getGrid()));
         super.addOverlay(new HealthHudOverlay(new Point2D.Double(10, 10), game.getPlayerShip()));
         super.addOverlay(new ScoreHudOverlay(new Point2D.Double(10, 35), game));
         super.addOverlay(new FuelHudOverlay(new Point2D.Double(10, 60), game.getPlayerShip()));
@@ -95,7 +95,7 @@ public class GameState extends Overstate
             {
                 expiredEntityDisplayables.add(entityDisplayable);
                 Displayable successor = entityDisplayable.getSuccessorDisplayable();
-                successor.getPosition().setLocation(successor.getPosition().x - (successor.getImage().getWidth() / 2), successor.getPosition().y - (successor.getImage().getHeight() / 2));
+                successor.getPosition().setLocation(successor.getPosition().x - (successor.getSize().width / 2), successor.getPosition().y - (successor.getSize().height / 2));
                 successorDisplayables.add(successor);
             }
         }
@@ -302,28 +302,4 @@ public class GameState extends Overstate
             return null;
         }
     }
-
-    private class PausedGameSubstate extends GameSubstate
-    {
-        public GameSubstate previousState;
-
-        public PausedGameSubstate()
-        {
-            // this.addDisplay(...);
-        }
-
-        public void updateState() {}
-
-        protected boolean readyToTransitionState()
-        {
-            return false;
-        }
-
-        protected GameSubstate getNextState()
-        {
-            return previousState;
-        }
-    }
-
-
 }

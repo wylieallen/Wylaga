@@ -12,11 +12,13 @@ public class CompositeDisplayable implements Displayable
 {
     private Point2D.Double position;
     private Set<Displayable> components;
+    private Dimension size;
 
-    protected CompositeDisplayable(Point2D.Double position, Set<Displayable> components)
+    protected CompositeDisplayable(Point2D.Double position, Set<Displayable> components, Dimension size)
     {
         this.position = position;
         this.components = components;
+        this.size = size;
     }
 
     public void update()
@@ -43,7 +45,7 @@ public class CompositeDisplayable implements Displayable
 
     public void drawWithOffset(Graphics2D g2d, Point2D.Double offset)
     {
-        Point2D.Double offsetPos = new Point2D.Double((int) position.x + offset.x, (int) position.y + offset.y);
+        Point2D.Double offsetPos = new Point2D.Double(position.x + offset.x, position.y + offset.y);
         for(Displayable component : components)
         {
             component.drawWithOffset(g2d, offsetPos);
@@ -55,18 +57,9 @@ public class CompositeDisplayable implements Displayable
         components.add(displayable);
     }
 
-    public BufferedImage getImage()
-    {
-        return null;
-    }
-
+    public Dimension getSize() { return size; }
     public Point2D.Double getPosition()
     {
         return position;
-    }
-
-    public boolean expired()
-    {
-        return false;
     }
 }

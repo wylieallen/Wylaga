@@ -14,7 +14,7 @@ public class CompositeEntityDisplayable extends CompositeDisplayable implements 
 
     protected CompositeEntityDisplayable(Entity entity, Displayable successor, Set<Displayable> components)
     {
-        super(entity.getOrigin(), components);
+        super(entity.getOrigin(), components, entity.getDimension());
         this.entity = entity;
         this.successor = successor;
     }

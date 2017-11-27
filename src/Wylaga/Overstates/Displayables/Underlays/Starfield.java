@@ -9,7 +9,6 @@ import Wylaga.Util.Random;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public class Starfield extends CompositeDisplayable
 
     private Starfield()
     {
-        super(new Point2D.Double(0, 0), makeStars(1280, 720));
+        super(new Point2D.Double(0, 0), makeStars(1280, 720), new Dimension(1280, 720));
     }
 
     private static Set<Displayable> makeStars(int width, int height)

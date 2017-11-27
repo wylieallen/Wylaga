@@ -10,12 +10,12 @@ import java.awt.image.BufferedImage;
 
 public class SpecialDisplayable extends SimpleDisplayable
 {
-    private PlayerShip ship;
+    private Ship ship;
     private BufferedImage baseImage;
     private BufferedImage deployedImage;
     private SpecialDisplayable.State currentState;
 
-    public SpecialDisplayable(PlayerShip ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage deployedImage)
+    public SpecialDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage deployedImage)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;

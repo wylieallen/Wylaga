@@ -11,6 +11,7 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.SimpleEntityDisplayable
 import Wylaga.Overstates.Displayables.Explosions.Explosion;
 import Wylaga.Overstates.Game.Entities.Pickups.*;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
+import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
@@ -26,7 +27,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
 {
     // Ships:
 
-    public EntityDisplayable makePlayerDisplayable(PlayerShip playerShip)
+    public EntityDisplayable makePlayerDisplayable(Ship playerShip)
     {
         Set<Displayable> shipComponents = new HashSet<>();
         shipComponents.add( new ChassisDisplayable(playerShip, new Point2D.Double(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis()));
@@ -38,7 +39,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
         return new ShipDisplayable(playerShip, new Explosion(playerShip.getOrigin(), 500, Color.ORANGE, 100), shipComponents);
     }
 
-    public EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip)
+    public EntityDisplayable makeEnemyDisplayable(Ship enemyShip)
     {
         Set<Displayable> shipComponents = new HashSet<>();
         shipComponents.add( new ChassisDisplayable(enemyShip, new Point2D.Double(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis()));
@@ -48,7 +49,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
         return new ShipDisplayable(enemyShip, new Explosion(enemyShip.getOrigin(), 240, Color.CYAN, 80), shipComponents);
     }
 
-    public EntityDisplayable makeWingmanDisplayable(Wingman wingman)
+    public EntityDisplayable makeWingmanDisplayable(Ship wingman)
     {
         Set<Displayable> shipComponents = new HashSet<>();
         shipComponents.add(new ChassisDisplayable(wingman, new Point2D.Double(0,0 ), ImageFactory.getWingmanBaseChassis(), ImageFactory.getWingmanHurtChassis()));

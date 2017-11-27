@@ -17,7 +17,7 @@ public class GridVisualizer extends CompositeDisplayable
 {
     public GridVisualizer(Point2D.Double point, Grid grid)
     {
-        super(point, makeFromGrid(grid));
+        super(point, makeFromGrid(grid), new Dimension(1280, 720));
     }
 
     private static Set<Displayable> makeFromGrid(Grid grid)

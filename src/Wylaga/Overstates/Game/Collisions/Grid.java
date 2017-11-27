@@ -142,6 +142,7 @@ public class Grid
         public Set<Ship> getShips() {return ships;}
         public Set<Projectile> getProjectiles() {return projectiles;}
         public Set<Pickup> getPickups() {return pickups;}
+
         public Point getOrigin() {return origin;}
         public Dimension getSize() {return size;}
 

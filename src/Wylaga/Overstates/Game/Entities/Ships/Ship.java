@@ -85,6 +85,10 @@ public abstract class Ship extends Entity
         return projectile.getTeam() != this.getTeam();
     }
 
+    // todo: getCurFuel() is only used by ShipDisplayable's SpecialDisplayable, eliminate that dependency to factor this out
+    public int getCurFuel() { return 0; }
+
+    public boolean specialDeployed() { return false; }
     public boolean isFiring()
     {
         return firing;

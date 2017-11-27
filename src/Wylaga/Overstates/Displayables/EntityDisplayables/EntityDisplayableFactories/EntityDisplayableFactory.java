@@ -6,19 +6,20 @@ import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.WingmanProjectile;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
+import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 
 public interface EntityDisplayableFactory
 {
     // Ships:
-    EntityDisplayable makePlayerDisplayable(PlayerShip playerShip);
-    EntityDisplayable makeEnemyDisplayable(EnemyShip enemyShip);
-    EntityDisplayable makeWingmanDisplayable(Wingman wingman);
+    EntityDisplayable makePlayerDisplayable(Ship playerShip);
+    EntityDisplayable makeEnemyDisplayable(Ship enemyShip);
+    EntityDisplayable makeWingmanDisplayable(Ship wingman);
 
     // Projectiles:
     EntityDisplayable makeProjectileDisplayable(Projectile projectile);
     EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile);
-    EntityDisplayable makeWingmanProjectileDisplayable(Projectile wingmanProjectile);
+    EntityDisplayable makeWingmanProjectileDisplayable(Projectile Projectile);
 
     // Pickups:
     EntityDisplayable makeHealthPickupDisplayable(Pickup pickup);
