@@ -2,9 +2,9 @@ package Wylaga.Overstates.Menus;
 
 import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Menus.Buttons.Button;
-import Wylaga.Overstates.Menus.Buttons.NonButton;
 import Wylaga.Overstates.Overstate;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +15,7 @@ public abstract class Menu extends Overstate
     protected List<Button> buttons;
     private Set<Displayable> displays;
 
-    protected Button activeButton = NonButton.getInstance();
+    protected Button activeButton = new Button(null, new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), null, null);
 
     public Menu()
     {

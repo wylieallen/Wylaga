@@ -25,9 +25,4 @@ public class WingmanProjectile extends Projectile
     {
         super(origin, defaultDimension, team, speed, trajectory, damage, EntityDisplayableFactory::makeWingmanProjectileDisplayable);
     }
-
-    public EntityDisplayable getDisplayable(EntityDisplayableFactory edf)
-    {
-        return edf.makeWingmanProjectileDisplayable(this);
-    }
 }

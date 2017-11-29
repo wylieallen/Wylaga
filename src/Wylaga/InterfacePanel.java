@@ -1,7 +1,7 @@
 package Wylaga;
 
 import Wylaga.Util.KeyRole;
-import Wylaga.Overstates.GameState;
+import Wylaga.Overstates.Game.GameState;
 import Wylaga.Overstates.Overstate;
 import Wylaga.Overstates.Menus.MenuFactory;
 import Wylaga.Rendering.Renderer;
@@ -46,12 +46,13 @@ public class InterfacePanel extends JPanel implements KeyListener
         initializeKeyMap();
 
         // 1 frame per 17 ms ~= 60 frames per second
-        renderTimer = new javax.swing.Timer(12, new ActionListener() {
+        renderTimer = new javax.swing.Timer(14, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
                 // FPS monitoring:
 
+                /*
                 long curTime = System.currentTimeMillis();
                 long delta = curTime - prevTime;
                 millisElapsed += delta;
@@ -62,6 +63,7 @@ public class InterfacePanel extends JPanel implements KeyListener
                 }
                 System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
+                */
 
                 //activeOverstate.updateModel();
                 activeOverstate.updateView();

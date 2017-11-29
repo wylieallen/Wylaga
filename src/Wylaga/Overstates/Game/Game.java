@@ -1,6 +1,5 @@
 package Wylaga.Overstates.Game;
 
-import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Game.Collisions.CollisionChecker;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Pickups.*;
@@ -9,13 +8,12 @@ import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Game
@@ -61,8 +59,12 @@ public class Game
         spawnShip(playerShip = new PlayerShip());
         spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
         spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
+        //spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
+        //spawnShip(new Wingman(leftWingman, new Point(22, 46)));
+        //spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
+        //spawnShip(new Wingman(rightWingman, new Point(22, 46)));
 
-        wave = new NullWave();
+        wave = Wave.getNullWave();
         collisionManager = new CollisionManager();
     }
 
@@ -80,8 +82,8 @@ public class Game
     {
         leftWingman.terminate();
         rightWingman.terminate();
-        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 50)));
-        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 50)));
+        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
+        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
     }
 
     private void updateEntities()
@@ -100,10 +102,12 @@ public class Game
             ship.update();
             if(ship.expired())
             {
+                //System.out.println("Expired ship at " + ship.getOrigin().toString());
                 expiredShips.add(ship);
                 addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
                 {
+                    //System.out.println("Spawning pickup at " + ship.getOrigin().toString());
                     spawnPickup(PickupFactory.makePickup(this, ship.getOrigin()));
                 }
             }
@@ -190,7 +194,7 @@ public class Game
     public Set<Entity> getNewEntities()
     {
         Set<Entity> newbies = newEntities;
-        newEntities = new HashSet<>();
+        newEntities = Collections.newSetFromMap(new ConcurrentHashMap<Entity, Boolean>());
         return newbies;
     }
 
@@ -226,12 +230,18 @@ public class Game
             for(Grid.Cell cell : grid.getOccupiedCells())
             {
                 processProjectiles(cell);
-                if(playerShip.isAlive())
-                {
-                    processShips(cell);
-                    processPickups(cell);
-                }
+                processShips(cell);
+                processPickups(cell);
             }
+        }
+
+        private void resetGrid()
+        {
+            grid.clear();
+            grid.addAll(ships);
+            grid.addAll(projectiles);
+            grid.addAll(pickups);
+            loggedCollisions.clear();
         }
 
         private void processProjectiles(Grid.Cell cell)
@@ -338,15 +348,6 @@ public class Game
             {
                 playerShip.flagAsUnconstrained();
             }
-        }
-
-        private void resetGrid()
-        {
-            grid.clear();
-            grid.addAll(ships);
-            grid.addAll(projectiles);
-            grid.addAll(pickups);
-            loggedCollisions.clear();
         }
 
         public void logCollision(Entity entity1, Entity entity2)

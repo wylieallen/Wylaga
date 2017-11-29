@@ -2,7 +2,6 @@ package Wylaga.Overstates.Menus;
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Displayables.Underlays.Starfield;
-import Wylaga.Overstates.Menus.Buttons.Functions.ButtonFunction;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Menus.Buttons.Button;
 import Wylaga.Overstates.Menus.Buttons.ButtonFactory;
@@ -13,7 +12,7 @@ import java.awt.geom.Point2D;
 public class MenuFactory
 {
 
-    public static Menu makeMainMenu(ButtonFunction startGameFunction)
+    public static Menu makeMainMenu(AbstractFunction startGameFunction)
     {
         Menu mainMenu = new VerticalMenu();
         //startMenu.addDisplay(new SimpleDisplayable(new Point(0, 0), ImageFactory.makeBlackRect(1280, 720)));

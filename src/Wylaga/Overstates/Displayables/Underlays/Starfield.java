@@ -4,7 +4,7 @@ import Wylaga.Overstates.Displayables.CompositeDisplayable;
 import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Rendering.ImageFactory;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -29,11 +29,23 @@ public class Starfield extends CompositeDisplayable
 
         stars.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(width, height)));
 
+        for(int i = 0; i < height; i++)
+        {
+            for(Displayable star : stars)
+            {
+                star.update();
+            }
+            stars.add(new Star(new Point2D.Double(Random.rollInt(width), -3)));
+            stars.add(new Star(new Point2D.Double(Random.rollInt(width), -3)));
+        }
+
+        /*
         for(int j = 0; j < height; j++)
         {
             for(int i = 0; i < density; i++)
-                stars.add(new Star(new Point2D.Double(Random.rollInt(width), j)));
+                stars.add(new Star(new Point2D.Double(RandomNumberGenerator.rollInt(width), j)));
         }
+        */
 
         return stars;
     }
@@ -43,7 +55,7 @@ public class Starfield extends CompositeDisplayable
         super.update();
         for(int i = 0; i < density; i++)
             super.add(new Star(new Point2D.Double(Random.rollInt(1280), -3)));
-        //super.add(new Star(new Point2D.Double(Random.rollInt(1280), -3)));
+        //super.add(new Star(new Point2D.Double(RandomNumberGenerator.rollInt(1280), -3)));
     }
 
     public static Starfield getInstance() {return instance;}

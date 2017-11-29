@@ -25,9 +25,4 @@ public class PlayerProjectile extends Projectile
     {
         super(origin, defaultDimension, team, speed, trajectory, damage, EntityDisplayableFactory::makePlayerProjectileDisplayable);
     }
-
-    public EntityDisplayable getDisplayable(EntityDisplayableFactory edf)
-    {
-        return edf.makePlayerProjectileDisplayable(this);
-    }
 }

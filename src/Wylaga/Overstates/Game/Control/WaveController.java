@@ -2,10 +2,9 @@ package Wylaga.Overstates.Game.Control;
 
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Wave;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 import Wylaga.Util.Trajectory;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class WaveController implements GameController

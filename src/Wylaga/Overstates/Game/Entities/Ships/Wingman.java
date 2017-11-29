@@ -35,6 +35,7 @@ public class Wingman extends PlayerShip
         this.offset = offset;
         this.leader = leader;
         this.shootNext = false;
+        this.defaultSpeed = getSpeed();
         destinations = new LinkedList<>();
         specialActivations = new LinkedList<>();
         weaponFirings = new LinkedList<>();
@@ -49,22 +50,33 @@ public class Wingman extends PlayerShip
         }
     }
 
-    public void update() {
+    public void update()
+    {
+        super.setSpeed(defaultSpeed);
 
         if(leader.isAlive())
         {
             Point2D.Double nextDest = calculateDestination();
             Point2D.Double curPos = super.getOrigin();
 
-            if (Point2D.distance(nextDest.x, nextDest.y, curPos.x, curPos.y) < super.getSpeed()) {
-                curPos.setLocation(nextDest);
+            double distToDest = Point2D.distance(nextDest.x, nextDest.y, curPos.x, curPos.y);
+
+            if (distToDest < super.getSpeed())
+            {
+                if(distToDest <= 3)
+                {
+                    curPos.setLocation(nextDest.x, nextDest.y);
+                }
+                else
+                {
+                    super.setSpeed(distToDest);
+                }
             }
 
             super.setFiring(weaponFirings.remove());
             super.setSpecial(specialActivations.remove());
             super.setTrajectory(new Trajectory(super.getOrigin(), destinations.remove()));
             super.setCurFuel(leader.getCurFuel());
-            //super.update();
 
             weaponFirings.add(leader.isFiring());
             specialActivations.add(leader.specialDeployed());
@@ -77,23 +89,6 @@ public class Wingman extends PlayerShip
             super.setTrajectory(leader.getTrajectory());
         }
         super.update();
-
-        /*
-        super.setFiring(shootNext);
-        super.update();
-        super.setTrajectory(new Trajectory(super.getOrigin(), destinations.remove()));
-        //super.setCurFuel(leader.getCurFuel());
-        super.setSpecial(leader.specialDeployed());
-
-        destinations.add(calculateDestination());
-
-        //if(leader.isAlive() && leader.getTrajectory() == Trajectory.getDirection(0, 0))
-        //{
-        //    super.getOrigin().setLocation(leader.getOrigin().x + offset.x, leader.getOrigin().y + offset.y);
-        //}
-
-        shootNext = leader.isFiring();
-        */
     }
 
     private Point2D.Double calculateDestination()

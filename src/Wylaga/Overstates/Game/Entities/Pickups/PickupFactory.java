@@ -2,7 +2,7 @@ package Wylaga.Overstates.Game.Entities.Pickups;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
 import Wylaga.Overstates.Game.Game;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 
 import java.awt.geom.Point2D;
 

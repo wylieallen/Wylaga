@@ -1,7 +1,7 @@
 package Wylaga.Overstates.Displayables.Explosions;
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 import Wylaga.Util.Trajectory;
 
 
@@ -20,7 +20,7 @@ public class Explosion extends SimpleDisplayable
 
     private Color color;
 
-    private int lifespan = 100; //18 + Random.rollInt(7);
+    private int lifespan = 100; //18 + RandomNumberGenerator.rollInt(7);
 
     private List<Particle> particles;
 
@@ -65,7 +65,6 @@ public class Explosion extends SimpleDisplayable
 
     private class Particle
     {
-        private Point origin;
         private Point2D.Double position;
         private BufferedImage image;
         private Trajectory trajectory;
@@ -75,7 +74,6 @@ public class Explosion extends SimpleDisplayable
 
         public Particle(Point origin, int width, int height)
         {
-            this.origin = origin;
             this.position = new Point2D.Double(origin.x, origin.y);
             this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = image.createGraphics();

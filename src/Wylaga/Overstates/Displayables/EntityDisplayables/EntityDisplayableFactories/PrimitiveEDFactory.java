@@ -10,13 +10,10 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Compon
 import Wylaga.Overstates.Displayables.EntityDisplayables.SimpleEntityDisplayable;
 import Wylaga.Overstates.Displayables.Explosions.Explosion;
 import Wylaga.Overstates.Game.Entities.Pickups.*;
-import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
-import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
-import Wylaga.Util.Random;
+import Wylaga.Util.Random.Random;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -71,7 +68,7 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makePlayerProjectileDisplayable(Projectile projectile)
     {
         return new SimpleEntityDisplayable(projectile, ImageFactory.getPlayerProjectileImage(),
-                new Explosion(projectile.getOrigin(),Random.rollInt(120) + 80, Color.RED , 30));
+                new Explosion(projectile.getOrigin(), Random.rollInt(120) + 80, Color.RED , 30));
     }
 
     public EntityDisplayable makeWingmanProjectileDisplayable(Projectile projectile)

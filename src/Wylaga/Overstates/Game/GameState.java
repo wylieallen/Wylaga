@@ -1,4 +1,4 @@
-package Wylaga.Overstates;
+package Wylaga.Overstates.Game;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.Overlays.*;
@@ -7,6 +7,7 @@ import Wylaga.Overstates.Displayables.Overlays.HUD.HealthHudOverlay;
 import Wylaga.Overstates.Displayables.Overlays.HUD.ScoreHudOverlay;
 import Wylaga.Overstates.Displayables.Underlays.GridVisualizer;
 import Wylaga.Overstates.Displayables.Underlays.Starfield;
+import Wylaga.Overstates.Overstate;
 import Wylaga.Util.AbstractFunction;
 import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;

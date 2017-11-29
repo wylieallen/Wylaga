@@ -145,4 +145,12 @@ public class Wave
     public int getWaveNumber() {
         return waveNumber;
     }
+
+    public static Wave getNullWave()
+    {
+        return new Wave(0) {
+            @Override
+            public void update() {}
+        };
+    }
 }
