@@ -9,6 +9,7 @@ public class CollisionChecker
 {
     static private Point2D.Double origin = new Point2D.Double(0, 0);
     static private Point2D.Double farTopLeft = new Point2D.Double(-75, -75);
+    static private Point2D.Double farBotRight = new Point2D.Double(1280 + 75, 720 + 75);
 
     static private boolean rectanglesBounded(Point2D.Double outerMin, Point2D.Double outerMax, Point2D.Double innerMin, Point2D.Double innerMax)
     {
@@ -62,10 +63,15 @@ public class CollisionChecker
     {
         Point2D.Double min1 = farTopLeft;
         Point2D.Double min2 = entity.getOrigin();
-        Point2D.Double max1 = makeMax(min1, new Dimension(worldSize.width + 100, worldSize.height + 100));
+        Point2D.Double max1 = makeMax(min1, new Dimension(worldSize.width + 75, worldSize.height + 75));
         Point2D.Double max2 = makeMax(min2, entity.getDimension());
 
-        return !rectanglesBounded(min1, max1, min2, max2);
+        //Point2D.Double entityPosition = entity.getOrigin();
+        //Dimension entityDimension = entity.getDimension();
+
+        //System.out.println("world checking: " + entityPosition.toString());
+
+        return !rectanglesBounded(farTopLeft, max1, min2, max2);
     }
 
     static public boolean entityInWorld(Entity entity, Dimension worldSize)

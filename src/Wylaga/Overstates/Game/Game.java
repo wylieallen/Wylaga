@@ -57,8 +57,8 @@ public class Game
         entities.add(pickups = Collections.newSetFromMap(new ConcurrentHashMap<Pickup, Boolean>()));
 
         spawnShip(playerShip = new PlayerShip());
-        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
-        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
+        //spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
+        //spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
         //spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
         //spawnShip(new Wingman(leftWingman, new Point(22, 46)));
         //spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
@@ -102,12 +102,12 @@ public class Game
             ship.update();
             if(ship.expired())
             {
-                //System.out.println("Expired ship at " + ship.getOrigin().toString());
+                System.out.println("Expired ship at " + ship.getOrigin().toString());
                 expiredShips.add(ship);
                 addPoints(ship.getPoints());
                 if(Random.rollInt(10) == 0)
                 {
-                    //System.out.println("Spawning pickup at " + ship.getOrigin().toString());
+                    System.out.println("Spawning pickup at " + ship.getOrigin().toString());
                     spawnPickup(PickupFactory.makePickup(this, ship.getOrigin()));
                 }
             }
@@ -227,12 +227,33 @@ public class Game
         public void processCollisions()
         {
             resetGrid();
+            deactivateDistantObjects();
             for(Grid.Cell cell : grid.getOccupiedCells())
             {
+                processPickups(cell);
                 processProjectiles(cell);
                 processShips(cell);
-                processPickups(cell);
             }
+        }
+
+        private void deactivateDistantObjects()
+        {
+            for(Projectile projectile : projectiles)
+            {
+                if(CollisionChecker.entityNotNearWorld(projectile, worldSize))
+                {
+                    projectile.deactivate();
+                }
+            }
+
+            for(Pickup pickup : pickups)
+            {
+                if(CollisionChecker.entityNotNearWorld(pickup, worldSize))
+                {
+                    pickup.deactivate();
+                }
+            }
+
         }
 
         private void resetGrid()
@@ -248,12 +269,6 @@ public class Game
         {
             for(Projectile projectile : cell.getProjectiles())
             {
-                if(CollisionChecker.entityNotNearWorld(projectile, worldSize))
-                {
-                    projectile.deactivate();
-                    continue;
-                }
-
                 for(Ship ship : cell.getShips())
                 {
                     if(ship.vulnerableTo(projectile) && CollisionChecker.entitiesCollide(projectile, ship) && collisionNotLogged(projectile, ship))
@@ -286,11 +301,6 @@ public class Game
         {
             for(Pickup pickup : cell.getPickups())
             {
-                if(CollisionChecker.entityNotNearWorld(pickup, worldSize))
-                {
-                    pickup.deactivate();
-                    continue;
-                }
                 if(CollisionChecker.entitiesCollide(playerShip, pickup) && collisionNotLogged(playerShip, pickup))
                 {
                     logCollision(playerShip, pickup);

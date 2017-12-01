@@ -60,7 +60,7 @@ public class GameState extends Overstate
         explosions = Collections.newSetFromMap(new ConcurrentHashMap<Displayable, Boolean>());
         super.addDisplays(explosions);
 
-        activeState = new PreWaveSubstate();
+        activeState = new SandboxState();
         activeState.swapIn();
     }
 
@@ -94,6 +94,7 @@ public class GameState extends Overstate
         {
             if(entityDisplayable.expired())
             {
+                System.out.println("EXPIRATION: " + entityDisplayable.toString() + " at " + entityDisplayable.getPosition().toString());
                 expiredEntityDisplayables.add(entityDisplayable);
                 Displayable successor = entityDisplayable.getSuccessorDisplayable();
                 successor.getPosition().setLocation(successor.getPosition().x - (successor.getSize().width / 2), successor.getPosition().y - (successor.getSize().height / 2));
@@ -214,6 +215,13 @@ public class GameState extends Overstate
         {
             getOverlays().removeAll(substateDisplays);
         }
+    }
+
+    private class SandboxState extends GameSubstate
+    {
+        protected boolean readyToTransitionState() {return false;}
+
+        protected GameSubstate getNextState() { return new PreWaveSubstate(); }
     }
 
     private class PreWaveSubstate extends GameSubstate

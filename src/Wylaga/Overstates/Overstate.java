@@ -13,6 +13,8 @@ public abstract class Overstate
     private Set<Displayable> underlays;
     private Set<Displayable> overlays;
 
+    private int displayCount;
+
     protected Overstate()
     {
         // Underlays are drawn first, followed by displayables, followed by overlays.
@@ -34,6 +36,8 @@ public abstract class Overstate
 
     public void updateView()
     {
+        displayCount = 0;
+
         updateDisplayables(underlays);
 
         for(Collection<? extends Displayable> set : displayables)
@@ -42,16 +46,28 @@ public abstract class Overstate
         }
 
         updateDisplayables(overlays);
+
+        //System.out.println(displayCount + " displays updated this frame");
     }
 
     public void updateModel() {}
 
     private void updateDisplayables(Collection<? extends Displayable> set)
     {
+        //Set<Displayable> expireds = new HashSet<>();
+
         for(Displayable displayable : set)
         {
+            //System.out.println("updating " + displayable.toString());
             displayable.update();
+            ++displayCount;
+            //if(displayable.expired())
+            //{
+                //expireds.add(displayable);
+            //}
         }
+
+        //set.removeAll(expireds);
     }
 
     public void addDisplays(Collection<? extends Displayable> set)
