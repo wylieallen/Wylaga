@@ -5,10 +5,12 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Rendering.ImageFactory;
 import Wylaga.Util.Random.Random;
+import Wylaga.WylagaApp;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -16,60 +18,69 @@ public class Starfield extends CompositeDisplayable
 {
     private static Starfield instance = new Starfield();
 
-    private static final int density = 2;
+    private static final int density = 1;
 
     private Starfield()
     {
-        super(new Point2D.Double(0, 0), makeStars(1280, 720), new Dimension(1280, 720));
+        super(new Point2D.Double(0, 0), makeStarLayers(1920, 1080), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
     }
 
-    private static Set<Displayable> makeStars(int width, int height)
+
+    private static Set<Displayable> makeStarLayers(int width, int height)
     {
-        Set<Displayable> stars = new LinkedHashSet<>();
+        Set<Displayable> starlayers = new LinkedHashSet<>();
 
-        stars.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(width, height)));
+        starlayers.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(WylagaApp.WIDTH, WylagaApp.HEIGHT)));
 
-        for(int i = 0; i < height; i++)
+        for(double vel = 0; vel <= 5; vel++)
         {
-            for(Displayable star : stars)
-            {
-                star.update();
-            }
-            stars.add(new Star(new Point2D.Double(Random.rollInt(width), -3)));
-            stars.add(new Star(new Point2D.Double(Random.rollInt(width), -3)));
+            starlayers.add(new StarLayer(new Point2D.Double(0, -WylagaApp.HEIGHT), vel));
+            starlayers.add(new StarLayer(new Point2D.Double(0, 0), vel));
         }
 
-        /*
-        for(int j = 0; j < height; j++)
-        {
-            for(int i = 0; i < density; i++)
-                stars.add(new Star(new Point2D.Double(RandomNumberGenerator.rollInt(width), j)));
-        }
-        */
-
-        return stars;
-    }
-
-    public void update()
-    {
-        super.update();
-        for(int i = 0; i < density; i++)
-            super.add(new Star(new Point2D.Double(Random.rollInt(1280), -3)));
-        //super.add(new Star(new Point2D.Double(RandomNumberGenerator.rollInt(1280), -3)));
+        return starlayers;
     }
 
     public static Starfield getInstance() {return instance;}
 
-    private static class Star extends SimpleDisplayable
-    {
+    private static class StarLayer extends CompositeDisplayable {
         private double velocity;
 
+        public StarLayer(Point2D.Double origin, double velocity) {
+            super(origin, new HashSet<>(), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
+            this.velocity = velocity;
+
+            for(int y = 0; y < WylagaApp.HEIGHT; y += 10)
+            {
+                super.add(new Star(new Point2D.Double(Random.rollInt(1920), y)));
+            }
+        }
+
+        @Override
+        public void update()
+        {
+            Point2D.Double position = super.getPosition();
+            if(position.y > WylagaApp.HEIGHT)
+            {
+                position.setLocation(position.x, -WylagaApp.HEIGHT);
+            }
+            else
+            {
+                position.setLocation(position.x, position.y + velocity);
+            }
+
+        }
+    }
+
+    private static class Star extends SimpleDisplayable
+    {
         public Star(Point2D.Double point)
         {
             super(point, new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB));
             Graphics2D g2d = super.getImage().createGraphics();
             int roll = Random.rollInt(10);
             int size = 0;
+
             if (roll < 6)
             {
                 size = 1;
@@ -136,20 +147,6 @@ public class Starfield extends CompositeDisplayable
                 g2d.setColor(color);
                 g2d.fillRect(0, 0, size, size);
             }
-
-            velocity = Random.rollDouble(5.99) + 0.01;
-        }
-
-        @Override
-        public void update()
-        {
-            super.getPosition().setLocation(super.getPosition().x, super.getPosition().y + velocity);
-        }
-
-        @Override
-        public boolean expired()
-        {
-            return super.getPosition().y > 720;
         }
     }
 }

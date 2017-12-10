@@ -12,14 +12,16 @@ public class ChassisDisplayable extends SimpleDisplayable
     private Ship ship;
     private BufferedImage baseImage;
     private BufferedImage hurtImage;
+    private BufferedImage nearDeathImage;
     private ChassisDisplayable.State currentState;
 
-    public ChassisDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage hurtImage)
+    public ChassisDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage hurtImage, BufferedImage nearDeathImage)
     {
         super(offsetPoint, baseImage);
         this.ship = ship;
         this.baseImage = baseImage;
         this.hurtImage = hurtImage;
+        this.nearDeathImage = nearDeathImage;
         this.currentState = new BaseState();
     }
 
@@ -69,8 +71,35 @@ public class ChassisDisplayable extends SimpleDisplayable
             }
             else if(--counter <= 0)
             {
+                if(ship.getHealth() > 10)
+                    currentState = new BaseState();
+                else
+                    currentState = new NearDeathState();
+            }
+        }
+    }
+
+    private class NearDeathState implements State
+    {
+        private int prevHealth;
+
+        private NearDeathState()
+        {
+            setImage(nearDeathImage);
+            prevHealth = ship.getHealth();
+        }
+
+        public void update()
+        {
+            if(prevHealth > ship.getHealth())
+            {
+                currentState = new HurtState();
+            }
+            else if(ship.getHealth() > 10)
+            {
                 currentState = new BaseState();
             }
         }
+
     }
 }

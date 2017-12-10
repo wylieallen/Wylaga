@@ -9,6 +9,7 @@ import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Util.Random.Random;
+import Wylaga.WylagaApp;
 
 
 import java.awt.*;
@@ -28,7 +29,7 @@ public class Game
     private Set<Pickup> expiredPickups;
     private Set<Entity> newEntities;
 
-    private Dimension worldSize = new Dimension(1280, 720);
+    private Dimension worldSize = new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT);
 
     private int score;
     private int waveCount;
@@ -57,6 +58,8 @@ public class Game
         entities.add(pickups = Collections.newSetFromMap(new ConcurrentHashMap<Pickup, Boolean>()));
 
         spawnShip(playerShip = new PlayerShip());
+        leftWingman = new Wingman(playerShip, new Point(-25, 46));
+        rightWingman = new Wingman(playerShip, new Point(50, 46));
         //spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
         //spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
         //spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
@@ -220,7 +223,7 @@ public class Game
 
         private CollisionManager()
         {
-            grid = new Grid(1280, 720, 16, 9);
+            grid = new Grid(WylagaApp.WIDTH, WylagaApp.HEIGHT, 16, 9);
             loggedCollisions = new HashSet<>();
         }
 

@@ -3,10 +3,10 @@ package Wylaga;
 import javax.swing.*;
 import java.awt.*;
 
-public class WylagaMain
+public class WylagaApp
 {
-    static public final int WINDOW_WIDTH = 1280;
-    static public final int WINDOW_HEIGHT = 720;
+    public static final int WIDTH = 1920;
+    public static final int HEIGHT = 1080;
 
     public static void main(String... args)
     {
@@ -20,15 +20,15 @@ public class WylagaMain
     {
         JFrame frame = new JFrame();
         frame.setTitle("Wylaga v0.0");
-        frame.setSize(WINDOW_WIDTH + 16, WINDOW_HEIGHT + 39);
+        frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        InterfacePanel panel = new InterfacePanel(WINDOW_WIDTH, WINDOW_HEIGHT);
+        InterfacePanel panel = new InterfacePanel(WIDTH, HEIGHT);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.addKeyListener(panel);
 
         frame.validate();
-        // frame.setUndecorated(true);
+        frame.setUndecorated(true);
         frame.setVisible(true);
     }
 

@@ -1,6 +1,7 @@
 package Wylaga.Overstates.Menus;
 
 import Wylaga.Util.KeyRole;
+import Wylaga.WylagaApp;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -9,10 +10,10 @@ public class VerticalMenu extends Menu
 {
     public static final Point2D.Double[] buttonPoints = new Point2D.Double[]
             {
-                    new Point2D.Double(440, 128),
-                    new Point2D.Double(440, 256),
-                    new Point2D.Double(440, 384),
-                    new Point2D.Double(440, 512)
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 128),
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 256),
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 384),
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 512)
             };
 
     private int buttonIndex = -1;

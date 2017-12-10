@@ -46,7 +46,6 @@ public class Projectile extends Entity
     public void update()
     {
         super.propelSelf();
-        System.out.println("newloc: " + super.getOrigin());
     }
     public boolean expired() {return !active;}
 

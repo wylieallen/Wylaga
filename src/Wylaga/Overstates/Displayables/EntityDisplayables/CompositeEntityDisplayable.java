@@ -28,6 +28,7 @@ public class CompositeEntityDisplayable extends CompositeDisplayable implements 
         return entity;
     }
 
+    @Override
     public boolean expired()
     {
         return entity.expired();

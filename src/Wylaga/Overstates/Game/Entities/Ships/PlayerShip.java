@@ -6,6 +6,7 @@ import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
+import Wylaga.WylagaApp;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -33,7 +34,7 @@ public class PlayerShip extends Ship
 
     public PlayerShip()
     {
-        super(new Point2D.Double(615, 600), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
+        super(new Point2D.Double(WylagaApp.WIDTH / 2 - defaultDimension.width / 2, 600), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
                 Trajectory.getDirection(0, -1), defaultScorePenalty);
 
         special = false;

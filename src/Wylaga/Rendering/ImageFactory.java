@@ -24,6 +24,7 @@ public class ImageFactory
 
     private static final BufferedImage enemyBaseChassis = loadImage(enemyDir + "EnemyBaseChassis.png");
     private static final BufferedImage enemyHurtChassis = loadImage(enemyDir +"EnemyHurtChassis.png");
+    private static final BufferedImage enemyNearDeathChassis = loadImage(enemyDir + "EnemyNearDeathChassis.png");
     private static final BufferedImage enemyBaseWeapon = loadImage(enemyDir + "EnemyBaseWeapon.png");
     private static final BufferedImage enemyFiringWeapon = loadImage(enemyDir + "EnemyFiringWeapon.png");
     private static final BufferedImage enemyBaseEngine = loadImage(enemyDir + "EnemyBaseEngine.png");
@@ -32,6 +33,7 @@ public class ImageFactory
 
     private static final BufferedImage playerBaseChassis = loadImage(playerDir + "PlayerBaseChassis.png");
     private static final BufferedImage playerHurtChassis = loadImage(playerDir + "PlayerHurtChassis.png");
+    private static final BufferedImage playerNearDeathChassis = loadImage(playerDir + "PlayerNearDeathChassis.png");
     private static final BufferedImage playerBaseWeapon = loadImage(playerDir + "PlayerBaseWeapon.png");
     private static final BufferedImage playerFiringWeapon = loadImage(playerDir + "PlayerFiringWeapon.png");
     private static final BufferedImage playerBaseEngine = loadImage(playerDir + "PlayerBaseEngine.png");
@@ -43,6 +45,7 @@ public class ImageFactory
 
     private static final BufferedImage wingmanHurtChassis = loadImage(wingmanDir + "WingmanHurtChassis.png");
     private static final BufferedImage wingmanBaseChassis = loadImage(wingmanDir + "WingmanBaseChassis.png");
+    private static final BufferedImage wingmanNearDeathChassis = loadImage(wingmanDir + "WingmanNearDeathChassis.png");
     private static final BufferedImage wingmanBaseWeapon = loadImage(wingmanDir + "WingmanBaseWeapon.png");
     private static final BufferedImage wingmanFiringWeapon = loadImage(wingmanDir + "WingmanFiringWeapon.png");
     private static final BufferedImage wingmanBaseEngine = loadImage(wingmanDir + "WingmanBaseEngine.png");
@@ -306,4 +309,16 @@ public class ImageFactory
     public static BufferedImage getWingmanPickupImage() { return wingmanPickupImage; }
 
     public static BufferedImage getWingmanProjectileImage() { return wingmanProjectileImage; }
+
+    public static BufferedImage getPlayerNearDeathChassis() {
+        return playerNearDeathChassis;
+    }
+
+    public static BufferedImage getEnemyNearDeathChassis() {
+        return enemyNearDeathChassis;
+    }
+
+    public static BufferedImage getWingmanNearDeathChassis() {
+        return wingmanNearDeathChassis;
+    }
 }

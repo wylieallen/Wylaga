@@ -4,6 +4,7 @@ import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Wave;
 import Wylaga.Util.Random.Random;
 import Wylaga.Util.Trajectory;
+import Wylaga.WylagaApp;
 
 import java.awt.geom.Point2D;
 
@@ -49,7 +50,7 @@ public class WaveController implements GameController
 
         if(trajectory.getDx() == 1)
         {
-            if(rightPoint.x >= (1280 - 64))
+            if(rightPoint.x >= (WylagaApp.WIDTH - 64))
             {
                 dx = 0;
                 dy = 1;

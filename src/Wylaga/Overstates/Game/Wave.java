@@ -3,6 +3,7 @@ package Wylaga.Overstates.Game;
 import Wylaga.Overstates.Game.Control.WaveController;
 import Wylaga.Overstates.Game.Entities.Ships.EnemyShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
+import Wylaga.WylagaApp;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -29,7 +30,7 @@ public class Wave
 
         for (int i = 0; i < 5; i++)
             for(int j = 0; j < 4; j++)
-                ships.add(new EnemyShip(new Point2D.Double((440 - 13) + 100 * i, -325 + 75 * j)));
+                ships.add(new EnemyShip(new Point2D.Double((WylagaApp.WIDTH / 2 - 200 - 13) + 100 * i, -325 + 75 * j)));
 
         resetLeftShip();
         resetRightShip();

@@ -16,6 +16,7 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactor
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.PrimitiveEDFactory;
 import Wylaga.Overstates.Game.Game;
 import Wylaga.Overstates.Game.Entities.Entity;
+import Wylaga.WylagaApp;
 
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -46,7 +47,7 @@ public class GameState extends Overstate
 
         this.postGameFunction = postGameFunction;
 
-        //super.addUnderlay(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(1280, 720)));
+        //super.addUnderlay(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(WylagaApp.WIDTH, WylagaApp.HEIGHT)));
         super.addUnderlay(Starfield.getInstance());
         //super.addUnderlay(new GridVisualizer(new Point2D.Double(0, 0), game.getGrid()));
         super.addOverlay(new HealthHudOverlay(new Point2D.Double(10, 10), game.getPlayerShip()));
@@ -60,7 +61,7 @@ public class GameState extends Overstate
         explosions = Collections.newSetFromMap(new ConcurrentHashMap<Displayable, Boolean>());
         super.addDisplays(explosions);
 
-        activeState = new SandboxState();
+        activeState = new PreWaveSubstate();
         activeState.swapIn();
     }
 
@@ -94,7 +95,7 @@ public class GameState extends Overstate
         {
             if(entityDisplayable.expired())
             {
-                System.out.println("EXPIRATION: " + entityDisplayable.toString() + " at " + entityDisplayable.getPosition().toString());
+                //System.out.println("EXPIRATION: " + entityDisplayable.toString() + " at " + entityDisplayable.getPosition().toString());
                 expiredEntityDisplayables.add(entityDisplayable);
                 Displayable successor = entityDisplayable.getSuccessorDisplayable();
                 successor.getPosition().setLocation(successor.getPosition().x - (successor.getSize().width / 2), successor.getPosition().y - (successor.getSize().height / 2));
@@ -231,8 +232,8 @@ public class GameState extends Overstate
         public PreWaveSubstate()
         {
             counter = 0;
-            this.addDisplay(new GetReadyDisplay(new Point2D.Double(440, 320))); // prev x: 320, 375
-            this.addDisplay(new NextWaveDisplay(new Point2D.Double(490, 200), game));
+            this.addDisplay(new GetReadyDisplay(new Point2D.Double(WylagaApp.WIDTH / 2 - 200, WylagaApp.HEIGHT / 2 - 40))); // prev x: 320, 375
+            this.addDisplay(new NextWaveDisplay(new Point2D.Double(WylagaApp.WIDTH / 2 - 150, WylagaApp.HEIGHT / 2 - 160), game));
         }
 
         protected boolean readyToTransitionState()
@@ -274,7 +275,7 @@ public class GameState extends Overstate
         public PostWaveSubstate()
         {
             counter = 0;
-            this.addDisplay(new WaveCompleteDisplay(new Point2D.Double(440, 320)));
+            this.addDisplay(new WaveCompleteDisplay(new Point2D.Double(WylagaApp.WIDTH / 2 - 200, WylagaApp.HEIGHT / 2 - 40)));
         }
 
         protected boolean readyToTransitionState()
@@ -295,7 +296,7 @@ public class GameState extends Overstate
         public GameOverSubstate()
         {
             counter = 0;
-            this.addDisplay(new GameOverDisplay(new Point2D.Double(440, 320)));
+            this.addDisplay(new GameOverDisplay(new Point2D.Double(WylagaApp.WIDTH / 2 - 200, WylagaApp.HEIGHT / 2 - 40)));
         }
 
         protected boolean readyToTransitionState()

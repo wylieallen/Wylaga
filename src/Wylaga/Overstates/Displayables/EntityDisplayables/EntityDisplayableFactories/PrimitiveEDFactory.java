@@ -27,7 +27,8 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makePlayerDisplayable(Ship playerShip)
     {
         Set<Displayable> shipComponents = new HashSet<>();
-        shipComponents.add( new ChassisDisplayable(playerShip, new Point2D.Double(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis()));
+        shipComponents.add( new ChassisDisplayable(playerShip, new Point2D.Double(0, 0), ImageFactory.getPlayerBaseChassis(), ImageFactory.getPlayerHurtChassis()
+        , ImageFactory.getPlayerNearDeathChassis()));
         shipComponents.add( new WeaponDisplayable(playerShip, new Point2D.Double(22, 0), ImageFactory.getPlayerBaseWeapon(), ImageFactory.getPlayerFiringWeapon()));
         shipComponents.add( new EngineDisplayable(playerShip, new Point2D.Double(12, 35), ImageFactory.getPlayerBaseEngine(), ImageFactory.getPlayerBoostEngine(),
                 ImageFactory.getPlayerBoostEngine2(), ImageFactory.getPlayerBrakeImage(), true));
@@ -39,7 +40,8 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makeEnemyDisplayable(Ship enemyShip)
     {
         Set<Displayable> shipComponents = new HashSet<>();
-        shipComponents.add( new ChassisDisplayable(enemyShip, new Point2D.Double(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis()));
+        shipComponents.add( new ChassisDisplayable(enemyShip, new Point2D.Double(0, 0), ImageFactory.getEnemyBaseChassis(), ImageFactory.getEnemyHurtChassis(),
+                ImageFactory.getEnemyNearDeathChassis()));
         shipComponents.add( new WeaponDisplayable(enemyShip, new Point2D.Double(6, 22), ImageFactory.getEnemyBaseWeapon(), ImageFactory.getEnemyFiringWeapon()));
         shipComponents.add( new EngineDisplayable(enemyShip, new Point2D.Double(7, 0), ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBoostEngine(),
                 ImageFactory.getEnemyBaseEngine(), ImageFactory.getEnemyBrakeImage(), false));
@@ -49,7 +51,8 @@ public class PrimitiveEDFactory implements EntityDisplayableFactory
     public EntityDisplayable makeWingmanDisplayable(Ship wingman)
     {
         Set<Displayable> shipComponents = new HashSet<>();
-        shipComponents.add(new ChassisDisplayable(wingman, new Point2D.Double(0,0 ), ImageFactory.getWingmanBaseChassis(), ImageFactory.getWingmanHurtChassis()));
+        shipComponents.add(new ChassisDisplayable(wingman, new Point2D.Double(0,0 ), ImageFactory.getWingmanBaseChassis(), ImageFactory.getWingmanHurtChassis(),
+                ImageFactory.getWingmanNearDeathChassis()));
         shipComponents.add(new WeaponDisplayable(wingman, new Point2D.Double(10, 0), ImageFactory.getWingmanBaseWeapon(), ImageFactory.getWingmanFiringWeapon()));
         shipComponents.add(new EngineDisplayable(wingman, new Point2D.Double(5, 20), ImageFactory.getWingmanBaseEngine(), ImageFactory.getWingmanBoostEngine(),
                 ImageFactory.getWingmanBoostEngine2(), ImageFactory.getWingmanBrakeImage(), true));

@@ -18,10 +18,8 @@ public class Wingman extends PlayerShip
 
     private PlayerShip leader;
     private Point offset;
-    private boolean shootNext;
 
     private double defaultSpeed;
-    private double curSpeed;
 
     private Queue<Point2D.Double> destinations;
     private Queue<Boolean> specialActivations;
@@ -34,7 +32,6 @@ public class Wingman extends PlayerShip
 
         this.offset = offset;
         this.leader = leader;
-        this.shootNext = false;
         this.defaultSpeed = getSpeed();
         destinations = new LinkedList<>();
         specialActivations = new LinkedList<>();
@@ -61,22 +58,23 @@ public class Wingman extends PlayerShip
 
             double distToDest = Point2D.distance(nextDest.x, nextDest.y, curPos.x, curPos.y);
 
+            super.setFiring(weaponFirings.remove());
+            super.setCurFuel(leader.getCurFuel());
+            super.setSpecial(specialActivations.remove());
+            super.setTrajectory(new Trajectory(super.getOrigin(), destinations.remove()));
+
             if (distToDest < super.getSpeed())
             {
                 if(distToDest <= 3)
                 {
                     curPos.setLocation(nextDest.x, nextDest.y);
+                    super.setSpeed(0);
                 }
                 else
                 {
                     super.setSpeed(distToDest);
                 }
             }
-
-            super.setFiring(weaponFirings.remove());
-            super.setSpecial(specialActivations.remove());
-            super.setTrajectory(new Trajectory(super.getOrigin(), destinations.remove()));
-            super.setCurFuel(leader.getCurFuel());
 
             weaponFirings.add(leader.isFiring());
             specialActivations.add(leader.specialDeployed());
