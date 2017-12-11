@@ -8,7 +8,6 @@ import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipChassis;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipPropulsion;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipSpecial;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
-import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;

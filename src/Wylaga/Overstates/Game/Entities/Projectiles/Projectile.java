@@ -5,7 +5,6 @@ import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactor
 import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
-import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;

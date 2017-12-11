@@ -22,7 +22,7 @@ public class Starfield extends CompositeDisplayable
 
     private Starfield()
     {
-        super(new Point2D.Double(0, 0), makeStarLayers(1920, 1080), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
+        super(new Point2D.Double(0, 0), makeStarLayers(WylagaApp.WIDTH, WylagaApp.HEIGHT), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
     }
 
 
@@ -32,7 +32,7 @@ public class Starfield extends CompositeDisplayable
 
         starlayers.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(WylagaApp.WIDTH, WylagaApp.HEIGHT)));
 
-        for(double vel = 0; vel <= 5; vel++)
+        for(double vel = 1; vel <= 5; vel++)
         {
             starlayers.add(new StarLayer(new Point2D.Double(0, -WylagaApp.HEIGHT), vel));
             starlayers.add(new StarLayer(new Point2D.Double(0, 0), vel));
@@ -47,8 +47,10 @@ public class Starfield extends CompositeDisplayable
         private double velocity;
 
         public StarLayer(Point2D.Double origin, double velocity) {
-            super(origin, new HashSet<>(), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
+            super(origin, new LinkedHashSet<>(), new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT));
             this.velocity = velocity;
+
+            //super.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBorderedRect(new Dimension(WylagaApp.WIDTH, WylagaApp.HEIGHT), new Color(0, 0, 0, 0))));
 
             for(int y = 0; y < WylagaApp.HEIGHT; y += 10)
             {

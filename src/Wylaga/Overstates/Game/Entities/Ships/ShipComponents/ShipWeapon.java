@@ -1,8 +1,8 @@
 package Wylaga.Overstates.Game.Entities.Ships.ShipComponents;
 
+import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Team;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
@@ -51,7 +51,7 @@ public abstract class ShipWeapon
             protected void populateProjectiles(Set<Projectile> projectiles, Point shipOrigin)
             {
                 projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                        Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
+                        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
             }
         };
     }

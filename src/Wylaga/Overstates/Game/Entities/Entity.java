@@ -76,5 +76,10 @@ public abstract class Entity
 
     // addToCell() similarly allows concrete Entities to define which of a Cell's Lists they'll be added to.
     public abstract void addToCell(Grid.Cell cell);
+
+    public enum Team
+    {
+        NEUTRAL, PLAYER, ENEMY
+    }
 }
 
