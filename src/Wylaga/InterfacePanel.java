@@ -52,7 +52,7 @@ public class InterfacePanel extends JPanel implements KeyListener
 
                 // FPS monitoring:
 
-                /*
+
                 long curTime = System.currentTimeMillis();
                 long delta = curTime - prevTime;
                 millisElapsed += delta;
@@ -63,7 +63,7 @@ public class InterfacePanel extends JPanel implements KeyListener
                 }
                 System.out.printf(frameCount + " " + delta + " :  %.2f : %.2f \n", msPerFrame, 1000 / msPerFrame);
                 prevTime = curTime;
-                */
+
 
                 //activeOverstate.updateModel();
                 activeOverstate.updateView();

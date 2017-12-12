@@ -20,6 +20,7 @@ public class Projectile extends Entity
 
     private EDVF edvf;
 
+    /*
     public Projectile(Ship creator, EDVF edvf)
     {
         // todo: factor out Ship dependency by having Creator parameterize with all this stuff that's currently queried from it:
@@ -31,6 +32,7 @@ public class Projectile extends Entity
         this.active = true;
         this.edvf = edvf;
     }
+    */
 
     public Projectile(Point2D.Double position, Dimension dimension, Team team, double speed, Trajectory trajectory, int damage, EDVF edvf)
     {
@@ -41,6 +43,11 @@ public class Projectile extends Entity
         this.edvf = edvf;
     }
 
+    public Projectile(Point2D.Double position, Team team, double speed, Trajectory trajectory, EDVF edvf)
+    {
+        this(position, defaultDimension, team, speed, trajectory, defaultDamage, edvf);
+    }
+
     // Entity interface:
     public void update()
     {
@@ -49,6 +56,12 @@ public class Projectile extends Entity
     public boolean expired() {return !active;}
 
     // Projectile interface:
+    @Override
+    public void translatePosition(double dx, double dy)
+    {
+        super.translatePosition(dx, dy);
+    }
+
     public int getDamage() {return damage;}
     public void deactivate()
     {

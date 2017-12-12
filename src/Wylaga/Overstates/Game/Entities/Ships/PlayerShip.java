@@ -53,7 +53,11 @@ public class PlayerShip extends Ship
 
     protected Projectile getNewProjectile()
     {
-        return new PlayerProjectile(this);
+        Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
+        Projectile projectile = new PlayerProjectile(projPt, getTeam());
+        int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
+        projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
+        return projectile;
     }
 
     public void setSpecial(boolean special) { this.special = special; }

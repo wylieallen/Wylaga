@@ -20,7 +20,9 @@ public class CompositeEntityDisplayable extends CompositeDisplayable implements 
     }
 
     @Override
-    public Displayable getSuccessorDisplayable() {
+    public Displayable getSuccessorDisplayable()
+    {
+        successor.getPosition().setLocation(getPosition().x - (successor.getSize().width / 2), getPosition().y - (successor.getSize().height / 2));
         return successor;
     }
 

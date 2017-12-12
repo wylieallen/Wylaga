@@ -60,12 +60,14 @@ public class Game
         spawnShip(playerShip = new PlayerShip());
         leftWingman = new Wingman(playerShip, new Point(-25, 46));
         rightWingman = new Wingman(playerShip, new Point(50, 46));
-        //spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
-        //spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
-        //spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
-        //spawnShip(new Wingman(leftWingman, new Point(22, 46)));
-        //spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
-        //spawnShip(new Wingman(rightWingman, new Point(22, 46)));
+
+        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
+        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
+        spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
+        spawnShip(new Wingman(leftWingman, new Point(22, 46)));
+        spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
+        spawnShip(new Wingman(rightWingman, new Point(22, 46)));
+
 
         wave = Wave.getNullWave();
         collisionManager = new CollisionManager();

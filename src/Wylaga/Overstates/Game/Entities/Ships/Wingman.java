@@ -103,6 +103,10 @@ public class Wingman extends PlayerShip
 
     protected Projectile getNewProjectile()
     {
-        return new WingmanProjectile(this);
+        Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
+        Projectile projectile = new WingmanProjectile(projPt, getTeam(), Trajectory.getDirection(0, -1));
+        int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
+        projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
+        return projectile;
     }
 }

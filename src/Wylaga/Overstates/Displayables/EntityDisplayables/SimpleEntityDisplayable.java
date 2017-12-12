@@ -27,6 +27,7 @@ public class SimpleEntityDisplayable extends SimpleDisplayable implements Entity
     @Override
     public Displayable getSuccessorDisplayable()
     {
+        successor.getPosition().setLocation(getPosition().x - (successor.getSize().width / 2), getPosition().y - (successor.getSize().height / 2));
         return successor;
     }
 }

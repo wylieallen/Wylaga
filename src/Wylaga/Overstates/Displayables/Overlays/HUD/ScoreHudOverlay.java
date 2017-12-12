@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
 public class ScoreHudOverlay extends HudOverlay
 {
     private Game game;
-    private Graphics2D g2d;
     private int prevScore;
 
     public ScoreHudOverlay(Point2D.Double position, Game game)
@@ -16,14 +15,20 @@ public class ScoreHudOverlay extends HudOverlay
         super(position);
         this.game = game;
         prevScore = -1;
-        g2d = super.getGraphics();
     }
 
+    /*
     public void drawImage()
     {
         g2d.setColor(Color.WHITE);
         String string = "SCORE: " + game.getScore();
         g2d.drawString(string,5, 12);
+    }
+    */
+
+    protected String makeString()
+    {
+        return "SCORE: " + game.getScore();
     }
 
     protected boolean stateChanged()

@@ -15,14 +15,20 @@ public class HealthHudOverlay extends HudOverlay
     {
         super(position);
         this.ship = ship;
-        g2d = super.getGraphics();
     }
 
+    /*
     public void drawImage()
     {
         g2d.setColor(Color.WHITE);
         String string = "SHIELD: " + ship.getHealth() + " / 100";
         g2d.drawString(string,5, 12);
+    }
+    */
+
+    protected String makeString()
+    {
+        return "SHIELD: " + ship.getHealth() + " / 100";
     }
 
     protected boolean stateChanged()

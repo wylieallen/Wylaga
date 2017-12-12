@@ -35,4 +35,5 @@ public class Renderer
             displayable.draw(g2d);
         }
     }
+
 }

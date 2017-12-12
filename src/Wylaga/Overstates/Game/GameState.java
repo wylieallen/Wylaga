@@ -50,9 +50,9 @@ public class GameState extends Overstate
         //super.addUnderlay(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(WylagaApp.WIDTH, WylagaApp.HEIGHT)));
         super.addUnderlay(Starfield.getInstance());
         //super.addUnderlay(new GridVisualizer(new Point2D.Double(0, 0), game.getGrid()));
-        super.addOverlay(new HealthHudOverlay(new Point2D.Double(10, 10), game.getPlayerShip()));
-        super.addOverlay(new ScoreHudOverlay(new Point2D.Double(10, 35), game));
-        super.addOverlay(new FuelHudOverlay(new Point2D.Double(10, 60), game.getPlayerShip()));
+        super.addOverlay(new HealthHudOverlay(new Point2D.Double(15, 25), game.getPlayerShip()));
+        super.addOverlay(new ScoreHudOverlay(new Point2D.Double(15, 50), game));
+        super.addOverlay(new FuelHudOverlay(new Point2D.Double(15, 75), game.getPlayerShip()));
 
         entityDisplayables = Collections.newSetFromMap(new ConcurrentHashMap<EntityDisplayable, Boolean>());
         super.addDisplays(entityDisplayables);
@@ -97,9 +97,7 @@ public class GameState extends Overstate
             {
                 //System.out.println("EXPIRATION: " + entityDisplayable.toString() + " at " + entityDisplayable.getPosition().toString());
                 expiredEntityDisplayables.add(entityDisplayable);
-                Displayable successor = entityDisplayable.getSuccessorDisplayable();
-                successor.getPosition().setLocation(successor.getPosition().x - (successor.getSize().width / 2), successor.getPosition().y - (successor.getSize().height / 2));
-                successorDisplayables.add(successor);
+                successorDisplayables.add(entityDisplayable.getSuccessorDisplayable());
             }
         }
 

@@ -7,7 +7,6 @@ import java.awt.geom.Point2D;
 
 public class FuelHudOverlay extends HudOverlay
 {
-    private Graphics2D g2d;
     private PlayerShip ship;
     private int prevFuel;
 
@@ -15,14 +14,20 @@ public class FuelHudOverlay extends HudOverlay
     {
         super(position);
         this.ship = ship;
-        this.g2d = super.getGraphics();
     }
 
+    /*
     public void drawImage()
     {
         g2d.setColor(Color.WHITE);
         String string = "POWER: " + ship.getCurFuel() + " / " + ship.getMaxFuel();
         g2d.drawString(string,5, 12);
+    }
+    */
+
+    protected String makeString()
+    {
+        return "POWER: " + ship.getCurFuel() + " / " + ship.getMaxFuel();
     }
 
     protected boolean stateChanged()

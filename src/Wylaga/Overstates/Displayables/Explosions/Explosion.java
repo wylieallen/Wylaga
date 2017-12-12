@@ -20,7 +20,7 @@ public class Explosion extends CompositeDisplayable
 
     public Explosion(Point2D.Double point, int size, Color color, int particleCount)
     {
-        super(point, makeParticles(particleCount, size / 2, size / 2, color), new Dimension(size, size));
+        super(new Point2D.Double(point.x, point.y), makeParticles(particleCount, size / 2, size / 2, color), new Dimension(size, size));
     }
 
     private static Set<Displayable> makeParticles(int count, int initial, int size, Color color)
@@ -29,7 +29,8 @@ public class Explosion extends CompositeDisplayable
 
         for(int i = 0; i < count; i++)
         {
-            particles.add(new Particle(new Point(initial, initial), 2, 2, color, size));
+            int roll = Random.rollInt(3) + 1;
+            particles.add(new Particle(new Point(initial, initial), roll, roll, color, size));
         }
 
         return particles;
@@ -46,7 +47,7 @@ public class Explosion extends CompositeDisplayable
     @Override
     public boolean expired()
     {
-        return lifespan < 0;
+        return lifespan <= 0;
     }
 
     private static class Particle implements Displayable
@@ -81,7 +82,7 @@ public class Explosion extends CompositeDisplayable
 
             double unitMag = Math.sqrt(dx * dx + dy * dy);
 
-            this.lifespan = (int) (maxDist / unitMag);
+            this.lifespan = (int) Math.ceil(maxDist / unitMag);
         }
 
         @Override
@@ -94,7 +95,6 @@ public class Explosion extends CompositeDisplayable
         {
             return position;
         }
-
 
         @Override
         public void draw(Graphics2D g2d)
