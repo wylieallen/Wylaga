@@ -1,5 +1,7 @@
 package Wylaga.Overstates.Displayables;
 
+import Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Components.WeaponDisplayable;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -56,10 +58,12 @@ public class CompositeDisplayable implements Displayable
     {
         components.add(displayable);
     }
+    public void remove(Displayable displayable) { components.remove(displayable); }
 
     public Dimension getSize() { return size; }
     public Point2D.Double getPosition()
     {
         return position;
     }
+
 }

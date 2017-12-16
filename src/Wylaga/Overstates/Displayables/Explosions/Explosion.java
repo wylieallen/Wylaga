@@ -8,8 +8,10 @@ import Wylaga.Util.Trajectory;
 
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
@@ -61,6 +63,8 @@ public class Explosion extends CompositeDisplayable
 
         private Color color;
 
+        private Shape shape;
+
         private int lifespan;
 
         public Particle(Point origin, int width, int height, Color color, int maxDist)
@@ -83,6 +87,21 @@ public class Explosion extends CompositeDisplayable
             double unitMag = Math.sqrt(dx * dx + dy * dy);
 
             this.lifespan = (int) Math.ceil(maxDist / unitMag);
+
+            int roll = Random.rollInt(10);
+
+            if(roll < 4)
+            {
+                this.shape = new Rectangle2D.Double(0, 0, width, height);
+            }
+            else if (roll < 6)
+            {
+                this.shape = new Ellipse2D.Double(0, 0, width, height);
+            }
+            else
+            {
+                this.shape = new Polygon(new int[]{0, width / 2, 0}, new int[]{0, height, 0}, 3);
+            }
         }
 
         @Override
@@ -102,8 +121,14 @@ public class Explosion extends CompositeDisplayable
             Color prevColor = g2d.getColor();
 
             g2d.setColor(color);
-            g2d.fillRect((int) position.x, (int) position.y, size.width, size.height);
+            //g2d.fillRect((int) position.x, (int) position.y, size.width, size.height);
 
+            AffineTransform t = g2d.getTransform();
+            g2d.translate((int) position.x, (int) position.y);
+
+            g2d.fill(shape);
+
+            g2d.setTransform(t);
             g2d.setColor(prevColor);
         }
 
@@ -113,8 +138,13 @@ public class Explosion extends CompositeDisplayable
             Color prevColor = g2d.getColor();
 
             g2d.setColor(color);
-            g2d.fillRect((int) (position.x + offset.x), (int) (position.y + offset.y), size.width, size.height);
+            //g2d.fillRect((int) (position.x + offset.x), (int) (position.y + offset.y), size.width, size.height);
 
+            AffineTransform t = g2d.getTransform();
+            g2d.translate((int) (position.x + offset.x), (int) (position.y + offset.y));
+            g2d.fill(shape);
+
+            g2d.setTransform(t);
             g2d.setColor(prevColor);
         }
 

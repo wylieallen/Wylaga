@@ -17,6 +17,12 @@ public class ImageFactory
     private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png");
 
     private static final BufferedImage playerProjectileImage = loadImage("PlayerProjectile.png");
+    private static final BufferedImage orangePlayerProjectileImage = loadImage("OrangePlayerProjectile.png");
+    private static final BufferedImage yellowPlayerProjectileImage = loadImage("YellowPlayerProjectile.png");
+    private static final BufferedImage greenPlayerProjectileImage = loadImage("GreenPlayerProjectile.png");
+    private static final BufferedImage cyanPlayerProjectileImage = loadImage("CyanPlayerProjectile.png");
+    private static final BufferedImage magentaPlayerProjectileImage = loadImage("MagentaPlayerProjectile.png");
+
     private static final BufferedImage projectileImage = loadImage("Projectile.png");
     private static final BufferedImage wingmanProjectileImage = playerProjectileImage.getSubimage(1, 1, 1, 10);
 
@@ -43,6 +49,12 @@ public class ImageFactory
     private static final BufferedImage playerBaseSpecial = loadImage(playerDir + "PlayerBaseSpecial.png");
     private static final BufferedImage playerDeployedSpecial = loadImage(playerDir + "PlayerDeployedSpecial.png");
 
+    private static final BufferedImage playerFiringOrangeWeapon = loadImage(playerDir + "PlayerFiringOrangeWeapon.png");
+    private static final BufferedImage playerFiringYellowWeapon = loadImage(playerDir + "PlayerFiringYellowWeapon.png");
+    private static final BufferedImage playerFiringGreenWeapon = loadImage(playerDir + "PlayerFiringGreenWeapon.png");
+    private static final BufferedImage playerFiringCyanWeapon = loadImage(playerDir + "PlayerFiringCyanWeapon.png");
+    private static final BufferedImage playerFiringMagentaWeapon = loadImage(playerDir + "PlayerFiringMagentaWeapon.png");
+
     private static final BufferedImage wingmanHurtChassis = loadImage(wingmanDir + "WingmanHurtChassis.png");
     private static final BufferedImage wingmanBaseChassis = loadImage(wingmanDir + "WingmanBaseChassis.png");
     private static final BufferedImage wingmanNearDeathChassis = loadImage(wingmanDir + "WingmanNearDeathChassis.png");
@@ -59,9 +71,12 @@ public class ImageFactory
     private static final BufferedImage scorePickupImage = loadImage("ScorePickup.png");
     private static final BufferedImage powerPickupImage = loadImage("PowerPickup.png");
     private static final BufferedImage wingmanPickupImage = loadImage("WingmanPickup.png");
+    private static final BufferedImage superHealthPickupImage = loadImage("SuperHealthPickup.png");
+    private static final BufferedImage superWingmanPickupImage = loadImage("SuperWingmanPickup.png");
+    private static final BufferedImage megaHealthPickupImage = loadImage("MegaHealthPickup.png");
+    private static final BufferedImage weaponPickupImage = loadImage("WeaponUpgradePickup.png");
 
 
-    // Sprite construction:
 
     private static BufferedImage loadImage(String file)
     {
@@ -321,4 +336,36 @@ public class ImageFactory
     public static BufferedImage getWingmanNearDeathChassis() {
         return wingmanNearDeathChassis;
     }
+
+    public static BufferedImage getSuperHealthPickupImage() {
+        return superHealthPickupImage;
+    }
+
+    public static BufferedImage getSuperWingmanPickupImage() {
+        return superWingmanPickupImage;
+    }
+
+    public static BufferedImage getMegaHealthPickupImage() { return megaHealthPickupImage; }
+
+    public static BufferedImage getOrangePlayerProjectileImage() { return orangePlayerProjectileImage; }
+
+    public static BufferedImage makeWeaponPickupImage() { return weaponPickupImage; }
+
+    public static BufferedImage getYellowPlayerProjectileImage() { return yellowPlayerProjectileImage; }
+
+    public static BufferedImage getGreenPlayerProjectileImage() { return greenPlayerProjectileImage; }
+
+    public static BufferedImage getCyanPlayerProjectileImage() { return cyanPlayerProjectileImage; }
+
+    public static BufferedImage getMagentaPlayerProjectileImage() { return magentaPlayerProjectileImage; }
+
+    public static BufferedImage getPlayerFiringOrangeWeapon() { return playerFiringOrangeWeapon; }
+
+    public static BufferedImage getPlayerFiringYellowWeapon() { return playerFiringYellowWeapon; }
+
+    public static BufferedImage getPlayerFiringGreenWeapon() { return playerFiringGreenWeapon; }
+
+    public static BufferedImage getPlayerFiringCyanWeapon() { return playerFiringCyanWeapon; }
+
+    public static BufferedImage getPlayerFiringMagentaWeapon() { return playerFiringMagentaWeapon; }
 }

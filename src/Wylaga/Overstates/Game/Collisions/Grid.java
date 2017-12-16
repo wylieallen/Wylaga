@@ -129,10 +129,7 @@ public class Grid
             pickups = new HashSet<>();
         }
 
-        public void addShip(Ship ship)
-        {
-            ships.add(ship);
-        }
+        public void addShip(Ship ship) { ships.add(ship); }
         public void addProjectile(Projectile projectile)
         {
             projectiles.add(projectile);

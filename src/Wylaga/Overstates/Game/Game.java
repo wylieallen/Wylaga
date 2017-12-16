@@ -7,6 +7,7 @@ import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.PlayerShip;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Collisions.Grid;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
 import Wylaga.Overstates.Game.Entities.Ships.Wingman;
 import Wylaga.Util.Random.Random;
 import Wylaga.WylagaApp;
@@ -34,6 +35,11 @@ public class Game
     private int score;
     private int waveCount;
 
+    private int weaponUpgrades = 0;
+
+    private ShipWeapon[] shipWeapons = new ShipWeapon[]{ShipWeapon.getPlayerWeapon(), ShipWeapon.getOrangePlayerWeapon(), ShipWeapon.getYellowPlayerWeapon(),
+                                                        ShipWeapon.getGreenPlayerWeapon(), ShipWeapon.getCyanPlayerWeapon(), ShipWeapon.getMagentaPlayerWeapon()};
+
     private PlayerShip playerShip;
     private Wingman leftWingman;
     private Wingman rightWingman;
@@ -52,22 +58,23 @@ public class Game
         expiredPickups = new HashSet<>();
         newEntities = Collections.newSetFromMap(new ConcurrentHashMap<Entity, Boolean>());
 
+        /*
         entities = Collections.newSetFromMap(new ConcurrentHashMap<Set<? extends Entity>, Boolean>());
         entities.add(ships = Collections.newSetFromMap(new ConcurrentHashMap<Ship, Boolean>()));
-        entities.add(projectiles = Collections.newSetFromMap(new ConcurrentHashMap<Projectile, Boolean>()));
+        entities.add(projectiles = Collections.newSetFromMap(new ConcurrentHashMap<LinearProjectile, Boolean>()));
         entities.add(pickups = Collections.newSetFromMap(new ConcurrentHashMap<Pickup, Boolean>()));
+        */
+
+        entities = new HashSet<>();
+        entities.add(ships = new HashSet<>());
+        entities.add(projectiles = new HashSet<>());
+        entities.add(pickups = new HashSet<>());
 
         spawnShip(playerShip = new PlayerShip());
         leftWingman = new Wingman(playerShip, new Point(-25, 46));
         rightWingman = new Wingman(playerShip, new Point(50, 46));
 
-        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
-        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
-        spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
-        spawnShip(new Wingman(leftWingman, new Point(22, 46)));
-        spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
-        spawnShip(new Wingman(rightWingman, new Point(22, 46)));
-
+        respawnSuperWingmen();
 
         wave = Wave.getNullWave();
         collisionManager = new CollisionManager();
@@ -89,6 +96,15 @@ public class Game
         rightWingman.terminate();
         spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
         spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
+    }
+
+    public void respawnSuperWingmen()
+    {
+        respawnWingmen();
+        spawnShip(new Wingman(leftWingman, new Point(-22, 46)));
+        spawnShip(new Wingman(leftWingman, new Point(22, 46)));
+        spawnShip(new Wingman(rightWingman, new Point(-22, 46)));
+        spawnShip(new Wingman(rightWingman, new Point(22, 46)));
     }
 
     private void updateEntities()
@@ -208,9 +224,17 @@ public class Game
         return playerShip;
     }
     public int getScore() { return score; }
-
     public int getWaveCount() {
         return waveCount;
+    }
+
+    public void upgradePlayerWeapon()
+    {
+        ++weaponUpgrades;
+        if(weaponUpgrades < shipWeapons.length)
+        {
+            playerShip.setWeapon(shipWeapons[weaponUpgrades]);
+        }
     }
 
     public Grid getGrid()

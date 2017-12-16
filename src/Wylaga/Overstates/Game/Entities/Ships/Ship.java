@@ -3,6 +3,7 @@ package Wylaga.Overstates.Game.Entities.Ships;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
 import Wylaga.Overstates.Game.Collisions.Grid;
 import Wylaga.Overstates.Game.Entities.Entity;
+import Wylaga.Overstates.Game.Entities.Projectiles.LinearProjectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipChassis;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipPropulsion;
@@ -21,7 +22,6 @@ public abstract class Ship extends Entity
     private int health;
     private int points;
 
-    private boolean firing;
     private boolean dying;
     private Trajectory projectileTrajectory;
     private double projectileSpeed = 12;
@@ -43,18 +43,21 @@ public abstract class Ship extends Entity
         this.propulsion = propulsion;
     }
 
-    public Ship(Point2D.Double position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points)
+    public Ship(Point2D.Double position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points, ShipWeapon weapon)
     {
         super(position, dimension, team, speed);
-        firing = false;
         dying = false;
         this.health = health;
         this.projectileTrajectory = projectileTrajectory;
         this.points = points;
+        this.weapon = weapon;
     }
 
     // =================================================================================================================
     // Accessors:
+
+
+    public ShipWeapon getWeapon() { return weapon; }
 
     public double getProjectileSpeed() {return projectileSpeed;}
 
@@ -66,19 +69,18 @@ public abstract class Ship extends Entity
         return points;
     }
     public int getHealth() { return health; }
+    public int getMaxHealth() { return maxHealth; }
 
     public Set<Projectile> getNewProjectiles()
     {
-        Set<Projectile> newProjectiles = new HashSet<>();
-        newProjectiles.add(getNewProjectile());
-        return newProjectiles;
+        return weapon.makeProjectiles(getOrigin());
     }
 
     protected Projectile getNewProjectile()
     {
-        //return new Projectile(this, EntityDisplayableFactory::makeProjectileDisplayable);
+        //return new LinearProjectile(this, EntityDisplayableFactory::makeProjectileDisplayable);
         Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
-        Projectile projectile = new Projectile(projPt, getTeam(), projectileSpeed, projectileTrajectory, EntityDisplayableFactory::makeProjectileDisplayable);
+        Projectile projectile = new LinearProjectile(projPt, getTeam(), projectileSpeed, projectileTrajectory, EntityDisplayableFactory::makeProjectileDisplayable);
         int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
         projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
         return projectile;
@@ -93,10 +95,7 @@ public abstract class Ship extends Entity
     public int getCurFuel() { return 0; }
 
     public boolean specialDeployed() { return false; }
-    public boolean isFiring()
-    {
-        return firing;
-    }
+    public boolean isFiring() { return weapon.isFiring(); }
     public boolean isAlive()
     {
         return health > 0;
@@ -111,7 +110,7 @@ public abstract class Ship extends Entity
 
     public void setFiring(boolean firing)
     {
-        this.firing = firing;
+        weapon.setFiring(firing);
     }
 
     public void takeDamage(int damage)
@@ -134,5 +133,14 @@ public abstract class Ship extends Entity
         {
             dying = true;
         }
+    }
+
+    public void upgradeMaxHealth(int upgrade)
+    {
+        maxHealth += upgrade;
+    }
+
+    public void setWeapon(ShipWeapon weapon) {
+        this.weapon = weapon;
     }
 }

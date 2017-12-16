@@ -2,13 +2,14 @@ package Wylaga.Overstates.Game.Entities.Ships;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
-import Wylaga.Overstates.Game.Entities.Projectiles.PlayerProjectile;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
 import Wylaga.Util.Trajectory;
 import Wylaga.WylagaApp;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.Set;
 
 public class PlayerShip extends Ship
 {
@@ -25,7 +26,7 @@ public class PlayerShip extends Ship
 
     public PlayerShip(Point2D.Double origin, Dimension dimension, int health, int scorePenalty)
     {
-        super(origin, dimension, Team.PLAYER, defaultSpeed, health, Trajectory.getDirection(0, -1), scorePenalty);
+        super(origin, dimension, Team.PLAYER, defaultSpeed, health, Trajectory.getDirection(0, -1), scorePenalty, ShipWeapon.getPlayerWeapon());
         special = false;
         underConstraint = false;
         curFuel = maxFuel = 200;
@@ -34,10 +35,15 @@ public class PlayerShip extends Ship
     public PlayerShip()
     {
         super(new Point2D.Double(WylagaApp.WIDTH / 2 - defaultDimension.width / 2, 600), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
-                Trajectory.getDirection(0, -1), defaultScorePenalty);
+                Trajectory.getDirection(0, -1), defaultScorePenalty, ShipWeapon.getPlayerWeapon());
 
         special = false;
         curFuel = maxFuel = 200;
+    }
+
+    public void setWeapon(ShipWeapon weapon)
+    {
+        super.setWeapon(weapon);
     }
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
@@ -51,14 +57,17 @@ public class PlayerShip extends Ship
         super.update();
     }
 
-    protected Projectile getNewProjectile()
+
+    /*
+    protected LinearProjectile getNewProjectile()
     {
         Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
-        Projectile projectile = new PlayerProjectile(projPt, getTeam());
+        LinearProjectile projectile = new PlayerProjectile(projPt, getTeam());
         int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
         projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
         return projectile;
     }
+    */
 
     public void setSpecial(boolean special) { this.special = special; }
     public boolean specialDeployed() { return special; }

@@ -26,9 +26,7 @@ public class CompositeEntityDisplayable extends CompositeDisplayable implements 
         return successor;
     }
 
-    public Entity getEntity() {
-        return entity;
-    }
+    public Entity getEntity() { return entity; }
 
     @Override
     public boolean expired()

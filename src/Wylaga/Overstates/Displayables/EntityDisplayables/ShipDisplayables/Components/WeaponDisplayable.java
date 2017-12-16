@@ -2,6 +2,7 @@ package Wylaga.Overstates.Displayables.EntityDisplayables.ShipDisplayables.Compo
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -9,15 +10,15 @@ import java.awt.image.BufferedImage;
 
 public class WeaponDisplayable extends SimpleDisplayable
 {
-    private Ship ship;
+    private ShipWeapon weapon;
     private BufferedImage baseImage;
     private BufferedImage firingImage;
     private WeaponDisplayable.State currentState;
 
-    public WeaponDisplayable(Ship ship, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage firingImage)
+    public WeaponDisplayable(ShipWeapon weapon, Point2D.Double offsetPoint, BufferedImage baseImage, BufferedImage firingImage)
     {
         super(offsetPoint, baseImage);
-        this.ship = ship;
+        this.weapon = weapon;
         this.baseImage = baseImage;
         this.firingImage = firingImage;
         this.currentState = new BaseState();
@@ -28,6 +29,8 @@ public class WeaponDisplayable extends SimpleDisplayable
     {
         currentState.update();
     }
+
+    public ShipWeapon getWeapon() { return weapon; }
 
     private interface State {void update();}
 
@@ -40,7 +43,7 @@ public class WeaponDisplayable extends SimpleDisplayable
 
         public void update()
         {
-            if(ship.isFiring())
+            if(weapon.isFiring())
             {
                 currentState = new FiringState();
             }
@@ -59,7 +62,7 @@ public class WeaponDisplayable extends SimpleDisplayable
 
         public void update()
         {
-            if(ship.isFiring())
+            if(weapon.isFiring())
             {
                 currentState = new FiringState();
             }

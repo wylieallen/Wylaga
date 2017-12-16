@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
 public class HealthHudOverlay extends HudOverlay
 {
     private PlayerShip ship;
-    private Graphics2D g2d;
     private int prevHealth;
 
     public HealthHudOverlay(Point2D.Double position, PlayerShip ship)
@@ -28,7 +27,7 @@ public class HealthHudOverlay extends HudOverlay
 
     protected String makeString()
     {
-        return "SHIELD: " + ship.getHealth() + " / 100";
+        return "SHIELD: " + ship.getHealth() + " / " + ship.getMaxHealth();
     }
 
     protected boolean stateChanged()

@@ -13,7 +13,6 @@ import Wylaga.Util.KeyRole;
 import Wylaga.Overstates.Game.Control.PlayerController;
 import Wylaga.Overstates.Displayables.*;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
-import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.PrimitiveEDFactory;
 import Wylaga.Overstates.Game.Game;
 import Wylaga.Overstates.Game.Entities.Entity;
 import Wylaga.WylagaApp;
@@ -31,6 +30,7 @@ public class GameState extends Overstate
 
     private Set<EntityDisplayable> entityDisplayables;
     private Set<Displayable> explosions;
+
     private EntityDisplayableFactory entityDisplayableFactory;
 
     private boolean paused;
@@ -39,7 +39,7 @@ public class GameState extends Overstate
 
     public GameState(AbstractFunction postGameFunction)
     {
-        entityDisplayableFactory = new PrimitiveEDFactory();
+        entityDisplayableFactory = EntityDisplayableFactory.getInstance();
         game = new Game();
         playerController = new PlayerController(game.getPlayerShip());
 

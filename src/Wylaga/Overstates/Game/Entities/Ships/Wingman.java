@@ -2,8 +2,7 @@ package Wylaga.Overstates.Game.Entities.Ships;
 
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayable;
 import Wylaga.Overstates.Displayables.EntityDisplayables.EntityDisplayableFactories.EntityDisplayableFactory;
-import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
-import Wylaga.Overstates.Game.Entities.Projectiles.WingmanProjectile;
+import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
 import Wylaga.Util.Trajectory;
 
 import java.awt.*;
@@ -36,6 +35,8 @@ public class Wingman extends PlayerShip
         destinations = new LinkedList<>();
         specialActivations = new LinkedList<>();
         weaponFirings = new LinkedList<>();
+
+        setWeapon(ShipWeapon.getWingmanWeapon());
 
         int tightness = 3;
 
@@ -101,12 +102,14 @@ public class Wingman extends PlayerShip
 
     public void terminate() { super.takeDamage(super.getHealth()); }
 
-    protected Projectile getNewProjectile()
+    /*
+    protected LinearProjectile getNewProjectile()
     {
         Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
-        Projectile projectile = new WingmanProjectile(projPt, getTeam(), Trajectory.getDirection(0, -1));
+        LinearProjectile projectile = new WingmanProjectile(projPt, getTeam(), Trajectory.getDirection(0, -1));
         int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
         projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
         return projectile;
     }
+    */
 }
