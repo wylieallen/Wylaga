@@ -23,8 +23,6 @@ public abstract class Ship extends Entity
     private int points;
 
     private boolean dying;
-    private Trajectory projectileTrajectory;
-    private double projectileSpeed = 12;
 
     private ShipChassis chassis;
     private ShipWeapon weapon;
@@ -43,12 +41,11 @@ public abstract class Ship extends Entity
         this.propulsion = propulsion;
     }
 
-    public Ship(Point2D.Double position, Dimension dimension, Team team, double speed, int health, Trajectory projectileTrajectory, int points, ShipWeapon weapon)
+    public Ship(Point2D.Double position, Dimension dimension, Team team, double speed, int health, int points, ShipWeapon weapon)
     {
         super(position, dimension, team, speed);
         dying = false;
         this.health = health;
-        this.projectileTrajectory = projectileTrajectory;
         this.points = points;
         this.weapon = weapon;
     }
@@ -59,12 +56,6 @@ public abstract class Ship extends Entity
 
     public ShipWeapon getWeapon() { return weapon; }
 
-    public double getProjectileSpeed() {return projectileSpeed;}
-
-    public Trajectory getProjectileTrajectory() {
-        return projectileTrajectory;
-    }
-
     public int getPoints() {
         return points;
     }
@@ -74,16 +65,6 @@ public abstract class Ship extends Entity
     public Set<Projectile> getNewProjectiles()
     {
         return weapon.makeProjectiles(getOrigin());
-    }
-
-    protected Projectile getNewProjectile()
-    {
-        //return new LinearProjectile(this, EntityDisplayableFactory::makeProjectileDisplayable);
-        Point2D.Double projPt = new Point2D.Double(getOrigin().x, getOrigin().y);
-        Projectile projectile = new LinearProjectile(projPt, getTeam(), projectileSpeed, projectileTrajectory, EntityDisplayableFactory::makeProjectileDisplayable);
-        int yInitial = (getTeam() == Team.ENEMY) ? getDimension().height : 0;
-        projectile.translatePosition(getDimension().width / 2 - projectile.getDimension().width / 2, yInitial);
-        return projectile;
     }
 
     public boolean vulnerableTo(Projectile projectile)

@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class PlayerShip extends Ship
 {
-    public static final Dimension defaultDimension = new Dimension(50, 39);
+    private static final Dimension defaultDimension = new Dimension(50, 39);
     private static final int defaultSpeed = 5, defaultHealth = 100, defaultScorePenalty = -100;
 
     private SpecialModule specialModule = new TurboModule();
@@ -26,7 +26,7 @@ public class PlayerShip extends Ship
 
     public PlayerShip(Point2D.Double origin, Dimension dimension, int health, int scorePenalty)
     {
-        super(origin, dimension, Team.PLAYER, defaultSpeed, health, Trajectory.getDirection(0, -1), scorePenalty, ShipWeapon.getPlayerWeapon());
+        super(origin, dimension, Team.PLAYER, defaultSpeed, health, scorePenalty, ShipWeapon.getPlayerWeapon());
         special = false;
         underConstraint = false;
         curFuel = maxFuel = 200;
@@ -35,7 +35,7 @@ public class PlayerShip extends Ship
     public PlayerShip()
     {
         super(new Point2D.Double(WylagaApp.WIDTH / 2 - defaultDimension.width / 2, 600), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
-                Trajectory.getDirection(0, -1), defaultScorePenalty, ShipWeapon.getPlayerWeapon());
+                defaultScorePenalty, ShipWeapon.getPlayerWeapon());
 
         special = false;
         curFuel = maxFuel = 200;

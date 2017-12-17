@@ -15,11 +15,11 @@ public abstract class Entity
     private Point2D.Double position;
     private Dimension dimension;
     private Team team;
-    private Trajectory trajectory;
     private double speed;
+    private Trajectory trajectory;
 
     // =================================================================================================================
-    // Constructor:
+    // Constructors:
 
     protected Entity(Point2D.Double position, Dimension dimension, Team team, double speed)
     {
@@ -28,6 +28,25 @@ public abstract class Entity
         this.team = team;
         this.speed = speed;
         this.trajectory = Trajectory.getDirection(0, 0);
+    }
+
+    protected Entity(Point2D.Double position, Dimension dimension, Team team, double speed, Trajectory trajectory)
+    {
+        this.position = position;
+        this.dimension = dimension;
+        this.team = team;
+        this.speed = speed;
+        this.trajectory = trajectory;
+    }
+
+    protected Entity(Point2D.Double offset, Entity original)
+    {
+        Point2D.Double origPt = original.getOrigin();
+        this.position = new Point2D.Double(origPt.x + offset.x, origPt.y + offset.y);
+        this.dimension = new Dimension(original.getDimension());
+        this.team = original.getTeam();
+        this.speed = original.getSpeed();
+        this.trajectory = original.getTrajectory();
     }
 
     // =================================================================================================================

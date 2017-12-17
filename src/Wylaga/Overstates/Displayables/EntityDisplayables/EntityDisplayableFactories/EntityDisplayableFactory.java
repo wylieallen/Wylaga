@@ -162,7 +162,6 @@ public class EntityDisplayableFactory
                 new Explosion(projectile.getOrigin(), Random.rollInt(120) + 80, Color.MAGENTA , 30));
     }
 
-
     public EntityDisplayable makeWingmanProjectileDisplayable(Projectile projectile)
     {
         return new SimpleEntityDisplayable(projectile, ImageFactory.getWingmanProjectileImage(),
@@ -203,11 +202,11 @@ public class EntityDisplayableFactory
 
     public EntityDisplayable makeMegaHealthPickupDisplayable(Pickup pickup)
     {
-        return new SubimageEntityDisplayable(pickup, ImageFactory.getMegaHealthPickupImage(), new Point(0, 0), 6, new Explosion(pickup.getOrigin(), 300, Color.PINK, 150));
+        return new SubimageEntityDisplayable(pickup, ImageFactory.getMegaHealthPickupImage(), new Point(0, 0), 6, new Explosion(pickup.getOrigin(), 200, Color.PINK, 150));
     }
 
     public EntityDisplayable makeWeaponPickupDisplayable(Pickup pickup)
     {
-        return new SubimageEntityDisplayable(pickup, ImageFactory.makeWeaponPickupImage(), new Point(0, 0), 6, new Explosion(pickup.getOrigin(), 300, Color.PINK, 150));
+        return new SubimageEntityDisplayable(pickup, ImageFactory.makeWeaponPickupImage(), new Point(0, 0), 6, new Explosion(pickup.getOrigin(), 200, Color.PINK, 150));
     }
 }

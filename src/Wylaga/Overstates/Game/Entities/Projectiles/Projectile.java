@@ -8,7 +8,7 @@ import Wylaga.Overstates.Game.Entities.Entity;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Projectile extends Entity
+public class Projectile extends Entity
 {
     private int damage;
     private boolean active;
@@ -22,6 +22,14 @@ public abstract class Projectile extends Entity
         this.active = true;
     }
 
+    public Projectile(Point2D.Double offset, Projectile original)
+    {
+        super(offset, original);
+        this.damage = original.getDamage();
+        this.active = !original.expired();
+        this.edvf = original.getEDVF();
+    }
+
     // Entity interface:
     public void update()
     {
@@ -30,7 +38,7 @@ public abstract class Projectile extends Entity
 
     public boolean expired() {return !active;}
 
-    // Projecitle interface:
+    // Projectile interface:
 
     public void translatePosition(double dx, double dy)
     {
@@ -53,4 +61,6 @@ public abstract class Projectile extends Entity
     {
         EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory, Projectile projectile);
     }
+
+    public EDVF getEDVF() { return edvf; }
 }

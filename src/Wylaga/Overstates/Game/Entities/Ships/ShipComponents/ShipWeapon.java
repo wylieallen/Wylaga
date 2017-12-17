@@ -9,246 +9,119 @@ import Wylaga.Util.Trajectory;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class ShipWeapon
+public class ShipWeapon
 {
-    protected Point2D.Double projectileOrigin;
-    protected int projectileSpeed;
-    protected Trajectory projectileTrajectory;
-    protected int projectileDamage;
+    private Set<Projectile> prototypes;
+
+    private WDVF wdvf;
     private boolean firing = false;
 
-    public ShipWeapon(Point2D.Double projectileOrigin, int projectileSpeed, Trajectory projectileTrajectory, int projectileDamage)
+    public ShipWeapon(WDVF wdvf, Set<Projectile> prototypes)
     {
-        this.projectileOrigin = projectileOrigin;
-        this.projectileSpeed = projectileSpeed;
-        this.projectileTrajectory = projectileTrajectory;
-        this.projectileDamage = projectileDamage;
+        this.prototypes = prototypes;
+        this.wdvf = wdvf;
     }
 
     public Set<Projectile> makeProjectiles(Point2D.Double shipOrigin)
     {
         Set<Projectile> projectiles = new HashSet<>();
-        populateProjectiles(projectiles, shipOrigin);
+        for(Projectile prototype : prototypes)
+        {
+            projectiles.add(new Projectile(shipOrigin, prototype));
+        }
         return projectiles;
     }
 
-    protected abstract void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin);
-
-    public int getProjectileSpeed()
-    {
-        return projectileSpeed;
-    }
-
-    public Trajectory getProjectileTrajectory()
-    {
-        return projectileTrajectory;
-    }
+    //protected abstract void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin);
 
     public boolean isFiring() { return firing; }
 
     public void setFiring(boolean firing) { this.firing = firing; }
 
-    public abstract WeaponDisplayable getDisplayable(EntityDisplayableFactory edf);
+    public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
+    {
+        return wdvf.getDisplayable(edf, this);
+    }
 
+    private interface WDVF
+    {
+        WeaponDisplayable getDisplayable(EntityDisplayableFactory edf, ShipWeapon weapon);
+    }
 
     // Factory methods:
 
+    private static Set<Projectile> makeSet(Projectile... projectiles)
+    {
+        Set<Projectile> set = new HashSet<>();
+        set.addAll(Arrays.asList(projectiles));
+        return set;
+    }
+
     public static ShipWeapon getEnemyWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(9, 25), 12, Trajectory.getDirection(0, 1), 10)
-        {
-            private final Dimension defaultDimension = new Dimension(7, 7);
-            private int defaultSpeed = 12;
-            private int defaultDamage = 10;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.ENEMY, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeEnemyWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeEnemyWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(9, 25), new Dimension(7, 7),
+                        Entity.Team.ENEMY, 12, new Trajectory(0, 1), 10, EntityDisplayableFactory::makeProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getPlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 5)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 5;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makePlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makePlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makePlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 5, EntityDisplayableFactory::makePlayerProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getOrangePlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 10)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 10;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeOrangePlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeOrangePlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeOrangePlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 10, EntityDisplayableFactory::makeOrangePlayerProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getYellowPlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 15)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 15;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeYellowPlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeYellowPlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeYellowPlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 15, EntityDisplayableFactory::makeYellowPlayerProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getGreenPlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 20)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 20;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeGreenPlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeGreenPlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeGreenPlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 20, EntityDisplayableFactory::makeGreenPlayerProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getCyanPlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 25)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 25;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeCyanPlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeCyanPlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeCyanPlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 25, EntityDisplayableFactory::makeCyanPlayerProjectileDisplayable))
+        );
     }
 
     public static ShipWeapon getMagentaPlayerWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(23, -6), 15, Trajectory.getDirection(0, -1), 30)
-        {
-            private final Dimension defaultDimension = new Dimension(4, 15);
-            private int defaultSpeed = 15;
-            private int defaultDamage = 30;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new PlayerProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeMagentaPlayerProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeMagentaPlayerWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeMagentaPlayerWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(23, -6), new Dimension(4, 15),
+                        Entity.Team.PLAYER, 15, new Trajectory(0, -1), 30, EntityDisplayableFactory::makeMagentaPlayerProjectileDisplayable))
+        );
     }
-
 
     public static ShipWeapon getWingmanWeapon()
     {
-        return new ShipWeapon(new Point2D.Double(12, -2), 12, Trajectory.getDirection(0, -1), 5)
-        {
-            private final Dimension defaultDimension = new Dimension(1, 10);
-            private int defaultSpeed = 12;
-            private int defaultDamage = 5;
-
-            protected void populateProjectiles(Set<Projectile> projectiles, Point2D.Double shipOrigin)
-            {
-                //projectiles.add(new WingmanProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y),
-                //        Entity.Team.PLAYER, projectileSpeed, projectileTrajectory, projectileDamage));
-                projectiles.add(new LinearProjectile(new Point2D.Double(shipOrigin.x + projectileOrigin.x, shipOrigin.y + projectileOrigin.y), defaultDimension,
-                        Entity.Team.PLAYER, defaultSpeed, projectileTrajectory, defaultDamage, EntityDisplayableFactory::makeWingmanProjectileDisplayable));
-            }
-
-            public WeaponDisplayable getDisplayable(EntityDisplayableFactory edf)
-            {
-                return edf.makeWingmanWeaponDisplayable(this);
-            }
-        };
+        return new ShipWeapon(EntityDisplayableFactory::makeWingmanWeaponDisplayable,
+                makeSet(new LinearProjectile(new Point2D.Double(12, -2), new Dimension(1, 10),
+                        Entity.Team.PLAYER, 12, new Trajectory(0, -1), 5, EntityDisplayableFactory::makeWingmanProjectileDisplayable))
+        );
     }
-
-    /*
-    public static ShipWeapon getEnemyWeapon()
-    {
-        return new ShipWeapon(new Point())
-        {
-            protected void populateProjectiles(Set<LinearProjectile> projectiles, Point shipOrigin)
-            {
-                //projectiles.add(new LinearProjectile())
-            }
-        }
-    }
-    */
 }

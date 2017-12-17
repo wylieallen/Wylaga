@@ -14,7 +14,7 @@ public class EnemyShip extends Ship
 
     public EnemyShip(Point2D.Double position)
     {
-        super(position, defaultDimension, Team.ENEMY, 1, 30, Trajectory.getDirection(0 ,1), 10, ShipWeapon.getEnemyWeapon());
+        super(position, defaultDimension, Team.ENEMY, 1, 30, 10, ShipWeapon.getEnemyWeapon());
     }
 
     public EntityDisplayable getDisplayable(EntityDisplayableFactory entityDisplayableFactory)
