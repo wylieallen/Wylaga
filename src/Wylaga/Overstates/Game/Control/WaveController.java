@@ -28,7 +28,9 @@ public class WaveController implements GameController
         updateTrajectory();
         for(Ship ship : wave.getShips())
         {
-            ship.setFiring(Random.rollInt(60 + 2*wave.getShips().size() - wave.getWaveNumber()) <= 0);
+            int bound = 60 + 2*wave.getShips().size() - wave.getWaveNumber();
+            ship.setFiring(bound <= 0 || Random.rollInt(bound) <= 0);
+            //ship.setFiring(Random.rollInt(60 + 2*wave.getShips().size() - wave.getWaveNumber()) <= 0);
             ship.setTrajectory(trajectory);
         }
     }

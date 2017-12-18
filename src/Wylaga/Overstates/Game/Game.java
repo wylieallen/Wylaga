@@ -71,10 +71,18 @@ public class Game
         entities.add(pickups = new HashSet<>());
 
         spawnShip(playerShip = new PlayerShip());
-        leftWingman = new Wingman(playerShip, new Point(-25, 46));
-        rightWingman = new Wingman(playerShip, new Point(50, 46));
+        spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
+        spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
 
-        respawnSuperWingmen();
+        //respawnSuperWingmen();
+        /*
+        // Mass wingman spawning for performance stress testing:
+        for(int i = 0; i < 50; i++)
+        {
+            for(int j = 0; j < 2; j++)
+            spawnShip(new Wingman(playerShip, new Point(-500 + i * 20, 50 + j * 20)));
+        }
+        */
 
         wave = Wave.getNullWave();
         collisionManager = new CollisionManager();
