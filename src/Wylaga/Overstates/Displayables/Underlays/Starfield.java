@@ -3,14 +3,13 @@ package Wylaga.Overstates.Displayables.Underlays;
 import Wylaga.Overstates.Displayables.CompositeDisplayable;
 import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
-import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.ImageFactory;
 import Wylaga.Util.Random.Random;
 import Wylaga.WylagaApp;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

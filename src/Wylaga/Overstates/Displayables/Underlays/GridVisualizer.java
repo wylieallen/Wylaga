@@ -4,14 +4,11 @@ import Wylaga.Overstates.Displayables.CompositeDisplayable;
 import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Game.Collisions.Grid;
-import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.ImageFactory;
 import Wylaga.WylagaApp;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

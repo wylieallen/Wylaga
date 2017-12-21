@@ -13,7 +13,7 @@ import Wylaga.Overstates.Game.Entities.Pickups.*;
 import Wylaga.Overstates.Game.Entities.Projectiles.Projectile;
 import Wylaga.Overstates.Game.Entities.Ships.Ship;
 import Wylaga.Overstates.Game.Entities.Ships.ShipComponents.ShipWeapon;
-import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.ImageFactory;
 import Wylaga.Util.Random.Random;
 
 import java.awt.*;

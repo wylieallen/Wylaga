@@ -46,7 +46,7 @@ public class InterfacePanel extends JPanel implements KeyListener
         initializeKeyMap();
 
         // 1 frame per 17 ms ~= 60 frames per second
-        renderTimer = new javax.swing.Timer(14, new ActionListener() {
+        renderTimer = new javax.swing.Timer(19, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 renderTimer.stop();
 
@@ -67,7 +67,7 @@ public class InterfacePanel extends JPanel implements KeyListener
 
                 //activeOverstate.updateModel();
                 activeOverstate.updateView();
-                renderer.drawOverstate(activeOverstate);
+                //renderer.drawOverstate(activeOverstate);
                 repaint();
 
                 renderTimer.restart();
@@ -131,6 +131,8 @@ public class InterfacePanel extends JPanel implements KeyListener
 
     public void paintComponent( Graphics g ) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, null);
+        //g.drawImage(image, 0, 0, null);
+        Graphics2D g2d = (Graphics2D) g;
+        activeOverstate.draw(g2d);
     }
 }

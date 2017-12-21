@@ -4,6 +4,7 @@ import Wylaga.Overstates.Displayables.Displayable;
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Util.KeyRole;
 
+import java.awt.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -77,4 +78,25 @@ public abstract class Overstate
 
     public abstract void parseKeyPress(KeyRole role);
     public abstract void parseKeyRelease(KeyRole role);
+
+    public void draw(Graphics2D g2d)
+    {
+
+        underlays.forEach(displayable -> displayable.draw(g2d));
+
+        for(Collection<? extends Displayable> displayableSet : displayables)
+        {
+            for(Displayable displayable : displayableSet)
+            {
+                displayable.draw(g2d);
+            }
+        }
+
+
+        for(Displayable overlay : overlays)
+        {
+            overlay.draw(g2d);
+        }
+
+    }
 }

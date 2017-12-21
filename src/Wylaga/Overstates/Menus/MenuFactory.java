@@ -2,7 +2,7 @@ package Wylaga.Overstates.Menus;
 
 import Wylaga.Overstates.Displayables.SimpleDisplayable;
 import Wylaga.Overstates.Displayables.Underlays.Starfield;
-import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.ImageFactory;
 import Wylaga.Overstates.Menus.Buttons.Button;
 import Wylaga.Overstates.Menus.Buttons.ButtonFactory;
 import Wylaga.Util.AbstractFunction;

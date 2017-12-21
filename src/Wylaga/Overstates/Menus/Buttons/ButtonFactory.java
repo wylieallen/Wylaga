@@ -1,6 +1,6 @@
 package Wylaga.Overstates.Menus.Buttons;
 
-import Wylaga.Rendering.ImageFactory;
+import Wylaga.Util.ImageFactory;
 import Wylaga.Util.AbstractFunction;
 
 import java.awt.geom.Point2D;
