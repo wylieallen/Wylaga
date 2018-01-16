@@ -31,7 +31,7 @@ public class Starfield extends CompositeDisplayable
 
         starlayers.add(new SimpleDisplayable(new Point2D.Double(0, 0), ImageFactory.makeBlackRect(WylagaApp.WIDTH, WylagaApp.HEIGHT)));
 
-        for(double vel = 1; vel <= 5; vel++)
+        for(double vel = 1; vel <= 4; vel++)
         {
             starlayers.add(new StarLayer(new Point2D.Double(0, -WylagaApp.HEIGHT), vel));
             starlayers.add(new StarLayer(new Point2D.Double(0, 0), vel));

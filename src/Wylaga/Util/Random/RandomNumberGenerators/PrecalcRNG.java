@@ -22,7 +22,7 @@ public class PrecalcRNG extends java.util.Random implements RandomNumberGenerato
         {
             int x = nextInt();
             if(x < 0) x = -x;
-            System.out.println(x);
+            //System.out.println(x);
             integers.add(x);
         }
 
@@ -30,7 +30,7 @@ public class PrecalcRNG extends java.util.Random implements RandomNumberGenerato
         {
             double x = nextInt();
             if(x < 0) x = -x;
-            System.out.println(x);
+            //System.out.println(x);
             doubles.add(x);
         }
 
