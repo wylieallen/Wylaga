@@ -22,7 +22,7 @@ public class Explosion extends CompositeDisplayable
 
     public Explosion(Point2D.Double point, int size, Color color, int particleCount)
     {
-        super(new Point2D.Double(point.x, point.y), makeParticles(particleCount, size / 2, size / 2, color), new Dimension(size, size));
+        super(point, makeParticles(particleCount, size / 2, size / 2, color), new Dimension(size, size));
     }
 
     private static Set<Displayable> makeParticles(int count, int initial, int size, Color color)

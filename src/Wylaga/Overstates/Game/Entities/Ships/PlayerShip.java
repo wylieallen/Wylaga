@@ -34,7 +34,7 @@ public class PlayerShip extends Ship
 
     public PlayerShip()
     {
-        super(new Point2D.Double(WylagaApp.WIDTH / 2 - defaultDimension.width / 2, 600), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
+        super(new Point2D.Double(WylagaApp.WIDTH / 2 - defaultDimension.width / 2, 800), defaultDimension, Team.PLAYER, defaultSpeed, defaultHealth,
                 defaultScorePenalty, ShipWeapon.getPlayerWeapon());
 
         special = false;

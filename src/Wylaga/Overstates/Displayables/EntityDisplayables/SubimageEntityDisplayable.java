@@ -21,7 +21,11 @@ public class SubimageEntityDisplayable extends SubimageDisplayable implements En
     }
 
     @Override
-    public Displayable getSuccessorDisplayable() {return successor; }
+    public Displayable getSuccessorDisplayable()
+    {
+        successor.getPosition().setLocation(getPosition().x - (successor.getSize().width / 2), getPosition().y - (successor.getSize().height / 2));
+        return successor;
+    }
 
     @Override
     public boolean expired() {return entity.expired();}

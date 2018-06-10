@@ -14,6 +14,9 @@ public class ImageFactory
     private static final String wingmanDir = compDir + "Wingman/";
 
     // Image IO is handled as soon as the ImageFactory class is loaded:
+
+    private static final BufferedImage wylagaLogoImage = loadImage("WylagaLogoBig.png");
+
     private static final BufferedImage basePlayerImage = loadImage("BasePlayer.png");
 
     private static final BufferedImage playerProjectileImage = loadImage("PlayerProjectile.png");
@@ -76,6 +79,10 @@ public class ImageFactory
     private static final BufferedImage megaHealthPickupImage = loadImage("MegaHealthPickup.png");
     private static final BufferedImage weaponPickupImage = loadImage("WeaponUpgradePickup.png");
 
+    private static final BufferedImage pressAnyKeyImage = loadImage("PressAnyKey.png");
+
+    private static final BufferedImage exitButtonImage = loadImage("ExitButton.png");
+    private static final BufferedImage startButtonImage = loadImage("StartButton.png");
 
 
     private static BufferedImage loadImage(String file)
@@ -165,12 +172,20 @@ public class ImageFactory
 
     public static BufferedImage makeExitButtonBase()
     {
-        return makeVerticalMenuButton("EXIT", new Point(150, 50), Color.WHITE, Color.GRAY, Color.BLACK);
+        //return makeVerticalMenuButton("EXIT", new Point(150, 50), Color.WHITE, Color.GRAY, Color.BLACK);
+        return exitButtonImage;
     }
 
     public static BufferedImage makeExitButtonHover()
     {
-        return makeVerticalMenuButton("EXIT", new Point(150, 50), Color.RED, Color.GRAY, Color.BLACK);
+        //return makeVerticalMenuButton("EXIT", new Point(150, 50), Color.RED, Color.GRAY, Color.BLACK);
+        BufferedImage image = new BufferedImage(exitButtonImage.getWidth(), exitButtonImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.drawImage(exitButtonImage, 0, 0, null);
+        g2d.setColor(Color.RED);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawRect(0, 0, exitButtonImage.getWidth() - 1, exitButtonImage.getHeight() - 1);
+        return image;
     }
 
     public static BufferedImage makeExitButtonPress()
@@ -183,12 +198,20 @@ public class ImageFactory
 
     public static BufferedImage makeStartButtonBase()
     {
-        return makeVerticalMenuButton("START", new Point(150, 50), Color.WHITE, Color.GRAY, Color.BLACK);
+        //return makeVerticalMenuButton("START", new Point(150, 50), Color.WHITE, Color.GRAY, Color.BLACK);
+        return startButtonImage;
     }
 
     public static BufferedImage makeStartButtonHover()
     {
-        return makeVerticalMenuButton("START", new Point(150, 50), Color.RED, Color.GRAY, Color.BLACK);
+        //return makeVerticalMenuButton("START", new Point(150, 50), Color.RED, Color.GRAY, Color.BLACK);
+        BufferedImage image = new BufferedImage(startButtonImage.getWidth(), startButtonImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.drawImage(startButtonImage, 0, 0, null);
+        g2d.setColor(Color.RED);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawRect(0, 0, startButtonImage.getWidth() - 1, startButtonImage.getHeight() - 1);
+        return image;
     }
 
     public static BufferedImage makeStartButtonPress()
@@ -368,4 +391,11 @@ public class ImageFactory
     public static BufferedImage getPlayerFiringCyanWeapon() { return playerFiringCyanWeapon; }
 
     public static BufferedImage getPlayerFiringMagentaWeapon() { return playerFiringMagentaWeapon; }
+
+    public static BufferedImage getWylagaLogoImage() { return wylagaLogoImage; }
+
+    public static BufferedImage getPressAnyKeyImage()
+    {
+        return pressAnyKeyImage;
+    }
 }

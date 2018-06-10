@@ -135,7 +135,7 @@ public class InterfacePanel extends JPanel implements KeyListener
         //g.drawImage(image, 0, 0, null);
         Graphics2D g2d = (Graphics2D) g;
         //AffineTransform t = g2d.getTransform();
-        //g2d.scale(1.5, 1.5);
+
         activeOverstate.draw(g2d);
         //g2d.setTransform(t);
     }

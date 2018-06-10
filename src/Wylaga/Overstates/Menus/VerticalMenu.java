@@ -13,7 +13,8 @@ public class VerticalMenu extends Menu
                     new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 128),
                     new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 256),
                     new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 384),
-                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 512)
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 512),
+                    new Point2D.Double(WylagaApp.WIDTH / 2 - 200, 640)
             };
 
     private int buttonIndex = -1;

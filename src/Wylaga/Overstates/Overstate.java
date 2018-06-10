@@ -81,7 +81,6 @@ public abstract class Overstate
 
     public void draw(Graphics2D g2d)
     {
-
         underlays.forEach(displayable -> displayable.draw(g2d));
 
         for(Collection<? extends Displayable> displayableSet : displayables)

@@ -58,13 +58,6 @@ public class Game
         expiredPickups = new HashSet<>();
         newEntities = Collections.newSetFromMap(new ConcurrentHashMap<Entity, Boolean>());
 
-        /*
-        entities = Collections.newSetFromMap(new ConcurrentHashMap<Set<? extends Entity>, Boolean>());
-        entities.add(ships = Collections.newSetFromMap(new ConcurrentHashMap<Ship, Boolean>()));
-        entities.add(projectiles = Collections.newSetFromMap(new ConcurrentHashMap<LinearProjectile, Boolean>()));
-        entities.add(pickups = Collections.newSetFromMap(new ConcurrentHashMap<Pickup, Boolean>()));
-        */
-
         entities = new HashSet<>();
         entities.add(ships = new HashSet<>());
         entities.add(projectiles = new HashSet<>());
@@ -74,7 +67,6 @@ public class Game
         spawnShip(leftWingman = new Wingman(playerShip, new Point(-25, 46)));
         spawnShip(rightWingman = new Wingman(playerShip, new Point(50, 46)));
 
-        //respawnSuperWingmen();
         /*
         // Mass wingman spawning for performance stress testing:
         for(int i = 0; i < 50; i++)
