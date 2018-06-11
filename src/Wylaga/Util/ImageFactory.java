@@ -216,7 +216,13 @@ public class ImageFactory
 
     public static BufferedImage makeStartButtonPress()
     {
-        return makeVerticalMenuButton("START", new Point(150, 50), Color.RED, Color.GRAY, Color.WHITE);
+        BufferedImage image = new BufferedImage(startButtonImage.getWidth(), startButtonImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.drawImage(startButtonImage, 0, 0, null);
+        g2d.setColor(Color.RED);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawRect(0, 0, startButtonImage.getWidth() - 1, startButtonImage.getHeight() - 1);
+        return image;
     }
 
     // Entity images:

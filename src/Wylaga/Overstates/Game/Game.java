@@ -129,7 +129,7 @@ public class Game
                 if(Random.rollInt(10) == 0)
                 {
                     System.out.println("Spawning pickup at " + ship.getOrigin().toString());
-                    spawnPickup(PickupFactory.makePickup(this, ship.getOrigin()));
+                    spawnPickup(PickupFactory.makePickup(this, new Point2D.Double(ship.getOrigin().x, ship.getOrigin().y)));
                 }
             }
             else if(ship.isFiring())
